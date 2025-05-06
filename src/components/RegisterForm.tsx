@@ -1,8 +1,9 @@
 'use client';
 import { useState } from 'react';
+import PasswordField from '../components/passwordField';
 
 export default function RegisterForm() {
-  // to handle the year form input
+  // To show valid years in future
   const date = new Date();
   let currentYear = date.getFullYear();
 
@@ -31,19 +32,6 @@ export default function RegisterForm() {
     comparePassword: '',
   });
 
-  // Checks if password meets the requirements
-  const isPasswordValid = (password: string) => {
-    const hasMinLength = password.length >= 8;
-    const hasUppercase = /[A-Z]/.test(password);
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-    return hasMinLength && hasUppercase && hasSpecialChar;
-  };
-
-  // Checks if both password are equal
-  const doPasswordsMatch = (password1: string, comparePassword: string) => {
-    return password1 === comparePassword;
-  };
-
   // Handles form value changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
@@ -52,9 +40,21 @@ export default function RegisterForm() {
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
+  // Stopps submit if passwords aren't equal
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    if (
+      !formData.password1 ||
+      !formData.comparePassword ||
+      formData.password1 !== formData.comparePassword
+    ) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <div className="bg-dark min-vh-100 d-flex justify-content-center align-items-start py-5">
       <form
+        onSubmit={handleSubmit}
         className="p-4 rounded shadow"
         style={{
           maxWidth: '700px',
@@ -102,25 +102,31 @@ export default function RegisterForm() {
               </label>
               <select
                 id="birthDay"
-                className="form-select mb-2 bg-secondary text-dark"
+                required
                 onChange={handleChange}
+                className="form-select mb-2 bg-secondary text-dark"
+                value={formData.birthDay ?? ''}
               >
-                <option value={formData.birthDay ?? ''} hidden>
+                <option value="" disabled>
                   Dag
                 </option>
                 {[...Array(31)].map((_, i) => (
-                  <option key={i + 1}>{i + 1}</option>
+                  <option key={i + 1} value={i + 1}>
+                    {i + 1}
+                  </option>
                 ))}
               </select>
             </div>
             <div className="col-md-4">
               <label className="form-label invisible">Månad</label>
               <select
-                onChange={handleChange}
                 id="birthMonth"
+                required
+                onChange={handleChange}
                 className="form-select mb-2 mt-4 mt-md-0 bg-secondary text-dark"
+                value={formData.birthMonth}
               >
-                <option value="" hidden>
+                <option value="" disabled>
                   Månad
                 </option>
                 {[
@@ -137,20 +143,28 @@ export default function RegisterForm() {
                   'November',
                   'December',
                 ].map((month, idx) => (
-                  <option key={idx}>{month}</option>
+                  <option key={idx} value={month}>
+                    {month}
+                  </option>
                 ))}
               </select>
             </div>
             <div className="col-md-4">
               <label className="form-label invisible">År</label>
               <select
-                onChange={handleChange}
                 id="birthYear"
+                required
+                onChange={handleChange}
                 className="form-select mb-2 mt-4 mt-md-0 bg-secondary text-dark"
+                value={formData.birthYear ?? ''}
               >
-                <option hidden>År</option>
+                <option value="" disabled>
+                  År
+                </option>
                 {Array.from({ length: 100 }, (_, i) => (
-                  <option key={i}>{currentYear - i}</option>
+                  <option key={i} value={currentYear - i}>
+                    {currentYear - i}
+                  </option>
                 ))}
               </select>
             </div>
@@ -193,78 +207,8 @@ export default function RegisterForm() {
         <div>
           <h2 className="mb-3 text-white">E-post och lösenord</h2>
           <div className="row mb-3">
-            <div className="col-md-6">
-              <label htmlFor="password" className="form-label text-white">
-                Lösenord *
-              </label>
-
-              {/* Input för första lösenordet */}
-              <input
-                onChange={handleChange}
-                type="password"
-                className={`form-control text-white ${
-                  !formData.password1
-                    ? 'bg-secondary'
-                    : isPasswordValid(formData.password1) &&
-                      doPasswordsMatch(formData.password1, formData.comparePassword)
-                    ? 'bg-success'
-                    : 'bg-warning'
-                }`}
-                id="password1"
-                value={formData.password1}
-                required
-              />
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="confirmPassword" className="form-label text-white">
-                Bekräfta lösenord *
-              </label>
-              {/* Input för att bekräfta lösenord */}
-              <input
-                type="password"
-                id="comparePassword"
-                onChange={handleChange}
-                value={formData.comparePassword}
-                required
-                className={`form-control text-white ${
-                  !formData.comparePassword
-                    ? 'bg-secondary'
-                    : isPasswordValid(formData.password1) &&
-                      doPasswordsMatch(formData.password1, formData.comparePassword)
-                    ? 'bg-success'
-                    : 'bg-warning'
-                }`}
-              />
-            </div>
+            <PasswordField formData={formData} handleChange={handleChange} />
           </div>
-
-          {/* När man skriver i första lösenordet så visas direkt feedback, körs bara om någon har börjat skriva */}
-          {formData.password1 && (
-            <small
-              className={`d-block mt-2 ${
-                isPasswordValid(formData.password1) ? 'text-success' : 'text-danger'
-              }`}
-            >
-              {isPasswordValid(formData.password1)
-                ? 'Lösenordet är starkt nog'
-                : 'Minst 8 tecken, 1 stor bokstav & 1 specialtecken krävs'}
-            </small>
-          )}
-
-          {/* Jämför lösenorden mot varandra och ger feedback om de matchar */}
-          {formData.comparePassword && (
-            <small
-              className={`d-block mt-2 ${
-                doPasswordsMatch(formData.password1, formData.comparePassword)
-                  ? 'text-success'
-                  : 'text-danger'
-              }`}
-            >
-              {doPasswordsMatch(formData.password1, formData.comparePassword)
-                ? 'Lösenorden matchar'
-                : 'Lösenorden matchar inte'}
-            </small>
-          )}
 
           <div className="mb-3">
             <label htmlFor="email" className="form-label text-white">
@@ -282,7 +226,7 @@ export default function RegisterForm() {
           </div>
         </div>
 
-        {/* Skickar formuläret vidare */}
+        {/* Sends the form*/}
         <button type="submit" className="btn btn-primary mt-5 mt-3 mx-auto d-block">
           Registrera dig
         </button>
