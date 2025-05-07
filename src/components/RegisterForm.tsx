@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import PasswordField from '../components/passwordField';
+import PasswordField from './PasswordField';
 
 export default function RegisterForm() {
   // To show valid years in future
