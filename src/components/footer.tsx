@@ -1,4 +1,5 @@
-import { Container, Col, Row, Nav, NavLink } from "react-bootstrap";
+import { Container, Col, Row, Nav } from "react-bootstrap";
+import Link from "next/link";
 export default function Footer() {
     return(
         <footer className="bg-dark">
@@ -6,21 +7,21 @@ export default function Footer() {
                 <Row >
                     <Col >
                         <Nav className="flex-column fs-5 p-5">
-                            <NavLink href="/about" className="text-white">Om oss</NavLink>
-                            <NavLink href="/movies" className="text-white">Alla filmer</NavLink>
+                            <Link href="/about" className="text-white text-decoration-none">Om oss</Link>
+                            <Link href="/movies" className="text-white text-decoration-none">Alla filmer</Link>
                         </Nav>
                     </Col>
                     <Col>
                         <Nav className="flex-column fs-5 p-5">
-                            <NavLink href="/" className="text-white">Instagram</NavLink>                
-                            <NavLink href="/" className="text-white">Facebook</NavLink>
-                            <NavLink href="/" className="text-white">X</NavLink>
+                            <Link href="/" className="text-white text-decoration-none">Instagram</Link>                
+                            <Link href="/" className="text-white text-decoration-none">Facebook</Link>
+                            <Link href="/" className="text-white text-decoration-none">X</Link>
                         </Nav>
                     </Col>
                     <Col>
                         <Nav className="flex-column fs-5 p-5">
-                            <NavLink href="/" className="text-white">ToS</NavLink>
-                            <NavLink href="/" className="text-white">Privacy policy</NavLink>
+                            <Link href="/" className="text-white text-decoration-none">ToS</Link>
+                            <Link href="/" className="text-white text-decoration-none">Privacy policy</Link>
                         </Nav>
                     </Col>
                     <Col>
