@@ -1,8 +1,40 @@
 'use client';
+import { supabase } from '../lib/supabaseClient';
 import { useState } from 'react';
 import PasswordField from './PasswordField';
 
 export default function RegisterForm() {
+  // object to convert month into number
+  const months: {
+    [key: string]: string;
+
+    Januari: string;
+    Februari: string;
+    Mars: string;
+    April: string;
+    Maj: string;
+    Juni: string;
+    Juli: string;
+    Augusti: string;
+    September: string;
+    Oktober: string;
+    November: string;
+    December: string;
+  } = {
+    Januari: '01',
+    Februari: '02',
+    Mars: '03',
+    April: '04',
+    Maj: '05',
+    Juni: '06',
+    Juli: '07',
+    Augusti: '08',
+    September: '09',
+    Oktober: '10',
+    November: '11',
+    December: '12',
+  };
+
   // To show valid years in future
   const date = new Date();
   let currentYear = date.getFullYear();
@@ -35,19 +67,57 @@ export default function RegisterForm() {
   // Handles form value changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
-    console.log(formData.password1, formData.comparePassword);
 
     setFormData(prev => ({ ...prev, [id]: value }));
+    console.log(formData);
   };
 
   // Stopps submit if passwords aren't equal
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (
       !formData.password1 ||
       !formData.comparePassword ||
       formData.password1 !== formData.comparePassword
     ) {
-      e.preventDefault();
+      return;
+    }
+
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password1,
+    });
+
+    if (signUpError) {
+      console.error(signUpError);
+      return;
+    }
+
+    const user = signUpData.user;
+
+    if (user) {
+      const fullName = `${formData.firstName} ${formData.lastName}`;
+
+      const monthNumber = months[formData.birthMonth];
+      const dayPadded = String(formData.birthDay).padStart(2, '0');
+      const dateString = `${formData.birthYear}-${monthNumber}-${dayPadded}`;
+
+      const { error: insertError } = await supabase.from('Users').insert({
+        id: user.id,
+        full_name: fullName,
+        birthdate: dateString,
+        phone: formData.phoneNumber,
+        city: formData.city,
+        email: formData.email,
+      });
+
+      if (insertError) {
+        console.error(insertError);
+        alert('Kunde inte spara extra användardata!');
+      } else {
+        alert('Registrering klar!');
+      }
     }
   };
 
