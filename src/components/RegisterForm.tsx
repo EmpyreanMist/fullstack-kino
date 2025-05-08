@@ -37,7 +37,7 @@ export default function RegisterForm() {
 
   // To show valid years in future
   const date = new Date();
-  let currentYear = date.getFullYear();
+  const currentYear: number = date.getFullYear();
 
   // object to handle values from form.
   const [formData, setFormData] = useState<{
