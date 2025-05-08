@@ -1,9 +1,11 @@
 'use client';
-import { supabase } from '../lib/supabaseClient';
+/* import { supabase } from '../lib/supabaseClient'; */
 import { useState } from 'react';
 import PasswordField from './PasswordField';
 
 export default function RegisterForm() {
+  const [emailWarning, setEmailWarning] = useState(false);
+  const [phoneWarning, setPhoneWarning] = useState(false);
   // object to convert month into number
   const months: {
     [key: string]: string;
@@ -37,7 +39,7 @@ export default function RegisterForm() {
 
   // To show valid years in future
   const date = new Date();
-  let currentYear = date.getFullYear();
+  const currentYear = date.getFullYear();
 
   // object to handle values from form.
   const [formData, setFormData] = useState<{
@@ -76,6 +78,9 @@ export default function RegisterForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setEmailWarning(false);
+    setPhoneWarning(false);
+
     if (
       !formData.password1 ||
       !formData.comparePassword ||
@@ -84,45 +89,54 @@ export default function RegisterForm() {
       return;
     }
 
-    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-      email: formData.email,
-      password: formData.password1,
-    });
-
-    if (signUpError) {
-      console.error(signUpError);
+    if (!formData.birthDay || !formData.birthYear) {
       return;
     }
 
-    const user = signUpData.user;
-
-    if (user) {
+    try {
       const fullName = `${formData.firstName} ${formData.lastName}`;
-
       const monthNumber = months[formData.birthMonth];
       const dayPadded = String(formData.birthDay).padStart(2, '0');
-      const dateString = `${formData.birthYear}-${monthNumber}-${dayPadded}`;
+      const birthDateString = `${formData.birthYear}-${monthNumber}-${dayPadded}`;
 
-      const { error: insertError } = await supabase.from('Users').insert({
-        id: user.id,
-        full_name: fullName,
-        birthdate: dateString,
-        phone: formData.phoneNumber,
-        city: formData.city,
-        email: formData.email,
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password1,
+          fullName,
+          birthDateString,
+          phone: formData.phoneNumber,
+          city: formData.city,
+        }),
       });
 
-      if (insertError) {
-        console.error(insertError);
-        alert('Kunde inte spara extra användardata!');
+      const result = await response.json();
+
+      if (!response.ok) {
+        if (result.error === 'Emailen är redan registrerad') {
+          setEmailWarning(true);
+        } else if (result.error === 'Telefonnumret är redan registrerat') {
+          setPhoneWarning(true);
+        }
+        throw new Error(result.error || 'Något gick fel vid registreringen.');
+      }
+
+      alert('Du har skapat ett konto!');
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error:', error.message);
       } else {
-        alert('Registrering klar!');
+        console.error('Okänt fel:', error);
+        alert('Ett okänt fel inträffade.');
       }
     }
   };
 
   return (
     <div className="bg-dark min-vh-100 d-flex justify-content-center align-items-start py-5">
+
       <form
         onSubmit={handleSubmit}
         className="p-4 rounded shadow"
@@ -257,6 +271,13 @@ export default function RegisterForm() {
                   required
                 />
               </div>
+                              {
+                 phoneWarning  && (
+                  <div className="alert alert-warning mt-2" role="alert">
+                    Telefonnumret är redan registrerat
+                  </div>
+                )
+              }
             </div>
             <div className="col-md-6">
               <label htmlFor="city" className="form-label text-white">
@@ -292,7 +313,14 @@ export default function RegisterForm() {
               value={formData.email}
               required
               placeholder="email@example.com"
-            />
+              />
+              {
+                emailWarning && (
+                  <div className="alert alert-warning mt-2" role="alert">
+                    Email adressen finns redan registrerad!
+                  </div>
+                )
+              }
           </div>
         </div>
 
