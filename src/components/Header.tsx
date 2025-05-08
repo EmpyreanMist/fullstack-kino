@@ -1,4 +1,4 @@
-import Navigation from './navBar';
+import Navigation from './Navbar';
 import logoHead from '../../public/logoHead.png';
 import seats from '../../public/seats.png';
 import Image from 'next/image';
