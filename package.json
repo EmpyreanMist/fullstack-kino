@@ -9,8 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
     "@supabase/supabase-js": "^2.49.4",
-    "bootstrap": "^5.3.5",
+    "bootstrap": "^5.3.6",
     "next": "15.3.1",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
