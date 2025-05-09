@@ -1,8 +1,12 @@
+// src/lib/ClientBootstrapSetup.tsx
 'use client';
 
-// Importera Bootstrap JS on clientside
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { useEffect } from 'react';
 
 export default function ClientBootstrapSetup() {
+  useEffect(() => {
+    import('bootstrap/dist/js/bootstrap.bundle.min.js');
+  }, []);
+
   return null;
 }
