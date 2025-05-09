@@ -1,12 +1,8 @@
 'use client';
 
-import { useEffect } from 'react';
+// Importera Bootstrap JS on clientside
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 export default function ClientBootstrapSetup() {
-  useEffect(() => {
-    // Importera Bootstrap JavaScript dynamic
-    import('bootstrap/dist/js/bootstrap.bundle.min.js');
-  }, []);
-
   return null;
 }
