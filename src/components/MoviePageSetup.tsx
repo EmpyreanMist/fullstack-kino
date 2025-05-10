@@ -31,27 +31,27 @@ export default function MovieSetupMain() {
           </div>
         </div>
         <section className="d-flex justify-content-center mx-auto gap-2 flex-wrap">
-          <input type="checkbox" className="btn-check primary" id="btn-check-2" checked />
+          <input type="checkbox" className="btn-check primary" id="btn-check-2" />
           <label className="btn btn-primary hover-shadow" htmlFor="btn-check-2">
             Comedy
           </label>
-          <input type="checkbox" className="btn-check" id="btn-check-3" checked />
+          <input type="checkbox" className="btn-check" id="btn-check-3" />
           <label className="btn btn-primary hover-shadow" htmlFor="btn-check-3">
             Horror
           </label>
-          <input type="checkbox" className="btn-check" id="btn-check-4" checked />
+          <input type="checkbox" className="btn-check" id="btn-check-4" />
           <label className="btn btn-primary hover-shadow" htmlFor="btn-check-4">
             Romantic
           </label>
-          <input type="checkbox" className="btn-check" id="btn-check-5" checked />
+          <input type="checkbox" className="btn-check" id="btn-check-5" />
           <label className="btn btn-primary hover-shadow" htmlFor="btn-check-5">
             Foo
           </label>
-          <input type="checkbox" className="btn-check" id="btn-check-6" checked />
+          <input type="checkbox" className="btn-check" id="btn-check-6" />
           <label className="btn btn-primary hover-shadow" htmlFor="btn-check-6">
             Foo
           </label>
-          <input type="checkbox" className="btn-check" id="btn-check-7" checked />
+          <input type="checkbox" className="btn-check" id="btn-check-7" />
           <label className="btn btn-primary hover-shadow" htmlFor="btn-check-7">
             Foo
           </label>
@@ -186,7 +186,7 @@ export default function MovieSetupMain() {
           id={'#'}
         />
       </section>
-      <div className='d-flex justify-content-center pt-5 pb-2'>
+      <div className="d-flex justify-content-center pt-5 pb-2">
         <nav className="d-block m-auto" aria-label="...">
           <ul className="pagination">
             <li className="page-item disabled">
