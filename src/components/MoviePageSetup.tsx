@@ -8,9 +8,7 @@ export default function MovieSetupMain() {
     <main className="bg-dark border-bottom">
       <div className="p-5">
         <h1 className="text-white text-center pt-5 pb-5">Boka in ditt biobesök hos oss</h1>
-        <div
-          className="bg-dark d-flex justify-content-center align-items-center pb-4"
-        >
+        <div className="bg-dark d-flex justify-content-center align-items-center pb-4">
           <div className="position-relative">
             <input
               type="text"
@@ -34,27 +32,27 @@ export default function MovieSetupMain() {
         </div>
         <section className="d-flex justify-content-center mx-auto gap-2 flex-wrap">
           <input type="checkbox" className="btn-check primary" id="btn-check-2" checked />
-          <label className="btn btn-primary" htmlFor="btn-check-2">
+          <label className="btn btn-primary hover-shadow" htmlFor="btn-check-2">
             Comedy
           </label>
           <input type="checkbox" className="btn-check" id="btn-check-3" checked />
-          <label className="btn btn-primary" htmlFor="btn-check-3">
+          <label className="btn btn-primary hover-shadow" htmlFor="btn-check-3">
             Horror
           </label>
           <input type="checkbox" className="btn-check" id="btn-check-4" checked />
-          <label className="btn btn-primary" htmlFor="btn-check-4">
+          <label className="btn btn-primary hover-shadow" htmlFor="btn-check-4">
             Romantic
           </label>
           <input type="checkbox" className="btn-check" id="btn-check-5" checked />
-          <label className="btn btn-primary" htmlFor="btn-check-5">
+          <label className="btn btn-primary hover-shadow" htmlFor="btn-check-5">
             Foo
           </label>
           <input type="checkbox" className="btn-check" id="btn-check-6" checked />
-          <label className="btn btn-primary" htmlFor="btn-check-6">
+          <label className="btn btn-primary hover-shadow" htmlFor="btn-check-6">
             Foo
           </label>
           <input type="checkbox" className="btn-check" id="btn-check-7" checked />
-          <label className="btn btn-primary" htmlFor="btn-check-7">
+          <label className="btn btn-primary hover-shadow" htmlFor="btn-check-7">
             Foo
           </label>
         </section>
@@ -188,31 +186,33 @@ export default function MovieSetupMain() {
           id={'#'}
         />
       </section>
-      <nav className="d-block m-auto w-50" aria-label="...">
-        <ul className="pagination">
-          <li className="page-item disabled">
-            <span className="page-link">Previous</span>
-          </li>
-          <li className="page-item">
-            <Link className="page-link" href="#">
-              1
-            </Link>
-          </li>
-          <li className="page-item active">
-            <span className="page-link">2</span>
-          </li>
-          <li className="page-item">
-            <Link className="page-link" href="#">
-              3
-            </Link>
-          </li>
-          <li className="page-item">
-            <Link className="page-link" href="#">
-              Next
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      <div className='d-flex justify-content-center pt-5 pb-2'>
+        <nav className="d-block m-auto" aria-label="...">
+          <ul className="pagination">
+            <li className="page-item disabled">
+              <span className="page-link">Previous</span>
+            </li>
+            <li className="page-item">
+              <Link className="page-link" href="#">
+                1
+              </Link>
+            </li>
+            <li className="page-item active">
+              <span className="page-link">2</span>
+            </li>
+            <li className="page-item">
+              <Link className="page-link" href="#">
+                3
+              </Link>
+            </li>
+            <li className="page-item">
+              <Link className="page-link" href="#">
+                Next
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </main>
   );
 }
