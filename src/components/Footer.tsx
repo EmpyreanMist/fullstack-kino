@@ -1,5 +1,6 @@
 import { Container, Col, Row, Nav } from 'react-bootstrap';
 import Link from 'next/link';
+
 export default function Footer() {
   return (
     <footer className="bg-dark">
