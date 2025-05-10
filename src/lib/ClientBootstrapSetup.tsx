@@ -1,7 +1,13 @@
+// src/lib/ClientBootstrapSetup.tsx
 'use client';
 
-import('bootstrap/dist/js/bootstrap.bundle.min.js');
+import { useEffect } from 'react';
 
 export default function ClientBootstrapSetup() {
+  useEffect(() => {
+    //@ts-ignore
+    import('bootstrap/dist/js/bootstrap.bundle.min.js');
+  }, []);
+
   return null;
 }
