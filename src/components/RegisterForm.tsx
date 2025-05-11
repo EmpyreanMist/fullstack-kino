@@ -71,7 +71,7 @@ export default function RegisterForm() {
     const { id, value } = e.target;
 
     setFormData(prev => ({ ...prev, [id]: value }));
-    console.log(formData);
+    /* console.log(formData); */
   };
 
   // Stopps submit if passwords aren't equal
@@ -324,7 +324,6 @@ export default function RegisterForm() {
           </div>
         </div>
 
-        {/* Sends the form*/}
         <button type="submit" className="btn btn-primary mt-5 mt-3 mx-auto d-block">
           Registrera dig
         </button>
