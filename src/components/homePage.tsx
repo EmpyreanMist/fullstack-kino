@@ -1,5 +1,6 @@
-import { Button } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import Link from "next/link";
+import MovieCard from "./MovieCard";
 export default function HomePage(){
     return(
         <section>
@@ -9,6 +10,51 @@ export default function HomePage(){
                 </Link>
             </div>
             <h2 className="ms-3">Top 5 movies</h2>
+            <MovieCard 
+            title={"Titel"}
+            img={"/seats.png"}
+            description={"Info info blah blah blah"}
+            width={200}
+            height={200}
+            id={"#"}
+
+            />
+            <MovieCard 
+            title={"Titel"}
+            img={"/seats.png"}
+            description={"Info info blah blah blah"}
+            width={200}
+            height={200}
+            id={"#"}
+
+            />
+            <MovieCard 
+            title={"Titel"}
+            img={"/seats.png"}
+            description={"Info info blah blah blah"}
+            width={200}
+            height={200}
+            id={"#"}
+
+            />
+            <MovieCard 
+            title={"Titel"}
+            img={"/seats.png"}
+            description={"Info info blah blah blah"}
+            width={200}
+            height={200}
+            id={"#"}
+
+            />
+            <MovieCard 
+            title={"Titel"}
+            img={"/seats.png"}
+            description={"Info info blah blah blah"}
+            width={200}
+            height={200}
+            id={"#"}
+
+            />
         </section>
     );
 }
