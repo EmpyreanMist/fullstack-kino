@@ -80,7 +80,24 @@ export default function RegisterForm() {
         setWarning(true);
         throw new Error(result.error || 'Något gick fel vid registreringen.');
       }
+      /* When registration is complete */
       setSuccess(true);
+
+      setTimeout(() => {
+        setSuccess(false);
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phoneNumber: '',
+          birthDay: undefined,
+          birthMonth: '',
+          birthYear: undefined,
+          city: '',
+          password1: '',
+          comparePassword: '',
+        });
+      }, 2000);
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error:', error.message);
@@ -264,7 +281,7 @@ export default function RegisterForm() {
             />
             {warning ? (
               <div className="alert alert-warning mt-2 text-center" role="alert">
-                Något gick fel vid registreringen!
+                Användaren existerar redan!
               </div>
             ) : success ? (
               <div className="alert alert-success mt-2 text-center" role="alert">
