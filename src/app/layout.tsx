@@ -1,9 +1,11 @@
-import type { Metadata } from "next";
-import "bootstrap/dist/css/bootstrap.min.css";
+import type { Metadata } from 'next';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export const metadata: Metadata = {
-  title: "Kino",
-  description: "",
+  title: 'Kino',
+  description: '',
 };
 
 export default function RootLayout({
@@ -13,7 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
