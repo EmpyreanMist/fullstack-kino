@@ -20,7 +20,10 @@ export default function Navigation() {
           </Nav.Link>
         </Nav>
 
-        <Button className="m-2">Registrera dig</Button>
+        <Link href="/register">
+          <Button className="m-2">Registrera dig</Button>
+        </Link>
+
         <Button className="m-2">Logga in</Button>
       </Navbar.Collapse>
     </Navbar>
