@@ -5,7 +5,7 @@ import CardPoster from './CardPoster';
 
 export default function MovieSetupMain() {
   return (
-    <main className="bg-dark border-bottom">
+    <main className="bg-dark">
       <div className="p-5">
         <h1 className="text-white text-center pt-5 pb-5">Boka in ditt biobesök hos oss</h1>
         <div className="bg-dark d-flex justify-content-center align-items-center pb-4">
