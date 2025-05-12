@@ -24,7 +24,9 @@ export default function Navigation() {
           <Button className="m-2">Registrera dig</Button>
         </Link>
 
-        <Button className="m-2">Logga in</Button>
+        <Link href="/login">
+          <Button className="m-2">Logga in</Button>
+        </Link>
       </Navbar.Collapse>
     </Navbar>
   );
