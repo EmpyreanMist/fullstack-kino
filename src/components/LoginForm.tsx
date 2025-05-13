@@ -15,18 +15,33 @@ export default function LoginForm() {
   const [loading, setLoading] = useState<boolean>(true); 
 
   // Kontrollera om användaren redan är inloggad
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data, error } = await supabase.auth.getUser();
-      if (data?.user) {
-        setUser(data.user);
-      } else if (error) {
-        console.error(error)
+useEffect(() => {
+  const fetchUser = async () => {
+    try {
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError || !sessionData.session) {
+        console.log('Ingen session aktiv');
+        setLoading(false);
+        return;
       }
-      setLoading(false); // klart med användarkontroll
-    };
-    fetchUser();
-  }, []);
+
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error('Fel vid hämtning av användare:', error.message);
+      } else if (data?.user) {
+        setUser(data.user);
+        console.log('Du är inloggad');
+      }
+    } catch (err) {
+      console.error('Ovntat fel:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchUser();
+}, []);
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
