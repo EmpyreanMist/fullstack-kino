@@ -5,10 +5,9 @@ type Props = {
     title: String;
     date: String;
     time: String;
-    image: String;
     id: String;
 }
-export default function UpcomingScreening({ title, date, time, image, id }: Props){
+export default function UpcomingScreening({ title, date, time, id }: Props){
     return(
     <Card className="bg-dark border-light m-3 hover-shadow-5 grid-column" style={{width:"18rem"}}>
        

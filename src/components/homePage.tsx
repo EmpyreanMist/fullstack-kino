@@ -3,6 +3,44 @@ import Link from "next/link";
 import UpcomingScreening from "./UpcomingScreening";
 import CardPoster from "./CardPoster";
 export default function HomePage(){
+    type Movie = {
+        img: String;
+        title: String;
+        description: String;
+        id:String;
+    }
+    const movies: Movie[] = [
+    {
+        img: "/seats.png",
+        title: "Star Wars",
+        description: "Movie info goes here",
+        id: "#"
+    },
+    {
+        img: "/seats.png",
+        title: "Godzilla",
+        description: "Movie info goes here",
+        id: "#"
+    },
+    {
+        img: "/seats.png",
+        title: "The Hobbit",
+        description: "Movie info goes here",
+        id: "#"
+    },
+    {
+        img: "/seats.png",
+        title: "Lord of the Rings",
+        description: "Movie info goes here",
+        id: "#"
+    },
+    {
+        img: "/seats.png",
+        title: "Terminator",
+        description: "Movie info goes here",
+        id: "#"
+    }
+]
     return(
         <main className="bg-dark">
             <div className="text-center">
@@ -10,10 +48,8 @@ export default function HomePage(){
                     <Button className="fs-5 p-3 " >Alla filmer</Button>
                 </Link>
             </div>
-            
-           <section className="grid m-3">
-            <Row>
-                    <h2 className="text-wrap text-white">Top 5 movies</h2>
+            <h2 className="text-white m-5 text-center">Top 5 movies</h2>
+            <section className="d-flex flex-wrap justify-content-center gap-4-mx-auto">
                     <CardPoster
                     img={"/seats.png"}
                     title={"Titel"}
@@ -30,9 +66,7 @@ export default function HomePage(){
                     height={200}
                     id={"#"}
                     />
-                </Row>
-                <Row>
-                <CardPoster
+                    <CardPoster
                     img={"/seats.png"}
                     title={"Titel"}
                     description={"Info text blah blah blah best movie ever"}
@@ -56,62 +90,53 @@ export default function HomePage(){
                     height={200}
                     id={"#"}
                     />
-                   
-                </Row>
            </section>
            <section>
-            <h2 className="text-white m-3">Kommande visningar</h2>
-            <div className="d-flex flex-wrap">
-                <UpcomingScreening
-                title={"Titel"}
-                date={"Datum: 15 maj"}
-                time={"Tid: 17.00"}
-                image={"/seats.png"}
-                id={"#"}
-                />
-                <UpcomingScreening
-                title={"Titel"}
-                date={"Datum: 15 maj"}
-                time={"Tid: 17.00"}
-                image={"/seats.png"}
-                id={"#"}
-                />
-                <UpcomingScreening
-                title={"Titel"}
-                date={"Datum: 15 maj"}
-                time={"Tid: 17.00"}
-                image={"/seats.png"}
-                id={"#"}
-                />
-                <UpcomingScreening
-                title={"Titel"}
-                date={"Datum: 15 maj"}
-                time={"Tid: 17.00"}
-                image={"/seats.png"}
-                id={"#"}
-                />
-                <UpcomingScreening
-                title={"Titel"}
-                date={"Datum: 15 maj"}
-                time={"Tid: 17.00"}
-                image={"/seats.png"}
-                id={"#"}
-                />
-                <UpcomingScreening
-                title={"Titel"}
-                date={"Datum: 15 maj"}
-                time={"Tid: 17.00"}
-                image={"/seats.png"}
-                id={"#"}
-                />
-                <UpcomingScreening
-                title={"Titel"}
-                date={"Datum: 15 maj"}
-                time={"Tid: 17.00"}
-                image={"/seats.png"}
-                id={"#"}
-                />
-            </div>
+                <h2 className="text-white m-3 text-center">Kommande visningar</h2>
+                <div className="d-flex flex-wrap justify-content-center">
+                    <UpcomingScreening
+                    title={"Titel"}
+                    date={"Datum: 15 maj"}
+                    time={"Tid: 17.00"}                
+                    id={"#"}
+                    />
+                    <UpcomingScreening
+                    title={"Titel"}
+                    date={"Datum: 15 maj"}
+                    time={"Tid: 17.00"}               
+                    id={"#"}
+                    />
+                    <UpcomingScreening
+                    title={"Titel"}
+                    date={"Datum: 15 maj"}
+                    time={"Tid: 17.00"}               
+                    id={"#"}
+                    />
+                    <UpcomingScreening
+                    title={"Titel"}
+                    date={"Datum: 15 maj"}
+                    time={"Tid: 17.00"}              
+                    id={"#"}
+                    />
+                    <UpcomingScreening
+                    title={"Titel"}
+                    date={"Datum: 15 maj"}
+                    time={"Tid: 17.00"}             
+                    id={"#"}
+                    />
+                    <UpcomingScreening
+                    title={"Titel"}
+                    date={"Datum: 15 maj"}
+                    time={"Tid: 17.00"}
+                    id={"#"}
+                    />
+                    <UpcomingScreening
+                    title={"Titel"}
+                    date={"Datum: 15 maj"}
+                    time={"Tid: 17.00"}     
+                    id={"#"}
+                    />
+                </div>
            </section>
             { /* 
            <section className="d-flex flex-wrap justify-content-center gap-4-mx-auto container-80">
