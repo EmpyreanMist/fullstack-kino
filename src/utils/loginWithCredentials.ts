@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabaseClient';
+import type { User } from '@supabase/supabase-js';
 
-export async function loginWithCredentials(email: string, password: string) {
+export async function loginWithCredentials(email: string, password: string): Promise<User> {
   const response = await fetch('/api/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

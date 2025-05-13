@@ -11,7 +11,7 @@ export default function LoginForm() {
   const [warning, setWarning] = useState<string>('');
   const [success, setSuccess] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
-  const [seconds, setSeconds] = useState<number>(12);
+  const [seconds, setSeconds] = useState<number>(900);
   const [loading, setLoading] = useState<boolean>(true); 
 
   // Kontrollera om användaren redan är inloggad
@@ -78,8 +78,8 @@ useEffect(() => {
   // Timer + aktivitet
   useEffect(() => {
     if (user !== null) {
-      setSeconds(12);
-      const resetTimer = () => setSeconds(10);
+      /* setSeconds(12); */
+      const resetTimer = () => {setSeconds(900)};
 
       const interval = setInterval(() => {
         setSeconds(prev => prev - 1);
@@ -105,7 +105,7 @@ useEffect(() => {
         setEmail('');
         setSuccess(false);
         setPassword('');
-        setSeconds(12);
+        setSeconds(900);
       })();
     }
   }, [seconds, user]);
