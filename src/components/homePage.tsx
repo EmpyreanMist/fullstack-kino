@@ -60,42 +60,49 @@ export default function HomePage(){
                 title={"Titel"}
                 date={"Datum: 15 maj"}
                 time={"Tid: 17.00"}
+                image={"/seats.png"}
                 id={"#"}
                 />
                 <UpcomingScreening
                 title={"Titel"}
                 date={"Datum: 15 maj"}
                 time={"Tid: 17.00"}
+                image={"/seats.png"}
                 id={"#"}
                 />
                 <UpcomingScreening
                 title={"Titel"}
                 date={"Datum: 15 maj"}
                 time={"Tid: 17.00"}
+                image={"/seats.png"}
                 id={"#"}
                 />
                 <UpcomingScreening
                 title={"Titel"}
                 date={"Datum: 15 maj"}
                 time={"Tid: 17.00"}
+                image={"/seats.png"}
                 id={"#"}
                 />
                 <UpcomingScreening
                 title={"Titel"}
                 date={"Datum: 15 maj"}
                 time={"Tid: 17.00"}
+                image={"/seats.png"}
                 id={"#"}
                 />
                 <UpcomingScreening
                 title={"Titel"}
                 date={"Datum: 15 maj"}
                 time={"Tid: 17.00"}
+                image={"/seats.png"}
                 id={"#"}
                 />
                 <UpcomingScreening
                 title={"Titel"}
                 date={"Datum: 15 maj"}
                 time={"Tid: 17.00"}
+                image={"/seats.png"}
                 id={"#"}
                 />
             </div>
