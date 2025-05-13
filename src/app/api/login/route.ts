@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabaseClient';
+import { Next } from 'react-bootstrap/esm/PageItem';
 
 export async function POST(req: Request) {
   try {
@@ -15,6 +16,8 @@ export async function POST(req: Request) {
     if (error || !data.session) {
       return NextResponse.json({ error: 'Fel email eller lösenord' }, { status: 401 });
     }
+
+    return NextResponse.json({ session: data.session });
     /* HÄR SKA DET LOGGAS IN PÅ NÅGOT MAGISKT SÄTT */
   } catch (error) {
     /* HÄR GICK DET MINDRE BRA ATT LOGGA IN */
