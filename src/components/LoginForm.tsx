@@ -12,19 +12,18 @@ export default function LoginForm() {
   const [success, setSuccess] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
   const [seconds, setSeconds] = useState<number>(12);
+  const [loading, setLoading] = useState<boolean>(true); 
 
-  //login
+  // Kontrollera om användaren redan är inloggad
   useEffect(() => {
     const fetchUser = async () => {
       const { data, error } = await supabase.auth.getUser();
       if (data?.user) {
         setUser(data.user);
-        console.log('Du är inloggad');
       } else if (error) {
-        console.log('Något gick fel');
-      } else {
-        console.log('Ingen användare inloggad');
+        console.error(error)
       }
+      setLoading(false); // klart med användarkontroll
     };
     fetchUser();
   }, []);
@@ -47,7 +46,6 @@ export default function LoginForm() {
     }
   };
 
-  //Logout
   const handleLogout = async () => {
     try {
       await logoutUser();
@@ -57,14 +55,12 @@ export default function LoginForm() {
       setSuccess(false);
       setWarning('');
       setUser(null);
-
-      console.log('Du är utloggad');
     } catch (error) {
       console.error('Logout error: ', error);
     }
   };
 
-  // Start timer and event listeners when user is logged in
+  // Timer + aktivitet
   useEffect(() => {
     if (user !== null) {
       setSeconds(12);
@@ -85,7 +81,7 @@ export default function LoginForm() {
     }
   }, [user]);
 
-  // logic when seconds reaches 0.
+  // Logga ut automatiskt
   useEffect(() => {
     if (seconds === 0 && user !== null) {
       (async () => {
@@ -99,20 +95,39 @@ export default function LoginForm() {
     }
   }, [seconds, user]);
 
-if (user) {
-  return (
-    <>
-      <p>Du är inloggad som: {user.email}</p>
-      {success && <p style={{ color: 'green' }}>Login lyckades!</p>}
-      <button onClick={handleLogout}>Logga ut</button>
-      {seconds <= 10 && (
-        <p>Du loggas ut om {seconds} sekunder på grund av inaktivitet</p>
-      )}
-    </>
-  );
-}
+  // useEffect för att dölja "Login lyckades!" efter 2 sekunder
+useEffect(() => {
+  if (success) {
+    const timer = setTimeout(() => setSuccess(false), 2000);
+    return () => clearTimeout(timer);
+  }
+}, [success]);
 
 
+  // 🌀 Visa loader medan vi väntar på auth
+  if (loading) {
+    return (
+      <div className="spinner-border text-primary d-block mx-auto" role="status">
+        {/* <span className="sr-only">Loading...</span> */}
+      </div>
+    );
+  }
+
+  // Inloggat läge
+  if (user) {
+    return (
+      <>
+        <p>Du är inloggad som: {user.email}</p>
+        {success && <p style={{ color: 'green' }}>Login lyckades!</p>}
+        <button onClick={handleLogout}>Logga ut</button>
+        {seconds <= 10 && (
+          <p>Du loggas ut om {seconds} sekunder på grund av inaktivitet</p>
+        )}
+      </>
+    );
+  }
+
+  // Formulär för inloggning
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="email">Email:</label>
@@ -133,7 +148,7 @@ if (user) {
         onChange={e => setPassword(e.target.value)}
       />
 
-      {warning && <p style={{ color: 'red' }}>Något gick fel!</p>}
+      {warning && <p style={{ color: 'red' }}>{warning}</p>}
 
       <button type="submit">Submit</button>
     </form>
