@@ -1,7 +1,7 @@
 import { Button, Card, Row } from "react-bootstrap";
 import Link from "next/link";
-import MovieCard from "./MovieCard";
 import UpcomingScreening from "./UpcomingScreening";
+import CardPoster from "./CardPoster";
 export default function HomePage(){
     return(
         <main className="bg-dark">
@@ -14,43 +14,49 @@ export default function HomePage(){
            <section className="grid m-3">
             <Row>
                     <h2 className="text-wrap text-white">Top 5 movies</h2>
-                    <MovieCard 
-                    title={"Titel"}
+                    <CardPoster
                     img={"/seats.png"}
-                    description={"Info info blah blah blah"}
+                    title={"Titel"}
+                    description={"Info text blah blah blah best movie ever"}
                     width={200}
                     height={200}
-                    id={"#"}/>
-                    <MovieCard 
-                    title={"Titel"}
+                    id={"#"}
+                    />
+                     <CardPoster
                     img={"/seats.png"}
-                    description={"Info info blah blah blah"}
+                    title={"Titel"}
+                    description={"Info text blah blah blah best movie ever"}
                     width={200}
                     height={200}
-                    id={"#"}/>
+                    id={"#"}
+                    />
                 </Row>
                 <Row>
-                    <MovieCard 
-                    title={"Titel"}
+                <CardPoster
                     img={"/seats.png"}
-                    description={"Info info blah blah blah"}
+                    title={"Titel"}
+                    description={"Info text blah blah blah best movie ever"}
                     width={200}
                     height={200}
-                    id={"#"}/>
-                    <MovieCard 
-                    title={"Titel"}
+                    id={"#"}
+                    />
+                     <CardPoster
                     img={"/seats.png"}
-                    description={"Info info blah blah blah"}
+                    title={"Titel"}
+                    description={"Info text blah blah blah best movie ever"}
                     width={200}
                     height={200}
-                    id={"#"}/>
-                    <MovieCard 
-                    title={"Titel"}
+                    id={"#"}
+                    />
+                      <CardPoster
                     img={"/seats.png"}
-                    description={"Info info blah blah blah"}
+                    title={"Titel"}
+                    description={"Info text blah blah blah best movie ever"}
                     width={200}
                     height={200}
-                    id={"#"}/>
+                    id={"#"}
+                    />
+                   
                 </Row>
            </section>
            <section>
