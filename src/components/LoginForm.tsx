@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import type { User } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabaseClient';
-import { loginWithCredentials } from '@/app/utils/loginWithCredentials';
-import { logoutUser } from '@/app/utils/logoutUser';
+import { loginWithCredentials } from '@/utils/loginWithCredentials';
+import { logoutUser } from '@/utils/logoutUser';
 
 export default function LoginForm() {
   const [email, setEmail] = useState<string>('');
@@ -11,6 +11,7 @@ export default function LoginForm() {
   const [warning, setWarning] = useState<string>('');
   const [success, setSuccess] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
+  const [seconds, setSeconds] = useState<number>(12);
 
   //login
   useEffect(() => {
@@ -50,21 +51,67 @@ export default function LoginForm() {
   const handleLogout = async () => {
     try {
       await logoutUser();
-      console.log('Du är utloggad');
+      setEmail('');
+      setPassword('');
+      setSeconds(20);
+      setSuccess(false);
+      setWarning('');
       setUser(null);
+
+      console.log('Du är utloggad');
     } catch (error) {
       console.error('Logout error: ', error);
     }
   };
 
-  if (user) {
-    return (
-      <>
-        <p>Du är inloggad som: {user.email}</p>
-        <button onClick={handleLogout}>Logga ut</button>
-      </>
-    );
-  }
+  // Start timer and event listeners when user is logged in
+  useEffect(() => {
+    if (user !== null) {
+      setSeconds(12);
+      const resetTimer = () => setSeconds(10);
+
+      const interval = setInterval(() => {
+        setSeconds(prev => prev - 1);
+      }, 1000);
+
+      window.addEventListener('mousemove', resetTimer);
+      window.addEventListener('keydown', resetTimer);
+
+      return () => {
+        clearInterval(interval);
+        window.removeEventListener('mousemove', resetTimer);
+        window.removeEventListener('keydown', resetTimer);
+      };
+    }
+  }, [user]);
+
+  // logic when seconds reaches 0.
+  useEffect(() => {
+    if (seconds === 0 && user !== null) {
+      (async () => {
+        await logoutUser();
+        setUser(null);
+        setEmail('');
+        setSuccess(false);
+        setPassword('');
+        setSeconds(12);
+      })();
+    }
+  }, [seconds, user]);
+
+if (user) {
+  return (
+    <>
+      <p>Du är inloggad som: {user.email}</p>
+      {success && <p style={{ color: 'green' }}>Login lyckades!</p>}
+      <button onClick={handleLogout}>Logga ut</button>
+      {seconds <= 10 && (
+        <p>Du loggas ut om {seconds} sekunder på grund av inaktivitet</p>
+      )}
+    </>
+  );
+}
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -86,10 +133,9 @@ export default function LoginForm() {
         onChange={e => setPassword(e.target.value)}
       />
 
-      <button type="submit">Submit</button>
+      {warning && <p style={{ color: 'red' }}>Något gick fel!</p>}
 
-      {warning && <p style={{ color: 'red' }}>{warning}</p>}
-      {success && <p style={{ color: 'green' }}>Login lyckades!</p>}
+      <button type="submit">Submit</button>
     </form>
   );
 }
