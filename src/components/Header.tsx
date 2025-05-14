@@ -4,19 +4,29 @@ import seats from '../../public/seats.png';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Header() {
+import HeaderProps from '@/lib/typesHeader';
+
+
+export default function Header({ showImage = true, showLoginButton = true, showRegisterButton = true }: HeaderProps) {
+
   return (
-    <header className="bg-dark">
+    <header className="bg-dark position-relative">
       <Link href="/">
         <Image src={logoHead} alt="Kino-logo" className="d-block mx-auto img-fluid" />
       </Link>
-      <Navigation />
-      <Image
-        src={seats}
-        alt="Kino-logo"
-        className="w-100"
-        style={{ objectFit: 'cover', height: '400px', position: 'relative' }}
-      />
+      <Navigation showRegisterButton={showRegisterButton} showLoginButton={showLoginButton}/>
+
+      {showImage && (
+        <Image
+          src={seats}
+          alt="Kino-bild"
+          className="w-100"
+          style={{
+            objectFit: 'cover',
+            height: '400px',
+          }}
+        />
+      )}
     </header>
   );
 }

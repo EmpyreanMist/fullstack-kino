@@ -142,30 +142,62 @@ useEffect(() => {
     );
   }
 
-  // Formulär för inloggning
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="email">Email:</label>
-      <input
-        required
-        id="email"
-        type="email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
+    <div
+      className="min-vh-100 d-flex justify-content-center align-items-center"
+      style={{
+        backgroundImage: 'url(/seats.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="bg-dark p-4 rounded shadow"
+        style={{ minWidth: '300px', opacity: 0.95 }}
+      >
+        <h2 className="text-white mb-4 text-center">Logga in!</h2>
 
-      <label htmlFor="password">Password:</label>
-      <input
-        required
-        id="password"
-        type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-      />
+        {warning && <div className="alert alert-danger">{warning}</div>}
 
-      {warning && <p style={{ color: 'red' }}>{warning}</p>}
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label text-white">
+            E-postadress
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="form-control bg-secondary text-white"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
 
-      <button type="submit">Submit</button>
-    </form>
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label text-white">
+            Lösenord
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="form-control bg-secondary text-white"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <button type="submit" className="btn btn-primary w-100">
+          Logga in
+        </button>
+
+        <div className="mt-3 text-center">
+          <a href="/register" className="text-white">
+            Skapa konto
+          </a>
+        </div>
+      </form>
+    </div>
   );
 }
