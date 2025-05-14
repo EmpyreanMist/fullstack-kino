@@ -23,7 +23,6 @@ export default function Navigation({
             Om oss
           </Nav.Link>
         </Nav>
-
         {showRegisterButton && (
           <Link href="/register">
             <Button className="m-2">Registrera dig</Button>

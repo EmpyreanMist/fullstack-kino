@@ -4,10 +4,12 @@ import seats from '../../public/seats.png';
 import Image from 'next/image';
 import Link from 'next/link';
 
+
 import HeaderProps from '@/lib/typesHeader';
 
 
 export default function Header({ showImage = true, showLoginButton = true, showRegisterButton = true }: HeaderProps) {
+
 
   return (
     <header className="bg-dark position-relative">

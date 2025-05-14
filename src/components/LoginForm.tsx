@@ -6,14 +6,18 @@ import { loginWithCredentials } from '@/utils/loginWithCredentials';
 import { logoutUser } from '@/utils/logoutUser';
 
 export default function LoginForm() {
+  // for the timer
+  const timedEvent: number = 900;
+  
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [warning, setWarning] = useState<string>('');
   const [success, setSuccess] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
-  const [seconds, setSeconds] = useState<number>(900);
-  const [loading, setLoading] = useState<boolean>(true); 
+  const [seconds, setSeconds] = useState<number>(timedEvent);
+  const [loading, setLoading] = useState<boolean>(true);
 
+  
   // Kontrollera om användaren redan är inloggad
 useEffect(() => {
   const fetchUser = async () => {
@@ -66,7 +70,7 @@ useEffect(() => {
       await logoutUser();
       setEmail('');
       setPassword('');
-      setSeconds(20);
+      setSeconds(timedEvent);
       setSuccess(false);
       setWarning('');
       setUser(null);
@@ -75,11 +79,14 @@ useEffect(() => {
     }
   };
 
+  
+  
+
   // Timer + aktivitet
   useEffect(() => {
     if (user !== null) {
       /* setSeconds(12); */
-      const resetTimer = () => {setSeconds(900)};
+      const resetTimer = () => setSeconds(timedEvent);
 
       const interval = setInterval(() => {
         setSeconds(prev => prev - 1);
@@ -105,7 +112,7 @@ useEffect(() => {
         setEmail('');
         setSuccess(false);
         setPassword('');
-        setSeconds(900);
+        setSeconds(timedEvent);
       })();
     }
   }, [seconds, user]);
@@ -132,12 +139,14 @@ useEffect(() => {
   if (user) {
     return (
       <>
-        <p>Du är inloggad som: {user.email}</p>
-        {success && <p style={{ color: 'green' }}>Login lyckades!</p>}
-        <button onClick={handleLogout}>Logga ut</button>
-        {seconds <= 10 && (
-          <p>Du loggas ut om {seconds} sekunder på grund av inaktivitet</p>
+        <p>Du är inloggad som: {user.user_metadata.fullName}</p>
+        {success && (
+          <div className="alert alert-success mt-2 text-center" role="alert">
+            Inloggning lyckades!
+          </div>
         )}
+        <button onClick={handleLogout}>Logga ut</button>
+        {seconds <= 10 && <p>Du loggas ut om {seconds} sekunder på grund av inaktivitet</p>}
       </>
     );
   }
