@@ -88,12 +88,10 @@ export default function UseGlobalLoginTimerResult(): UseGlobalLoginTimerResult {
     if (secondsLeft <= 0 && user) {
       (async () => {
         await supabase.auth.signOut();
-        setUser(null);
-        setSession(null);
-        setSecondsLeft(INACTIVITY_LIMIT);
+        reset();
       })();
     }
-  }, [secondsLeft, user]);
+  }, [secondsLeft, user, reset]);
 
   return {
     session,
