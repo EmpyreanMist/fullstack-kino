@@ -23,8 +23,9 @@ export default function Navigation() {
         <Link href="/register">
           <Button className="m-2">Registrera dig</Button>
         </Link>
-
+        <Link href="/login">
         <Button className="m-2">Logga in</Button>
+        </Link>
       </Navbar.Collapse>
     </Navbar>
   );
