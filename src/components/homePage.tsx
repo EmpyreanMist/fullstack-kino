@@ -93,47 +93,54 @@ export default function HomePage(){
            </section>
            <section>
                 <h2 className="text-white m-3 text-center">Kommande visningar</h2>
-                <div className="d-flex flex-wrap justify-content-center">
+                <div className="m-3">
                     <UpcomingScreening
                     title={"Titel"}
-                    date={"Datum: 15 maj"}
-                    time={"Tid: 17.00"}                
+                    date={"15 maj"}
+                    time={"kl 17.00"}   
+                    room={"Salong 1"}             
                     id={"#"}
                     />
                     <UpcomingScreening
                     title={"Titel"}
-                    date={"Datum: 15 maj"}
-                    time={"Tid: 17.00"}               
+                    date={"15 maj"}
+                    time={"kl 17.00"}  
+                    room={"Salong 1"}             
                     id={"#"}
                     />
                     <UpcomingScreening
                     title={"Titel"}
-                    date={"Datum: 15 maj"}
-                    time={"Tid: 17.00"}               
+                    date={"15 maj"}
+                    time={"kl 17.00"} 
+                    room={"Salong 1"}              
                     id={"#"}
                     />
                     <UpcomingScreening
                     title={"Titel"}
-                    date={"Datum: 15 maj"}
-                    time={"Tid: 17.00"}              
+                    date={"15 maj"}
+                    time={"kl 17.00"} 
+                    room={"Salong 1"}             
                     id={"#"}
                     />
                     <UpcomingScreening
                     title={"Titel"}
-                    date={"Datum: 15 maj"}
-                    time={"Tid: 17.00"}             
+                    date={"15 maj"}
+                    time={"kl 17.00"} 
+                    room={"Salong 1"}            
                     id={"#"}
                     />
                     <UpcomingScreening
                     title={"Titel"}
-                    date={"Datum: 15 maj"}
-                    time={"Tid: 17.00"}
+                    date={"15 maj"}
+                    time={"kl 17.00"}
+                    room={"Salong 1"}
                     id={"#"}
                     />
                     <UpcomingScreening
                     title={"Titel"}
-                    date={"Datum: 15 maj"}
-                    time={"Tid: 17.00"}     
+                    date={"15 maj"}
+                    time={"kl 17.00"} 
+                    room={"Salong 1"}    
                     id={"#"}
                     />
                 </div>

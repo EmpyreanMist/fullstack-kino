@@ -1,23 +1,35 @@
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import Link from 'next/link';
 
 type Props = {
     title: String;
     date: String;
     time: String;
+    room: String;
     id: String;
 }
-export default function UpcomingScreening({ title, date, time, id }: Props){
+export default function UpcomingScreening({ title, date, time, room, id }: Props){
     return(
-    <Card className="bg-dark border-light m-3 hover-shadow-5 grid-column" style={{width:"18rem"}}>
-       
-            <h4 className="text-white ms-3">{title}</h4>
-            <p className="text-white ms-3">{date}</p>
-            <p className="text-white ms-3">{time}</p>
+    <Card className="bg-dark border-light m-3 hover-shadow-5 grid" >
+        <Row>
+       <Col>
+            <h5 className="text-white m-2">{title}</h5>
+        </Col>
+        <Col>
+            <h5 className="text-white m-2">{date}</h5>
+        </Col>
+        <Col>
+            <h5 className="text-white m-2">{time}</h5>
+        </Col>
+        <Col>
+            <h5 className="text-white m-2">{room}</h5>
+        </Col>
+        <Col>
             <Link href={`movies/book/${id}`}>
-                <Button className="ms-3 mb-2">Köp biljett</Button>
+                <Button className="m-2">Köp biljett</Button>
             </Link>
-       
+        </Col>
+        </Row>
     </Card>
     );
 }
