@@ -1,0 +1,106 @@
+'use client';
+
+import { useEffect, useState, useCallback } from 'react';
+import { supabase } from '@/lib/supabaseClient';
+import { Session, User } from '@supabase/supabase-js';
+
+interface UseGlobalLoginTimerResult {
+  session: Session | null;
+  user: User | null;
+  loading: boolean;
+  isAuthenticated: boolean;
+  secondsLeft: number;
+  reset: () => void;
+}
+
+// when the use will logout after inactivity
+const INACTIVITY_LIMIT: number = 30;
+
+export default function UseGlobalLoginTimerResult(): UseGlobalLoginTimerResult {
+  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [secondsLeft, setSecondsLeft] = useState<number>(INACTIVITY_LIMIT);
+
+  const reset = useCallback(() => {
+    setSession(null);
+    setUser(null);
+    setSecondsLeft(INACTIVITY_LIMIT);
+  }, []);
+
+  // getInitial session
+  useEffect(() => {
+    const getInitialSession = async (): Promise<void> => {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) {
+          console.error('Fel vid hämtning av session:', error.message);
+        } else if (data?.session) {
+          setSession(data.session);
+          setUser(data.session.user);
+        } else {
+          reset();
+        }
+      } catch (error: unknown) {
+        console.error('Något gick fel vid hämtning av session: ', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getInitialSession();
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      if (!session) {
+        reset();
+      }
+    });
+
+    return () => {
+      listener.subscription.unsubscribe();
+    };
+  }, [reset]);
+
+  //start timer when logging in
+  useEffect(() => {
+    if (!user) return;
+
+    const resetTimer = () => setSecondsLeft(INACTIVITY_LIMIT);
+
+    const interval = setInterval(() => {
+      setSecondsLeft(prev => prev - 1);
+    }, 1000);
+
+    window.addEventListener('mousemove', resetTimer);
+    window.addEventListener('keydown', resetTimer);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('mousemove', resetTimer);
+      window.removeEventListener('keydown', resetTimer);
+    };
+  }, [user]);
+
+  // Automatisk utloggning
+  useEffect(() => {
+    if (secondsLeft <= 0 && user) {
+      (async () => {
+        await supabase.auth.signOut();
+        setUser(null);
+        setSession(null);
+        setSecondsLeft(INACTIVITY_LIMIT);
+      })();
+    }
+  }, [secondsLeft, user]);
+
+  return {
+    session,
+    user,
+    loading,
+    isAuthenticated: Boolean(user),
+    secondsLeft,
+    reset,
+  };
+}
