@@ -1,4 +1,4 @@
-import { Button, Card, Row } from "react-bootstrap";
+import { Button, Col, Container } from "react-bootstrap";
 import Link from "next/link";
 import UpcomingScreening from "./UpcomingScreening";
 import CardPoster from "./CardPoster";
@@ -87,27 +87,32 @@ const screenings: Screening[] = [
     }];
     return(
         <main className="bg-dark">
-            <div className="text-center">
+            <div className="text-center pt-5">
                 <Link  href="/movies">
-                    <Button className="fs-5 p-3 " >Alla filmer</Button>
+                    <Button className="fs-5 p-3 ps-5 pe-5" >Alla filmer</Button>
                 </Link>
             </div>
             <h2 className="text-white m-5 text-center">Top 5 movies</h2>
-            <section className="d-flex flex-wrap justify-content-center gap-4-mx-auto">
-            {movies.map(movie =>
-                        <CardPoster
+            <Container className="d-flex flex-wrap justify-content-center">
+            <Col sm={12} md={12} lg={12} xl={10}>
+            <section className="d-flex flex-wrap justify-content-center gap-4 pb-3">
+                {movies.map(movie =>
+                    <CardPoster
                         img={movie.img}
                         title={movie.title}
                         description={movie.description}
                         width={200}
                         height={200}
                         id={movie.id}
-                        />
-                    )}
+                    />
+                )};
            </section>
+           </Col>
+           </Container>
            <section>
                 <h2 className="text-white m-3 text-center">Kommande visningar</h2>
-                <div className="m-3">
+                <div className="m-3 pb-3 pt-1 text-center d-flex flex-wrap justify-content-center">
+                    <Col sm={15} md={10} lg={8} xl={6}>
                     {screenings.map(screening =>
                         <UpcomingScreening
                         title={screening.title}
@@ -117,6 +122,7 @@ const screenings: Screening[] = [
                         id={screening.id}
                          />
                     )}
+                    </Col>
                 </div>
            </section>
         </main>
