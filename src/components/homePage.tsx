@@ -4,11 +4,18 @@ import UpcomingScreening from "./UpcomingScreening";
 import CardPoster from "./CardPoster";
 export default function HomePage(){
     type Movie = {
-        img: String;
-        title: String;
-        description: String;
-        id:String;
-    }
+        img: string,
+        title: string,
+        description: string,
+        id:string,
+    };
+    type Screening = {
+        title: string,
+        date: string,
+        time: string,
+        room: string,
+        id: string,
+    };
     const movies: Movie[] = [
     {
         img: "/seats.png",
@@ -40,7 +47,44 @@ export default function HomePage(){
         description: "Movie info goes here",
         id: "#"
     }
-]
+];
+const screenings: Screening[] = [
+    {title: "Star Wars",
+     date: "15 maj",
+     time: "17.00",
+     room: "Salong 1",
+     id: "#",   
+    },
+    {title: "Star Wars",
+        date: "15 maj",
+        time: "17.00",
+        room: "Salong 1",
+        id: "#",   
+       },
+   {title: "Star Wars",
+    date: "15 maj",
+    time: "17.00",
+    room: "Salong 1",
+    id: "#",   
+   },
+    {title: "Star Wars",
+        date: "15 maj",
+        time: "17.00",
+        room: "Salong 1",
+        id: "#",   
+    },
+    {title: "Star Wars",
+        date: "15 maj",
+        time: "17.00",
+        room: "Salong 1",
+        id: "#",   
+    },
+    {title: "Star Wars",
+        date: "15 maj",
+        time: "17.00",
+        room: "Salong 1",
+        id: "#",   
+    }];
     return(
         <main className="bg-dark">
             <div className="text-center">
@@ -50,149 +94,31 @@ export default function HomePage(){
             </div>
             <h2 className="text-white m-5 text-center">Top 5 movies</h2>
             <section className="d-flex flex-wrap justify-content-center gap-4-mx-auto">
-                    <CardPoster
-                    img={"/seats.png"}
-                    title={"Titel"}
-                    description={"Info text blah blah blah best movie ever"}
-                    width={200}
-                    height={200}
-                    id={"#"}
-                    />
-                     <CardPoster
-                    img={"/seats.png"}
-                    title={"Titel"}
-                    description={"Info text blah blah blah best movie ever"}
-                    width={200}
-                    height={200}
-                    id={"#"}
-                    />
-                    <CardPoster
-                    img={"/seats.png"}
-                    title={"Titel"}
-                    description={"Info text blah blah blah best movie ever"}
-                    width={200}
-                    height={200}
-                    id={"#"}
-                    />
-                     <CardPoster
-                    img={"/seats.png"}
-                    title={"Titel"}
-                    description={"Info text blah blah blah best movie ever"}
-                    width={200}
-                    height={200}
-                    id={"#"}
-                    />
-                      <CardPoster
-                    img={"/seats.png"}
-                    title={"Titel"}
-                    description={"Info text blah blah blah best movie ever"}
-                    width={200}
-                    height={200}
-                    id={"#"}
-                    />
+            {movies.map(movie =>
+                        <CardPoster
+                        img={movie.img}
+                        title={movie.title}
+                        description={movie.description}
+                        width={200}
+                        height={200}
+                        id={movie.id}
+                        />
+                    )}
            </section>
            <section>
                 <h2 className="text-white m-3 text-center">Kommande visningar</h2>
                 <div className="m-3">
-                    <UpcomingScreening
-                    title={"Titel"}
-                    date={"15 maj"}
-                    time={"kl 17.00"}   
-                    room={"Salong 1"}             
-                    id={"#"}
-                    />
-                    <UpcomingScreening
-                    title={"Titel"}
-                    date={"15 maj"}
-                    time={"kl 17.00"}  
-                    room={"Salong 1"}             
-                    id={"#"}
-                    />
-                    <UpcomingScreening
-                    title={"Titel"}
-                    date={"15 maj"}
-                    time={"kl 17.00"} 
-                    room={"Salong 1"}              
-                    id={"#"}
-                    />
-                    <UpcomingScreening
-                    title={"Titel"}
-                    date={"15 maj"}
-                    time={"kl 17.00"} 
-                    room={"Salong 1"}             
-                    id={"#"}
-                    />
-                    <UpcomingScreening
-                    title={"Titel"}
-                    date={"15 maj"}
-                    time={"kl 17.00"} 
-                    room={"Salong 1"}            
-                    id={"#"}
-                    />
-                    <UpcomingScreening
-                    title={"Titel"}
-                    date={"15 maj"}
-                    time={"kl 17.00"}
-                    room={"Salong 1"}
-                    id={"#"}
-                    />
-                    <UpcomingScreening
-                    title={"Titel"}
-                    date={"15 maj"}
-                    time={"kl 17.00"} 
-                    room={"Salong 1"}    
-                    id={"#"}
-                    />
+                    {screenings.map(screening =>
+                        <UpcomingScreening
+                        title={screening.title}
+                        date={screening.date}
+                        time={screening.time}
+                        room={screening.room}
+                        id={screening.id}
+                         />
+                    )}
                 </div>
            </section>
-            { /* 
-           <section className="d-flex flex-wrap justify-content-center gap-4-mx-auto container-80">
-                <h2 className="ms-3 text-wrap">Top 5 movies</h2>
-                <MovieCard 
-                title={"Titel"}
-                img={"/seats.png"}
-                description={"Info info blah blah blah"}
-                width={200}
-                height={200}
-                id={"#"}/>
-                <MovieCard 
-                title={"Titel"}
-                img={"/seats.png"}
-                description={"Info info blah blah blah"}
-                width={200}
-                height={200}
-                id={"#"}
-                />
-            </section>
-            <section className="d-flex flex-wrap justify-content-center gap-4-mx-auto container-80">
-                <MovieCard 
-                title={"Titel"}
-                img={"/seats.png"}
-                description={"Info info blah blah blah"}
-                width={200}
-                height={200}
-                id={"#"}
-
-            />
-            <MovieCard 
-                title={"Titel"}
-                img={"/seats.png"}
-                description={"Info info blah blah blah"}
-                width={200}
-                height={200}
-                id={"#"}
-
-            />
-            <MovieCard 
-                title={"Titel"}
-                img={"/seats.png"}
-                description={"Info info blah blah blah"}
-                width={200}
-                height={200}
-                id={"#"}
-
-            />
-            </section>*/}
         </main>
     );
 }
