@@ -1,5 +1,5 @@
 import React from 'react';
-import { isPasswordValid, doPasswordsMatch } from '../app/utils/validation';
+import { isPasswordValid, doPasswordsMatch } from '../utils/validation';
 
 type PasswordFieldsProps = {
   formData: {
