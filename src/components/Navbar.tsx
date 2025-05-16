@@ -42,7 +42,7 @@ export default function Navigation({
             <section className="d-flex flex-row justify-content-center gap-2 align-items-center">
               <div className="d-flex flex-column">
                 <span className="navbar-text me-3">Hej, {user?.user_metadata.fullName}</span>
-                {secondsLeft <= 30 && <p className="">Du loggas ut om {secondsLeft} sekunder</p>}
+                {secondsLeft <= 30 && <p className="text-danger">Du loggas ut om {secondsLeft} sekunder</p>}
               </div>
               <button onClick={handleSubmit} type="submit" className="btn btn-primary" style={{maxWidth: '100px'}}>
                 Logga ut

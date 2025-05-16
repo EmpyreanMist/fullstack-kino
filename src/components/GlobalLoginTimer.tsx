@@ -7,19 +7,17 @@ import { Session, User } from '@supabase/supabase-js';
 interface UseGlobalLoginTimerResult {
   session: Session | null;
   user: User | null;
-  loading: boolean;
   isAuthenticated: boolean;
   secondsLeft: number;
   reset: () => void;
 }
 
 // when the use will logout after inactivity
-const INACTIVITY_LIMIT: number = 30;
+const INACTIVITY_LIMIT: number = 900;
 
 export default function UseGlobalLoginTimerResult(): UseGlobalLoginTimerResult {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
   const [secondsLeft, setSecondsLeft] = useState<number>(INACTIVITY_LIMIT);
 
   const reset = useCallback(() => {
@@ -43,8 +41,6 @@ export default function UseGlobalLoginTimerResult(): UseGlobalLoginTimerResult {
         }
       } catch (error: unknown) {
         console.error('Något gick fel vid hämtning av session: ', error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -96,7 +92,6 @@ export default function UseGlobalLoginTimerResult(): UseGlobalLoginTimerResult {
   return {
     session,
     user,
-    loading,
     isAuthenticated: Boolean(user),
     secondsLeft,
     reset,
