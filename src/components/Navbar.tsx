@@ -2,8 +2,12 @@
 
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import Link from 'next/link';
+import HeaderProps from '@/lib/typesHeader';
 
-export default function Navigation() {
+export default function Navigation({
+  showLoginButton = true,
+  showRegisterButton = true,
+}: HeaderProps) {
   return (
     <Navbar expand="lg" bg="dark" variant="dark" className="p-3 text-light">
       <Navbar.Toggle aria-controls="navbarScroll" />
@@ -19,9 +23,17 @@ export default function Navigation() {
             Om oss
           </Nav.Link>
         </Nav>
+        {showRegisterButton && (
+          <Link href="/register">
+            <Button className="m-2">Registrera dig</Button>
+          </Link>
+        )}
 
-        <Button className="m-2">Registrera dig</Button>
-        <Button className="m-2">Logga in</Button>
+        {showLoginButton && (
+          <Link href="/login">
+            <Button className="m-2">Logga in</Button>
+          </Link>
+        )}
       </Navbar.Collapse>
     </Navbar>
   );
