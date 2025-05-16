@@ -1,59 +1,22 @@
 'use client';
-/* import { supabase } from '../lib/supabaseClient'; */
+
 import { useState } from 'react';
 import PasswordField from './PasswordField';
+import { Months } from '@/lib/Months';
+import { FormData } from '@/lib/TypesFormData';
 
 export default function RegisterForm() {
-  const [emailWarning, setEmailWarning] = useState(false);
-  const [phoneWarning, setPhoneWarning] = useState(false);
-  // object to convert month into number
-  const months: {
-    [key: string]: string;
+  const [warning, setWarning] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
 
-    Januari: string;
-    Februari: string;
-    Mars: string;
-    April: string;
-    Maj: string;
-    Juni: string;
-    Juli: string;
-    Augusti: string;
-    September: string;
-    Oktober: string;
-    November: string;
-    December: string;
-  } = {
-    Januari: '01',
-    Februari: '02',
-    Mars: '03',
-    April: '04',
-    Maj: '05',
-    Juni: '06',
-    Juli: '07',
-    Augusti: '08',
-    September: '09',
-    Oktober: '10',
-    November: '11',
-    December: '12',
-  };
+  const months = Months;
 
   // To show valid years in future
   const date = new Date();
   const currentYear = date.getFullYear();
 
   // object to handle values from form.
-  const [formData, setFormData] = useState<{
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    birthDay?: number;
-    birthMonth: string;
-    birthYear?: number;
-    city: string;
-    password1: string;
-    comparePassword: string;
-  }>({
+  const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
     email: '',
@@ -71,15 +34,14 @@ export default function RegisterForm() {
     const { id, value } = e.target;
 
     setFormData(prev => ({ ...prev, [id]: value }));
-    console.log(formData);
   };
 
   // Stopps submit if passwords aren't equal
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setEmailWarning(false);
-    setPhoneWarning(false);
+    setWarning(false);
+    setSuccess(false);
 
     if (
       !formData.password1 ||
@@ -115,15 +77,27 @@ export default function RegisterForm() {
       const result = await response.json();
 
       if (!response.ok) {
-        if (result.error === 'Emailen är redan registrerad') {
-          setEmailWarning(true);
-        } else if (result.error === 'Telefonnumret är redan registrerat') {
-          setPhoneWarning(true);
-        }
+        setWarning(true);
         throw new Error(result.error || 'Något gick fel vid registreringen.');
       }
+      /* When registration is complete */
+      setSuccess(true);
 
-      alert('Du har skapat ett konto!');
+      setTimeout(() => {
+        setSuccess(false);
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phoneNumber: '',
+          birthDay: undefined,
+          birthMonth: '',
+          birthYear: undefined,
+          city: '',
+          password1: '',
+          comparePassword: '',
+        });
+      }, 2000);
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error:', error.message);
@@ -136,7 +110,6 @@ export default function RegisterForm() {
 
   return (
     <div className="bg-dark min-vh-100 d-flex justify-content-center align-items-start py-5">
-
       <form
         onSubmit={handleSubmit}
         className="p-4 rounded shadow"
@@ -271,13 +244,6 @@ export default function RegisterForm() {
                   required
                 />
               </div>
-                              {
-                 phoneWarning  && (
-                  <div className="alert alert-warning mt-2" role="alert">
-                    Telefonnumret är redan registrerat
-                  </div>
-                )
-              }
             </div>
             <div className="col-md-6">
               <label htmlFor="city" className="form-label text-white">
@@ -300,7 +266,6 @@ export default function RegisterForm() {
           <div className="row mb-3">
             <PasswordField formData={formData} handleChange={handleChange} />
           </div>
-
           <div className="mb-3">
             <label htmlFor="email" className="form-label text-white">
               E-postadress *
@@ -313,18 +278,18 @@ export default function RegisterForm() {
               value={formData.email}
               required
               placeholder="email@example.com"
-              />
-              {
-                emailWarning && (
-                  <div className="alert alert-warning mt-2" role="alert">
-                    Email adressen finns redan registrerad!
-                  </div>
-                )
-              }
+            />
+            {warning ? (
+              <div className="alert alert-warning mt-2 text-center" role="alert">
+                Användaren existerar redan!
+              </div>
+            ) : success ? (
+              <div className="alert alert-success mt-2 text-center" role="alert">
+                Du har nu registrerat dig!
+              </div>
+            ) : null}
           </div>
         </div>
-
-        {/* Sends the form*/}
         <button type="submit" className="btn btn-primary mt-5 mt-3 mx-auto d-block">
           Registrera dig
         </button>

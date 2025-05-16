@@ -3,53 +3,30 @@ import { supabase } from '@/lib/supabaseClient';
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { fullName, email, password, birthDateString, phone, city } = body;
-
-    const { data: existingEmail } = await supabase
-    .from('Users')
-    .select('id')
-    .eq('email', email)
-    .single();
-
-    if (existingEmail) {
-      return NextResponse.json({ error: 'Emailen är redan registrerad' }, { status: 400 })
-    }
-
-    const { data: existingPhone, error: phoneError } = await supabase
-    .from('Users')
-    .select('id')
-    .eq('phone', phone)
-    .maybeSingle();
-  
-  if (phoneError) {
-    console.error('Telefonkontrollfel:', phoneError.message);
-  }
-  
-  if (existingPhone) {
-    return NextResponse.json({ error: 'Telefonnumret är redan registrerat' }, { status: 400 });
-  }
-  
+    const { fullName, email, password, birthDateString, phone, city } = await req.json();
 
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          fullName,
+          phone,
+        },
+      },
     });
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
-    }
-
-    const user = data.user;
-
-    if (!user) {
-      return NextResponse.json({ error: 'Kunde inte skapa användare' }, { status: 500 });
+    if (error || data.user == null) {
+      return NextResponse.json(
+        { error: error?.message ?? 'Kunde inte skapa konto' },
+        { status: 400 }
+      );
     }
 
     const { error: insertError } = await supabase.from('Users').insert({
-      id: user.id,
+      id: data.user.id,
       full_name: fullName,
-      birthdate: birthDateString, 
+      birthdate: birthDateString,
       phone,
       city,
       email,
@@ -59,7 +36,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: insertError.message }, { status: 500 });
     }
 
-    return NextResponse.json({ message: 'Användare skapad', userId: user.id }, { status: 201 });
+    return NextResponse.json(
+      { message: 'Användare skapad', userId: data.user.id },
+      { status: 201 }
+    );
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: 'Något gick fel' }, { status: 500 });
