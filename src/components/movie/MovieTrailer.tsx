@@ -31,8 +31,16 @@ const MovieTrailer = ({ trailerVideoId, onPlayerReady }: MovieTrailerProps) => {
   };
 
   return (
-    <div className="ratio ratio-16x9 shadow rounded-3 overflow-hidden h-100">
-      <YouTube videoId={trailerVideoId} opts={opts} onReady={onReady} />
+    <div className="h-100">
+      <div className="ratio ratio-16x9 shadow rounded-4 overflow-hidden h-100">
+        <YouTube videoId={trailerVideoId} opts={opts} onReady={onReady} />
+      </div>
+
+      <style jsx>{`
+        div {
+          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+      `}</style>
     </div>
   );
 };

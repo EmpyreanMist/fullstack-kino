@@ -21,12 +21,12 @@ export default function Page() {
 
   //-------dummy data---------
   const movieData: Movie = {
-    title: 'Amélie',
+    title: 'Transformers One',
     year: '2010',
     rating: '8.3',
     runTime: '93',
-    posterImage: '/placeholder/imageNotFound.jpeg',
-    trailerVideoId: 'HUECWi5pX7o',
+    posterImage: '/transformerOne.jpg',
+    trailerVideoId: 'Xm42CdED8Kw',
     description:
       'Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.',
     cast: [
@@ -52,26 +52,43 @@ export default function Page() {
   };
 
   return (
-    <main className="pb-5">
-      {/*----------------youtube & poster section------------*/}
-      <section className="py-4 text-white">
-        <div className="container">
-          <div className="row g-4">
-            {/*-------movie poster--------*/}
-            <div className="col-md-4 col-lg-3">
-              <MoviePoster imageUrl={movieData.posterImage} title={movieData.title} />
-            </div>
+    <main className="pb-5 bg-dark text-white">
+      {/* Hero section with backdrop effect */}
+      <div className="position-relative mb-5">
+        <div
+          className="position-absolute w-100 h-100"
+          style={{
+            backgroundImage: `url(${movieData.posterImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: 'blur(60px) brightness(0.3)',
+            zIndex: 0,
+          }}
+        />
 
-            {/*-------Movie trailer---------*/}
-            <div className="col-md-8 col-lg-9">
-              <MovieTrailer
-                trailerVideoId={movieData.trailerVideoId}
-                onPlayerReady={onPlayerReady}
-              />
+        {/* Content overlay */}
+        <div className="position-relative z-1">
+          {/*----------------youtube & poster section------------*/}
+          <section className="py-5 text-white">
+            <div className="container">
+              <div className="row g-4">
+                {/*-------movie poster--------*/}
+                <div className="col-md-4 col-lg-3">
+                  <MoviePoster imageUrl={movieData.posterImage} title={movieData.title} />
+                </div>
+
+                {/*-------Movie trailer---------*/}
+                <div className="col-md-8 col-lg-9">
+                  <MovieTrailer
+                    trailerVideoId={movieData.trailerVideoId}
+                    onPlayerReady={onPlayerReady}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
+          </section>
         </div>
-      </section>
+      </div>
 
       {/*---------Movie info section--------*/}
       <div className="container mt-4">
@@ -89,7 +106,9 @@ export default function Page() {
         </div>
 
         {/*-----tabs section--------*/}
-        <MovieTabs cast={movieData.cast} />
+        <div className="mt-4 mb-4">
+          <MovieTabs cast={movieData.cast} />
+        </div>
       </div>
     </main>
   );
