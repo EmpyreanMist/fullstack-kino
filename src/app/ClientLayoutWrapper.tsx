@@ -13,7 +13,7 @@ export default function ClientLayoutWrapper({
   const pathname = usePathname();
 
   // Bakgrundsbild-logik
-  const showImage = !['/login'].includes(pathname);
+  const showImage = !['/login', '/movieInfo'].includes(pathname);
 
   // Knapp-logik
   const showLoginButton = pathname !== '/login';
