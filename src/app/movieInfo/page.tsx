@@ -27,9 +27,13 @@ export default function Page() {
     genres: ['Animation', 'Action', 'Adventure', 'Sci-Fi'],
     cast: [
       { name: 'Chris Hemsworth', role: 'Orion Pax / Optimus Prime', image: '/images.jpeg' },
+      { name: 'Jon Hamm', role: 'Sentinel Prime', image: '/imageNotFound4v4.png' },
       { name: 'Brian Tyree Henry', role: 'D-16 / Megatron', image: '/c.jpg' },
       { name: 'Scarlett Johansson', role: 'Elita-1', image: '/imageNotFound4v4.png' },
       { name: 'Keegan-Michael Key', role: 'B-127 / Bumblebee', image: '/Tom-Hardy.jpg' },
+      { name: 'Jon Hamm', role: 'Sentinel Prime', image: '/imageNotFound4v4.png' },
+      { name: 'Brian Tyree Henry', role: 'D-16 / Megatron', image: '/c.jpg' },
+      { name: 'Chris Hemsworth', role: 'Orion Pax / Optimus Prime', image: '/images.jpeg' },
       { name: 'Jon Hamm', role: 'Sentinel Prime', image: '/imageNotFound4v4.png' },
     ],
   };

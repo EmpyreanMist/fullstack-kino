@@ -54,7 +54,7 @@ const MovieDetails = ({
           </button>
           <button className="btn-ticket">
             <i className="bi bi-ticket-perforated-fill me-2"></i>
-            Book Tickets
+            Book Ticket
           </button>
         </div>
       </div>

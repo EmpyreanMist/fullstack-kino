@@ -21,32 +21,34 @@ const CastList = ({ cast }: CastListProps) => {
         <span>Scroll to see all cast members</span>
       </div>
 
-      <div className="cast-grid">
-        {cast.map((actor, index) => (
-          <div key={index} className="cast-card">
-            <div className="profile-wrapper">
-              <div className="profile-image-container">
-                <Image
-                  src={actor.image}
-                  alt={actor.name}
-                  width={120}
-                  height={120}
-                  className="profile-image"
-                  onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                    //---fallback-----
-                    const target = e.currentTarget as HTMLImageElement;
-                    target.src = '/imageNotFound4v4';
-                  }}
-                />
-                <div className="image-overlay"></div>
+      <div className="cast-grid-container">
+        <div className="cast-grid">
+          {cast.map((actor, index) => (
+            <div key={index} className="cast-card">
+              <div className="profile-wrapper">
+                <div className="profile-image-container">
+                  <Image
+                    src={actor.image}
+                    alt={actor.name}
+                    width={120}
+                    height={120}
+                    className="profile-image"
+                    onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                      //---fallback-----
+                      const target = e.currentTarget as HTMLImageElement;
+                      target.src = '/imageNotFound4v4';
+                    }}
+                  />
+                  <div className="image-overlay"></div>
+                </div>
+              </div>
+              <div className="cast-info">
+                <h3 className="actor-name">{actor.name}</h3>
+                <p className="actor-role">{actor.role}</p>
               </div>
             </div>
-            <div className="cast-info">
-              <h3 className="actor-name">{actor.name}</h3>
-              <p className="actor-role">{actor.role}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </>
   );
