@@ -30,10 +30,10 @@ export default function Page() {
     description:
       'Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.',
     cast: [
-      { name: 'Audrey Tautou', role: 'Amélie Poulain', image: '/imageNotFound4v4.png' },
-      { name: 'Mathieu Kassovitz', role: 'Nino Quincampoix', image: '/imageNotFound4v4.png' },
+      { name: 'Audrey Tautou', role: 'Amélie Poulain', image: '/images.jpeg' },
+      { name: 'Mathieu Kassovitz', role: 'Nino Quincampoix', image: '/c.jpg' },
       { name: 'Rufus', role: 'Raphaël Poulain', image: '/imageNotFound4v4.png' },
-      { name: 'Jamel Debbouze', role: 'Lucien', image: '/imageNotFound4v4.png' },
+      { name: 'Jamel Debbouze', role: 'Lucien', image: '/Tom-Hardy.jpg' },
       { name: 'Isabelle Nanty', role: 'Georgette', image: '/imageNotFound4v4.png' },
     ],
   };
@@ -91,7 +91,7 @@ export default function Page() {
       </div>
 
       {/*---------Movie info section--------*/}
-      <div className="container mt-4">
+      <section className="container mt-4">
         <div className="row">
           <div className="col-12">
             <MovieDetails
@@ -105,11 +105,11 @@ export default function Page() {
           </div>
         </div>
 
-        {/*-----tabs section--------*/}
         <div className="mt-4 mb-4">
+          {/*-----tabs section--------*/}
           <MovieTabs cast={movieData.cast} />
         </div>
-      </div>
+      </section>
     </main>
   );
 }

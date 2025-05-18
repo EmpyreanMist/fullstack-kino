@@ -19,77 +19,218 @@ const MovieDetails = ({
   onPlayTrailer,
 }: MovieDetailsProps) => {
   return (
-    <div className="card bg-dark text-white border-0 shadow p-4 rounded-4 glass-effect">
-      <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-3">
-        <h1 className="mb-0 fw-bold">{title}</h1>
-        <button className="btn btn-primary rounded-3 px-4 py-2 animate-pulse">
-          <i className="bi bi-ticket-perforated-fill me-2"></i> Book ticket now
-        </button>
-      </div>
-
-      <p className="lead opacity-90 my-4">{description}</p>
-
-      {/* Movie detail stats */}
-      <div className="d-flex flex-wrap gap-5 mt-4 justify-content-center justify-content-md-start">
-        <div className="text-center stats-item">
-          <div className="fs-3 fw-bold">{year}</div>
-          <div className="text-light-emphasis small text-uppercase">Year</div>
+    <div className="movie-details-card">
+      <div className="movie-header">
+        <div className="title-section">
+          <h1 className="movie-title">{title}</h1>
+          <div className="movie-badges">
+            <span className="badge bg-secondary me-2">{year}</span>
+            <span className="badge bg-secondary me-2">{runTime} min</span>
+            <span className="rating-badge">
+              <i className="bi bi-star-fill me-1"></i>
+              {rating}
+            </span>
+          </div>
         </div>
-        <div className="text-center stats-item">
-          <div className="fs-3 fw-bold text-warning">{rating}</div>
-          <div className="text-light-emphasis small text-uppercase">Ratings</div>
-        </div>
-        <div className="text-center stats-item">
-          <div className="fs-3 fw-bold">{runTime} min</div>
-          <div className="text-light-emphasis small text-uppercase">Run time</div>
-        </div>
-        <div className="text-center ms-auto d-none d-md-block">
-          <button
-            onClick={onPlayTrailer}
-            className="btn btn-danger rounded-3 px-4 py-2 d-flex align-items-center gap-2"
-            aria-label="Play trailer"
-          >
-            <i className="bi bi-play-circle-fill fs-5"></i>
-            <span>Watch Trailer</span>
+        <div className="action-buttons">
+          <button onClick={onPlayTrailer} className="btn-trailer" aria-label="Play trailer">
+            <i className="bi bi-play-circle-fill me-2"></i>
+            Watch Trailer
+          </button>
+          <button className="btn-ticket">
+            <i className="bi bi-ticket-perforated-fill me-2"></i>
+            Book Tickets
           </button>
         </div>
       </div>
 
+      <div className="movie-description">
+        <p>{description}</p>
+      </div>
+
+      <div className="movie-stats">
+        <div className="stat-item">
+          <i className="bi bi-calendar-event stat-icon"></i>
+          <div className="stat-content">
+            <div className="stat-value">{year}</div>
+            <div className="stat-label">Release Year</div>
+          </div>
+        </div>
+        <div className="stat-item">
+          <i className="bi bi-star stat-icon"></i>
+          <div className="stat-content">
+            <div className="stat-value">{rating}</div>
+            <div className="stat-label">IMDb Rating</div>
+          </div>
+        </div>
+        <div className="stat-item">
+          <i className="bi bi-clock stat-icon"></i>
+          <div className="stat-content">
+            <div className="stat-value">{runTime} min</div>
+            <div className="stat-label">Duration</div>
+          </div>
+        </div>
+      </div>
+
       <style jsx>{`
-        .glass-effect {
-          background: rgba(33, 37, 41, 0.8);
+        .movie-details-card {
+          background: linear-gradient(
+            to bottom right,
+            rgba(30, 30, 45, 0.9),
+            rgba(20, 20, 30, 0.85)
+          );
           backdrop-filter: blur(10px);
+          border-radius: 16px;
+          padding: 2rem;
+          color: white;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .animate-pulse {
+
+        .movie-header {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .movie-title {
+          font-size: 2.5rem;
+          font-weight: 700;
+          margin: 0;
+          background: linear-gradient(to right, #ffffff, #e0e0e0);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+          letter-spacing: -0.5px;
+        }
+
+        .movie-badges {
+          display: flex;
+          align-items: center;
+          margin-top: 0.5rem;
+        }
+
+        .rating-badge {
+          background-color: #ffc107;
+          color: #000;
+          padding: 0.35rem 0.65rem;
+          font-weight: 600;
+          border-radius: 0.375rem;
+          font-size: 0.85rem;
+          display: inline-flex;
+          align-items: center;
+        }
+
+        .action-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+
+        .btn-trailer,
+        .btn-ticket {
+          display: inline-flex;
+          align-items: center;
+          padding: 0.75rem 1.5rem;
+          border-radius: 8px;
+          font-weight: 600;
+          transition: all 0.3s ease;
+          border: none;
+          cursor: pointer;
+        }
+
+        .btn-trailer {
+          background: linear-gradient(to right, #e50914, #b20710);
+          color: white;
+          box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+        }
+
+        .btn-trailer:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 7px 20px rgba(229, 9, 20, 0.6);
+        }
+
+        .btn-ticket {
+          background: linear-gradient(to right, #3498db, #2980b9);
+          color: white;
+          box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
           animation: pulse 2s infinite;
         }
-        .stats-item {
-          position: relative;
+
+        .btn-ticket:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 7px 20px rgba(52, 152, 219, 0.6);
         }
-        .stats-item:not(:last-child):after {
-          content: '';
-          position: absolute;
-          right: -2.5rem;
-          top: 50%;
-          transform: translateY(-50%);
-          height: 30px;
-          width: 1px;
-          background: rgba(255, 255, 255, 0.2);
+
+        .movie-description {
+          margin: 1.5rem 0;
+          padding: 1rem 0;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          font-size: 1.1rem;
+          line-height: 1.6;
+          color: rgba(255, 255, 255, 0.9);
         }
-        @media (max-width: 768px) {
-          .stats-item:after {
-            display: none;
-          }
+
+        .movie-stats {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 2rem;
+          justify-content: space-around;
+          padding-top: 0.5rem;
         }
+
+        .stat-item {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .stat-icon {
+          font-size: 1.75rem;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 50%;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .stat-content {
+          text-align: left;
+        }
+
+        .stat-value {
+          font-weight: 700;
+          font-size: 1.2rem;
+        }
+
+        .stat-label {
+          font-size: 0.8rem;
+          color: rgba(255, 255, 255, 0.6);
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+
         @keyframes pulse {
           0% {
-            box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.7);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
           }
-          70% {
-            box-shadow: 0 0 0 10px rgba(13, 110, 253, 0);
+          50% {
+            box-shadow: 0 4px 25px rgba(52, 152, 219, 0.7);
           }
           100% {
-            box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+          }
+        }
+
+        @media (min-width: 768px) {
+          .movie-header {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
           }
         }
       `}</style>
