@@ -59,7 +59,6 @@ export default function Page() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: 'blur(60px) brightness(0.3)',
-            zIndex: 0,
           }}
         />
 
