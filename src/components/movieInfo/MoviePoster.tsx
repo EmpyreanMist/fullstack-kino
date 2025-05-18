@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import '@/styles/movieInfo/MoviePoster.css';
 
 type MoviePosterProps = {
   imageUrl: string;
@@ -28,30 +29,6 @@ const MoviePoster = ({ imageUrl, title }: MoviePosterProps) => {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .poster-card {
-          transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-        }
-        .poster-card:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
-        }
-        .poster-gradient-overlay {
-          background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-          border-radius: 0 0 16px 16px;
-        }
-        .poster-glow {
-          background: radial-gradient(
-            circle at 50% 50%,
-            rgba(255, 255, 255, 0.1) 0%,
-            transparent 60%
-          );
-          filter: blur(20px);
-          opacity: 0.5;
-        }
-      `}</style>
     </div>
   );
 };

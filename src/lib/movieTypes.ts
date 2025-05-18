@@ -12,5 +12,6 @@ export type Movie = {
   description: string;
   posterImage: string;
   trailerVideoId: string;
+  genres: string[];
   cast: CastMember[];
 };

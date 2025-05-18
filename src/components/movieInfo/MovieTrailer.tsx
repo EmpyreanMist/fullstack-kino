@@ -1,6 +1,7 @@
 'use client';
 import React, { useRef } from 'react';
 import YouTube, { YouTubeProps, YouTubeEvent } from 'react-youtube';
+import '@/styles/movieInfo/MovieTrailer.css';
 
 type MovieTrailerProps = {
   trailerVideoId: string;
@@ -8,7 +9,7 @@ type MovieTrailerProps = {
 };
 
 const MovieTrailer = ({ trailerVideoId, onPlayerReady }: MovieTrailerProps) => {
-  const playerRef = useRef<any>(null);
+  const playerRef = useRef<YouTubeEvent['target']>(null);
 
   const opts: YouTubeProps['opts'] = {
     height: '100%',
@@ -31,16 +32,10 @@ const MovieTrailer = ({ trailerVideoId, onPlayerReady }: MovieTrailerProps) => {
   };
 
   return (
-    <div className="h-100">
-      <div className="ratio ratio-16x9 shadow rounded-4 overflow-hidden h-100">
+    <div className="movie-trailer-container">
+      <div className="movie-trailer-video">
         <YouTube videoId={trailerVideoId} opts={opts} onReady={onReady} />
       </div>
-
-      <style jsx>{`
-        div {
-          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-        }
-      `}</style>
     </div>
   );
 };

@@ -1,40 +1,36 @@
 'use client';
 import React, { useRef } from 'react';
 import { Movie } from '@/lib/movieTypes';
-import MoviePoster from '@/components/movie/MoviePoster';
-import MovieTrailer from '@/components/movie/MovieTrailer';
-import MovieDetails from '@/components/movie/MovieDetails';
-import MovieTabs from '@/components/movie/MovieTabs';
+import MoviePoster from '@/components/movieInfo/MoviePoster';
+import MovieTrailer from '@/components/movieInfo/MovieTrailer';
+import MovieDetails from '@/components/movieInfo/MovieDetails';
+import MovieTabs from '@/components/movieInfo/MovieTabs';
 
 //-------youtube iframe interface--------
 interface YouTubePlayer {
   playVideo: () => void;
-  pauseVideo: () => void;
-  stopVideo: () => void;
-  seekTo: (seconds: number) => void;
-  mute: () => void;
-  unMute: () => void;
 }
 
 export default function Page() {
   const playerRef = useRef<YouTubePlayer>(null as unknown as YouTubePlayer);
 
-  //-------dummy data---------
+  //-------movie data---------
   const movieData: Movie = {
     title: 'Transformers One',
-    year: '2010',
-    rating: '8.3',
-    runTime: '93',
+    year: '2024',
+    rating: '7.1',
+    runTime: '104',
     posterImage: '/transformerOne.jpg',
-    trailerVideoId: 'Xm42CdED8Kw',
+    trailerVideoId: '0rmJXXKDrsM',
     description:
-      'Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.',
+      'Discover how Optimus Prime and Megatron, once brothers-in-arms, became mortal enemies in this origin story set on their home planet Cybertron. The animated prequel explores the early relationship between these iconic Transformers before their bitter rivalry.',
+    genres: ['Animation', 'Action', 'Adventure', 'Sci-Fi'],
     cast: [
-      { name: 'Audrey Tautou', role: 'Amélie Poulain', image: '/images.jpeg' },
-      { name: 'Mathieu Kassovitz', role: 'Nino Quincampoix', image: '/c.jpg' },
-      { name: 'Rufus', role: 'Raphaël Poulain', image: '/imageNotFound4v4.png' },
-      { name: 'Jamel Debbouze', role: 'Lucien', image: '/Tom-Hardy.jpg' },
-      { name: 'Isabelle Nanty', role: 'Georgette', image: '/imageNotFound4v4.png' },
+      { name: 'Chris Hemsworth', role: 'Orion Pax / Optimus Prime', image: '/images.jpeg' },
+      { name: 'Brian Tyree Henry', role: 'D-16 / Megatron', image: '/c.jpg' },
+      { name: 'Scarlett Johansson', role: 'Elita-1', image: '/imageNotFound4v4.png' },
+      { name: 'Keegan-Michael Key', role: 'B-127 / Bumblebee', image: '/Tom-Hardy.jpg' },
+      { name: 'Jon Hamm', role: 'Sentinel Prime', image: '/imageNotFound4v4.png' },
     ],
   };
 
@@ -42,9 +38,7 @@ export default function Page() {
   const playTrailer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(() => {
-      if (playerRef.current) {
-        playerRef.current.playVideo();
-      }
+      playerRef.current?.playVideo();
     }, 800);
   };
   const onPlayerReady = (player: unknown) => {
@@ -53,7 +47,6 @@ export default function Page() {
 
   return (
     <main className="pb-5 bg-dark text-white">
-      {/* Hero section with backdrop effect */}
       <div className="position-relative mb-5">
         <div
           className="position-absolute w-100 h-100"
@@ -66,7 +59,6 @@ export default function Page() {
           }}
         />
 
-        {/* Content overlay */}
         <div className="position-relative z-1">
           {/*----------------youtube & poster section------------*/}
           <section className="py-5 text-white">
@@ -100,6 +92,7 @@ export default function Page() {
               rating={movieData.rating}
               runTime={movieData.runTime}
               description={movieData.description}
+              genres={movieData.genres}
               onPlayTrailer={playTrailer}
             />
           </div>
