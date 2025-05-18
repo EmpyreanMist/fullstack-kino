@@ -5,7 +5,7 @@ import '@/styles/movieInfo/CastList.css';
 
 type CastMember = {
   name: string;
-  role: string;
+  character: string;
   image: string;
 };
 
@@ -44,7 +44,7 @@ const CastList = ({ cast }: CastListProps) => {
               </div>
               <div className="cast-info">
                 <h3 className="actor-name">{actor.name}</h3>
-                <p className="actor-role">{actor.role}</p>
+                <p className="actor-role">{actor.character}</p>
               </div>
             </div>
           ))}

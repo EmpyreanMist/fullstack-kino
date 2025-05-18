@@ -14,27 +14,32 @@ interface YouTubePlayer {
 export default function Page() {
   const playerRef = useRef<YouTubePlayer>(null as unknown as YouTubePlayer);
 
-  //-------movie data---------
+  //-------Movie data interface---------
   const movieData: Movie = {
+    imdbId: 'tt123456',
     title: 'Transformers One',
     year: '2024',
     rating: '7.1',
     runTime: '104',
-    posterImage: '/transformerOne.jpg',
-    trailerVideoId: '0rmJXXKDrsM',
-    description:
-      'Discover how Optimus Prime and Megatron, once brothers-in-arms, became mortal enemies in this origin story set on their home planet Cybertron. The animated prequel explores the early relationship between these iconic Transformers before their bitter rivalry.',
-    genres: ['Animation', 'Action', 'Adventure', 'Sci-Fi'],
+    poster: '/transformerOne.jpg',
+    trailer: '0rmJXXKDrsM',
+    plot: 'Discover how Optimus Prime and Megatron, once brothers-in-arms, became mortal enemies in this origin story set on their home planet Cybertron. The animated prequel explores the early relationship between these iconic Transformers before their bitter rivalry.',
+    genre: [
+      { Animation: 'Animation' },
+      { Action: 'Action' },
+      { Adventure: 'Adventure' },
+      { 'Sci-Fi': 'Sci-Fi' },
+    ],
     cast: [
-      { name: 'Chris Hemsworth', role: 'Orion Pax / Optimus Prime', image: '/images.jpeg' },
-      { name: 'Jon Hamm', role: 'Sentinel Prime', image: '/imageNotFound4v4.png' },
-      { name: 'Brian Tyree Henry', role: 'D-16 / Megatron', image: '/c.jpg' },
-      { name: 'Scarlett Johansson', role: 'Elita-1', image: '/imageNotFound4v4.png' },
-      { name: 'Keegan-Michael Key', role: 'B-127 / Bumblebee', image: '/Tom-Hardy.jpg' },
-      { name: 'Jon Hamm', role: 'Sentinel Prime', image: '/imageNotFound4v4.png' },
-      { name: 'Brian Tyree Henry', role: 'D-16 / Megatron', image: '/c.jpg' },
-      { name: 'Chris Hemsworth', role: 'Orion Pax / Optimus Prime', image: '/images.jpeg' },
-      { name: 'Jon Hamm', role: 'Sentinel Prime', image: '/imageNotFound4v4.png' },
+      { name: 'Chris Hemsworth', character: 'Orion Pax / Optimus Prime', image: '/images.jpeg' },
+      { name: 'Jon Hamm', character: 'Sentinel Prime', image: '/imageNotFound4v4.png' },
+      { name: 'Brian Tyree Henry', character: 'D-16 / Megatron', image: '/c.jpg' },
+      { name: 'Scarlett Johansson', character: 'Elita-1', image: '/imageNotFound4v4.png' },
+      { name: 'Keegan-Michael Key', character: 'B-127 / Bumblebee', image: '/Tom-Hardy.jpg' },
+      { name: 'Jon Hamm', character: 'Sentinel Prime', image: '/imageNotFound4v4.png' },
+      { name: 'Brian Tyree Henry', character: 'D-16 / Megatron', image: '/c.jpg' },
+      { name: 'Chris Hemsworth', character: 'Orion Pax / Optimus Prime', image: '/images.jpeg' },
+      { name: 'Jon Hamm', character: 'Sentinel Prime', image: '/imageNotFound4v4.png' },
     ],
   };
 
@@ -55,7 +60,7 @@ export default function Page() {
         <div
           className="position-absolute w-100 h-100"
           style={{
-            backgroundImage: `url(${movieData.posterImage})`,
+            backgroundImage: `url(${movieData.poster})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: 'blur(60px) brightness(0.3)',
@@ -69,15 +74,12 @@ export default function Page() {
               <div className="row g-4">
                 {/*-------movie poster--------*/}
                 <div className="col-md-4 col-lg-3">
-                  <MoviePoster imageUrl={movieData.posterImage} title={movieData.title} />
+                  <MoviePoster imageUrl={movieData.poster} title={movieData.title} />
                 </div>
 
                 {/*-------Movie trailer---------*/}
                 <div className="col-md-8 col-lg-9">
-                  <MovieTrailer
-                    trailerVideoId={movieData.trailerVideoId}
-                    onPlayerReady={onPlayerReady}
-                  />
+                  <MovieTrailer trailerVideoId={movieData.trailer} onPlayerReady={onPlayerReady} />
                 </div>
               </div>
             </div>
@@ -93,9 +95,9 @@ export default function Page() {
               title={movieData.title}
               year={movieData.year}
               rating={movieData.rating}
-              runTime={movieData.runTime}
-              description={movieData.description}
-              genres={movieData.genres}
+              runTime={movieData.runTime || ''}
+              description={movieData.plot}
+              genres={movieData.genre.map(g => Object.keys(g)[0])}
               onPlayTrailer={playTrailer}
             />
           </div>
