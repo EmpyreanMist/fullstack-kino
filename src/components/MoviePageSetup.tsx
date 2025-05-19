@@ -4,6 +4,8 @@ import '../styles/globals.css';
 import CardPoster from './CardPoster';
 
 export default function MovieSetupMain() {
+
+
   return (
     <main className="bg-dark">
       <div className="p-5">
