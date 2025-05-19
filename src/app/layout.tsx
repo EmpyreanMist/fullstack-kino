@@ -4,7 +4,7 @@ import ClientLayoutWrapper from './ClientLayoutWrapper';
 
 export const metadata: Metadata = {
   title: 'Kino',
-  description: '',
+  description: 'Världens bästa biograf!',
 };
 
 export default function RootLayout({
