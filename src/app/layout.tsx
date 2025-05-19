@@ -1,8 +1,6 @@
-import type { Metadata } from 'next';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ClientBootstrapSetup from '@/lib/ClientBootstrapSetup';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import type { Metadata } from 'next';
+import ClientLayoutWrapper from './ClientLayoutWrapper';
 
 export const metadata: Metadata = {
   title: 'Kino',
@@ -11,16 +9,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body>
-        <Header />
-        <ClientBootstrapSetup />
-        {children}
-        <Footer />
+        <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
       </body>
     </html>
   );
