@@ -21,31 +21,31 @@ export default function HomePage(){
         img: "/seats.png",
         title: "Star Wars",
         description: "Movie info goes here",
-        id: "#"
+        id: "1"
     },
     {
         img: "/seats.png",
         title: "Godzilla",
         description: "Movie info goes here",
-        id: "#"
+        id: "2"
     },
     {
         img: "/seats.png",
         title: "The Hobbit",
         description: "Movie info goes here",
-        id: "#"
+        id: "3"
     },
     {
         img: "/seats.png",
         title: "Lord of the Rings",
         description: "Movie info goes here",
-        id: "#"
+        id: "4"
     },
     {
         img: "/seats.png",
         title: "Terminator",
         description: "Movie info goes here",
-        id: "#"
+        id: "5"
     }
 ];
 const screenings: Screening[] = [
@@ -53,37 +53,37 @@ const screenings: Screening[] = [
      date: "15 maj",
      time: "17.00",
      room: "Salong 1",
-     id: "#",   
+     id: "6",
     },
     {title: "Star Wars",
         date: "15 maj",
         time: "17.00",
         room: "Salong 1",
-        id: "#",   
+        id: "7",
        },
    {title: "Star Wars",
     date: "15 maj",
     time: "17.00",
     room: "Salong 1",
-    id: "#",   
+    id: "8",
    },
     {title: "Star Wars",
         date: "15 maj",
         time: "17.00",
         room: "Salong 1",
-        id: "#",   
+        id: "9",
     },
     {title: "Star Wars",
         date: "15 maj",
         time: "17.00",
         room: "Salong 1",
-        id: "#",   
+        id: "0",
     },
     {title: "Star Wars",
         date: "15 maj",
         time: "17.00",
         room: "Salong 1",
-        id: "#",   
+        id: "11",
     }];
     return(
         <main className="bg-dark">
