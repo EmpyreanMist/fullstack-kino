@@ -101,6 +101,7 @@ export default function MovieSetupMain() {
       </div>
 
       <section className="d-flex flex-wrap justify-content-center gap-4 mx-auto container-80">
+
         {loading ? (
           <p className="text-white">Laddar filmer...</p>
         ) : movies.length > 0 ? (
@@ -118,6 +119,7 @@ export default function MovieSetupMain() {
         ) : (
           <p className="text-white">Inga filmer hittades.</p>
         )}
+
       </section>
 
       <div className="d-flex justify-content-center pt-5 pb-2">

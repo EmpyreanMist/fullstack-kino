@@ -12,12 +12,14 @@
     "@popperjs/core": "^2.11.8",
     "@supabase/supabase-js": "^2.49.4",
     "bootstrap": "^5.3.6",
+    "bootstrap-icons": "^1.13.1",
     "dotenv": "^16.5.0",
     "mongoose": "^8.14.1",
     "next": "15.3.1",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-youtube": "^10.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
