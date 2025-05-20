@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import type { User } from '@supabase/supabase-js';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/lib/supabase/supabaseClient';
 import { loginWithCredentials } from '@/utils/loginWithCredentials';
 import { logoutUser } from '@/utils/logoutUser';
 
