@@ -1,131 +1,114 @@
-"use client";
+'use client';
 
-import Link from 'next/link';
 import '../styles/globals.css';
-/* import Image from 'next/image' */
 import CardPoster from './CardPoster';
 import { useState, useEffect } from 'react';
 
 type Movie = {
   _id: string;
-  imdbId: string;
   title: string;
+  poster: string;
   year: string;
   rating: string;
-  runtime: number;
-  trailer: string;
-  plot: string;
-  poster: string;
   genre: string[];
-  cast: {
-    name: string;
-    character: string;
-    image: string;
-  }[];
 };
 
 export default function MovieSetupMain() {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [page, setPage] = useState<number | 1>(1);
-  const [totalPages, setTotalPages] = useState<number | 1>(1);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [search, setSearch] = useState('');
+  const [genres, setGenres] = useState<string[]>([]);
+  const [sort, setSort] = useState('');
+  const [genreSelection, setGenreSelection] = useState<string[]>([]);
 
-  useEffect(()=> {
+  // Hämta alla genrar från api:n
+  useEffect(() => {
+    const fetchGenre = async () => {
+      const res = await fetch('api/movies/genre');
+      if (!res.ok) {
+        throw new Error(`${res.status}`)
+      }
+      const genreData = await res.json();
+      setGenreSelection(genreData.genres)
+    }
+    fetchGenre();
+  }, [])
+
+  // Fetch från API baserat på search, genre, sort, page
+  useEffect(() => {
     const fetchMovies = async () => {
-      const res = await fetch(`/api/movies?page=${page}`);
+      const params = new URLSearchParams();
+      if (search) params.set('search', search);
+      if (genres.length > 0) params.set('genre', genres.join(','));
+      if (sort) params.set('sort', sort);
+      params.set('page', page.toString());
+
+      const res = await fetch(`/api/movies?${params.toString()}`);
       const data = await res.json();
       setMovies(data.movies);
       setTotalPages(data.totalPages);
     };
     fetchMovies();
-  }, [page]);
+  }, [search, genres, sort, page]);
 
+  const handleGenreToggle = (genre: string) => {
+    setPage(1); // återställ till första sidan
+    setGenres((prev) =>
+      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
+    );
+  };
 
   return (
     <main className="bg-dark">
       <div className="p-5">
         <h1 className="text-white text-center pt-5 pb-5">Boka in ditt biobesök hos oss</h1>
-        <div className="bg-dark d-flex justify-content-center align-items-center pb-4">
-          <div className="position-relative">
+
+        <div className="bg-dark d-flex justify-content-center pb-4">
+          <div className="position-relative w-50">
             <input
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setPage(1);
+              }}
               type="text"
-              className="form-control rounded-pill search-bar pe-5"
+              className="form-control rounded-pill pe-5"
               placeholder="Sök..."
-              aria-label="Search"
             />
-            <button className="btn position-absolute top-50 end-0 translate-middle-y" type="button">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-search"
-                viewBox="0 0 16 16"
-              >
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-              </svg>
-            </button>
           </div>
         </div>
-        <section className="d-flex justify-content-center mx-auto gap-2 flex-wrap">
-          <input type="checkbox" className="btn-check primary" id="btn-check-2" />
-          <label className="btn btn-primary hover-shadow" htmlFor="btn-check-2">
-            Comedy
-          </label>
-          <input type="checkbox" className="btn-check" id="btn-check-3" />
-          <label className="btn btn-primary hover-shadow" htmlFor="btn-check-3">
-            Horror
-          </label>
-          <input type="checkbox" className="btn-check" id="btn-check-4" />
-          <label className="btn btn-primary hover-shadow" htmlFor="btn-check-4">
-            Romantic
-          </label>
-          <input type="checkbox" className="btn-check" id="btn-check-5" />
-          <label className="btn btn-primary hover-shadow" htmlFor="btn-check-5">
-            Foo
-          </label>
-          <input type="checkbox" className="btn-check" id="btn-check-6" />
-          <label className="btn btn-primary hover-shadow" htmlFor="btn-check-6">
-            Foo
-          </label>
-          <input type="checkbox" className="btn-check" id="btn-check-7" />
-          <label className="btn btn-primary hover-shadow" htmlFor="btn-check-7">
-            Foo
-          </label>
-        </section>
-        <section>
-          <div className="dropdown d-flex justify-content-center pt-5">
-            <Link
-              className="btn btn-secondary dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Sort by
-            </Link>
 
-            <ul className="dropdown-menu">
-              <li>
-                <Link className="dropdown-item" href="#">
-                  Rating
-                </Link>
-              </li>
-              <li>
-                <Link className="dropdown-item" href="#">
-                  Release date
-                </Link>
-              </li>
-              <li>
-                <Link className="dropdown-item" href="#">
-                  Something else here
-                </Link>
-              </li>
-            </ul>
-          </div>
+        {/* Genrefilter */}
+        <section className="d-flex justify-content-center flex-wrap gap-2 pb-3">
+          {genreSelection.map((genre) => (
+            <button
+              key={genre}
+              onClick={() => handleGenreToggle(genre)}
+              className={`btn btn-${genres.includes(genre) ? 'primary' : 'outline-primary'}`}
+            >
+              {genre}
+            </button>
+          ))}
         </section>
+
+        {/* Sortering */}
+        <div className="dropdown d-flex justify-content-center pt-3">
+          <button className="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
+            Sortera efter
+          </button>
+          <ul className="dropdown-menu">
+            <li><button className="dropdown-item" onClick={() => setSort('highest-rating')}>Högst betyg</button></li>
+            <li><button className="dropdown-item" onClick={() => setSort('lowest-rating')}>Lägst betyg</button></li>
+            <li><button className="dropdown-item" onClick={() => setSort('release-rating')}>Senaste filmer</button></li>
+            <li><button className="dropdown-item" onClick={() => setSort('')}>Inget</button></li>
+          </ul>
+        </div>
       </div>
+
+      {/* Filmer */}
       <section className="d-flex flex-wrap justify-content-center gap-4 mx-auto container-80">
-        {movies.map(movie => (
+        {movies.map((movie) => (
           <CardPoster
             key={movie._id}
             title={movie.title}
@@ -137,41 +120,23 @@ export default function MovieSetupMain() {
           />
         ))}
       </section>
+
+      {/* Paginering */}
       <div className="d-flex justify-content-center pt-5 pb-2">
-        <nav className="d-block m-auto" aria-label="...">
-<ul className="pagination">
-  {/* Previous-knapp */}
-  <li className={`page-item ${page === 1 ? 'disabled' : ''}`}>
-    <button
-      className="page-link"
-      onClick={() => setPage((p) => Math.max(1, p - 1))}
-      disabled={page === 1}
-    >
-      Previous
-    </button>
-  </li>
-
-  {/* Sidnummer */}
-  {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-    <li key={pageNum} className={`page-item ${page === pageNum ? 'active' : ''}`}>
-      <button className="page-link" onClick={() => setPage(pageNum)}>
-        {pageNum}
-      </button>
-    </li>
-  ))}
-
-  {/* Next-knapp */}
-  <li className={`page-item ${page === totalPages ? 'disabled' : ''}`}>
-    <button
-      className="page-link"
-      onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-      disabled={page === totalPages}
-    >
-      Next
-    </button>
-  </li>
-</ul>
-
+        <nav aria-label="Pagination">
+          <ul className="pagination">
+            <li className={`page-item ${page === 1 ? 'disabled' : ''}`}>
+              <button className="page-link" onClick={() => setPage((p) => Math.max(1, p - 1))}>Föregående</button>
+            </li>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+              <li key={p} className={`page-item ${p === page ? 'active' : ''}`}>
+                <button className="page-link" onClick={() => setPage(p)}>{p}</button>
+              </li>
+            ))}
+            <li className={`page-item ${page === totalPages ? 'disabled' : ''}`}>
+              <button className="page-link" onClick={() => setPage((p) => Math.min(totalPages, p + 1))}>Nästa</button>
+            </li>
+          </ul>
         </nav>
       </div>
     </main>
