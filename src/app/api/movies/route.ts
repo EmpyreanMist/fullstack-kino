@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import mongoose from 'mongoose';
-import connectDB from '../../../../backend/config/db';
-import Movie from '../../../../backend/models/movies';
+import connectDB from '@/lib/mongodb/db';
+import Movie from '@/lib/mongodb/models/movies';
 
 export async function GET(req: NextRequest) {
   await connectDB();
