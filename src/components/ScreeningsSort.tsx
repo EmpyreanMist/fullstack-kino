@@ -7,7 +7,6 @@ export default function sortScreenings(screenings: ScreeningProp[]) : ScreeningP
     const limit = new Date();
     limit.setDate(limit.getDate()+5);
     console.log(today + " "+limit);
-    //console.log(screenings);
     const sortedScreenings: ScreeningProp[] = screenings;
     return(sortedScreenings);
 }

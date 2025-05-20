@@ -3,7 +3,6 @@ export interface ScreeningProp {
         title: String,
         id: String,
     }
-    date: String,
-    time: String,
+    date: Date,
     room: String,
 };

@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 
 const screeningSchema = new mongoose.Schema({
-    date: String,
-    time: String,
+    date: Date,
     room: String,
     movie: {
         id: String,
