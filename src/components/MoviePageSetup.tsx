@@ -1,9 +1,43 @@
+"use client";
+
 import Link from 'next/link';
 import '../styles/globals.css';
 /* import Image from 'next/image' */
 import CardPoster from './CardPoster';
+import { useState, useEffect } from 'react';
+
+type Movie = {
+  _id: string;
+  imdbId: string;
+  title: string;
+  year: string;
+  rating: string;
+  runtime: number;
+  trailer: string;
+  plot: string;
+  poster: string;
+  genre: string[];
+  cast: {
+    name: string;
+    character: string;
+    image: string;
+  }[];
+};
 
 export default function MovieSetupMain() {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [page, setPage] = useState<number | 1>(1);
+  const [totalPages, setTotalPages] = useState<number | 1>(1);
+
+  useEffect(()=> {
+    const fetchMovies = async () => {
+      const res = await fetch(`/api/movies?page=${page}`);
+      const data = await res.json();
+      setMovies(data.movies);
+      setTotalPages(data.totalPages);
+    };
+    fetchMovies();
+  }, [page]);
 
 
   return (
@@ -91,128 +125,53 @@ export default function MovieSetupMain() {
         </section>
       </div>
       <section className="d-flex flex-wrap justify-content-center gap-4 mx-auto container-80">
-        <CardPoster
-          title={'Terminator'}
-          img={'/seats.png'}
-          width={200}
-          height={200}
-          description={'AWESOME MOVIE precis vad jag tänkte'}
-          id={'#'}
-        />
-        <CardPoster
-          title={'Terminator'}
-          img={'/seats.png'}
-          width={200}
-          height={200}
-          description={'AWESOME MOVIE afasdasf sasf asdfasgas df asgdsa fgs ggsadfasf asdf '}
-          id={'#'}
-        />
-        <CardPoster
-          title={'Terminator'}
-          img={'/seats.png'}
-          width={200}
-          height={200}
-          description={'Movie description will go here in the future'}
-          id={'#'}
-        />
-        <CardPoster
-          title={'Terminator'}
-          img={'/seats.png'}
-          width={200}
-          height={200}
-          description={'AWESOME MOVIE'}
-          id={'#'}
-        />
-        <CardPoster
-          title={'Terminator'}
-          img={'/seats.png'}
-          width={200}
-          height={200}
-          description={'AWESOME MOVIE'}
-          id={'#'}
-        />
-        <CardPoster
-          title={'Terminator'}
-          img={'/seats.png'}
-          width={200}
-          height={200}
-          description={'AWESOME MOVIE'}
-          id={'#'}
-        />
-        <CardPoster
-          title={'Terminator'}
-          img={'/seats.png'}
-          width={200}
-          height={200}
-          description={'AWESOME MOVIE'}
-          id={'#'}
-        />
-        <CardPoster
-          title={'Terminator'}
-          img={'/seats.png'}
-          width={200}
-          height={200}
-          description={'AWESOME MOVIE'}
-          id={'#'}
-        />
-        <CardPoster
-          title={'Terminator'}
-          img={'/seats.png'}
-          width={200}
-          height={200}
-          description={'AWESOME MOVIE'}
-          id={'#'}
-        />
-        <CardPoster
-          title={'Terminator'}
-          img={'/seats.png'}
-          width={200}
-          height={200}
-          description={'AWESOME MOVIE'}
-          id={'#'}
-        />
-        <CardPoster
-          title={'Terminator'}
-          img={'/seats.png'}
-          width={200}
-          height={200}
-          description={'AWESOME MOVIE'}
-          id={'#'}
-        />
-        <CardPoster
-          title={'Terminator'}
-          img={'/seats.png'}
-          width={200}
-          height={200}
-          description={'AWESOME MOVIE'}
-          id={'#'}
-        />
+        {movies.map(movie => (
+          <CardPoster
+            key={movie._id}
+            title={movie.title}
+            img={movie.poster}
+            width={200}
+            height={300}
+            genres={movie.genre}
+            id={movie._id}
+          />
+        ))}
       </section>
       <div className="d-flex justify-content-center pt-5 pb-2">
         <nav className="d-block m-auto" aria-label="...">
-          <ul className="pagination">
-            <li className="page-item disabled">
-              <span className="page-link">Previous</span>
-            </li>
-            <li className="page-item">
-              <Link className="page-link" href="#">
-                1
-              </Link>
-            </li>
-            <li className="page-item active">
-              <span className="page-link">2</span>
-            </li>
-            <li className="page-item">
-              <Link className="page-link" href="#">
-                3
-              </Link>
-            </li>
-            <li className="page-item">
-              <Link className="page-link" href="#">
-                Next
-              </Link>
-            </li>
-          </ul>
+<ul className="pagination">
+  {/* Previous-knapp */}
+  <li className={`page-item ${page === 1 ? 'disabled' : ''}`}>
+    <button
+      className="page-link"
+      onClick={() => setPage((p) => Math.max(1, p - 1))}
+      disabled={page === 1}
+    >
+      Previous
+    </button>
+  </li>
+
+  {/* Sidnummer */}
+  {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+    <li key={pageNum} className={`page-item ${page === pageNum ? 'active' : ''}`}>
+      <button className="page-link" onClick={() => setPage(pageNum)}>
+        {pageNum}
+      </button>
+    </li>
+  ))}
+
+  {/* Next-knapp */}
+  <li className={`page-item ${page === totalPages ? 'disabled' : ''}`}>
+    <button
+      className="page-link"
+      onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+      disabled={page === totalPages}
+    >
+      Next
+    </button>
+  </li>
+</ul>
+
         </nav>
       </div>
     </main>

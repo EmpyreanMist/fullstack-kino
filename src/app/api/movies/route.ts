@@ -1,50 +1,36 @@
-import { NextResponse } from 'next/server';
-/* import { supabase } from '@/lib/supabaseClient'; */
+import { NextRequest, NextResponse } from 'next/server';
+import mongoose from 'mongoose';
 import connectDB from '../../../../backend/config/db';
 import Movie from '../../../../backend/models/movies';
 
-/* import { MongoClient} from 'mongodb'; */
-
-export async function GET() {
-  console.log('hej');
+export async function GET(req: NextRequest) {
   await connectDB();
+  console.log("🔎 Databas:", mongoose.connection.name);
 
-
-  /* const { searchParams} = new URL(req.url); */
- /*  const currentPage: number = parseInt(searchParams.get('page')) | 0;
-  const limit = 8;
-  const page = parseInt(currentPage) || 1; */
-
+  const { searchParams } = new URL(req.url);
+  const page = parseInt(searchParams.get('page') || '1', 10); // t.ex. /api/movies?page=2
+  const limit = 12;
+  const skip = (page - 1) * limit;
 
   try {
-    const movies = await Movie.find();
-    /* const total = await Movie.countDocuments(); */
-    /* const moviesFinal = await Movie.find().skip((page - 1) ) */
-    console.log(movies);
-    return NextResponse.json(movies);
-  }
-  catch (error) {
-    console.error('Error fetching movies:', error);
-    return NextResponse.json({ error: 'Failed to fetch movies' }, { status: 500 });
-  }
+    const movies = await Movie.find({}, 'title poster rating year genre')
+      .skip(skip)
+      .limit(limit);
 
-  return NextResponse.json;
+    const totalMovies = await Movie.countDocuments();
+    const totalPages = Math.ceil(totalMovies / limit);
 
-  /* // Replace the uri string with your MongoDB deployment's connection string.
-    const uri =
-      "mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&writeConcern=majority";
-    const client = new MongoClient(uri);
-    async function run() {
-      try {
-        await client.connect();
-        // database and collection code goes here
-        // find code goes here
-        // iterate code goes here
-        const db = client.db
-      } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
-      }
-    }
-    run().catch(console.dir); */
+/*     console.log(movies.poster); */
+
+
+    return NextResponse.json({
+      currentPage: page,
+      totalPages,
+      totalMovies,
+      movies,
+    });
+  } catch (error) {
+    console.error('❌ Fel vid hämtning:', error);
+    return NextResponse.json({ error: 'Kunde inte hämta filmer' }, { status: 500 });
+  }
 }
