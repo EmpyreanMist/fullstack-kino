@@ -5,24 +5,50 @@ import Image from 'next/image';
 type Props = {
   img: string;
   title: string;
-  genres?: string[]; 
+  genres?: string[];
+  rating: number | null; 
   width: number;
   height: number;
   id: string;
 };
 
-export default function CardPoster({ img, title, genres, width, height, id }: Props) {
+export default function CardPoster({ img, title, genres, width, height, id, rating = 0 }: Props) {
+
   return (
     <div className="card bg-dark hover-shadow" style={{ width: '18rem' }}>
       <Link href={`/movieInfo`} className="text-decoration-none">
-        <Image src={img} className="card-img-top fluid object-fit-fill" alt="..." width={width} height={height} />
+        <Image
+          src={img}
+          className="card-img-top fluid object-fit-fill"
+          alt="..."
+          width={width}
+          height={height}
+        />
         <div className="card-body">
+          <section className="d-flex justify-content-start gap-2 pb-2">
+            {rating !== 0 ? 
+            (
+              
+              <>
+            <span>⭐ {rating}</span>
+          </>
+            ) : (<p>Släpps snart</p>)
+          }
           <h5 className="card-title text-white text-center">{title}</h5>
+            
+          </section>
 
           {genres && genres.length > 0 && (
-            <div className="d-flex flex-wrap justify-content-start mx-auto" style={{ width: '90%' }}>
+            <div
+              className="d-flex flex-wrap justify-content-start mx-auto"
+              style={{ width: '90%' }}
+            >
               {genres.map((genre, index) => (
-                <span key={index} className="badge bg-secondary text-white me-1 mb-1" style={{ fontSize: '12px' }}>
+                <span
+                  key={index}
+                  className="badge bg-secondary text-white me-1 mb-1"
+                  style={{ fontSize: '12px' }}
+                >
                   {genre}
                 </span>
               ))}

@@ -117,6 +117,7 @@ export default function MovieSetupMain() {
             height={300}
             genres={movie.genre}
             id={movie._id}
+            rating={parseFloat(movie.rating.slice(0, 3))}
           />
         ))}
       </section>

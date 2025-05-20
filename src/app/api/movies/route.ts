@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
   const sort: string = searchParams.get('sort') || '';
   const skip = (page - 1) * limit;
 
-  // 🔍 Bygg filter beroende på query
+  // Bygg filter beroende på query
 const filter: Record<string, unknown> = {};
 
   if (search) {
@@ -53,7 +53,7 @@ const sortOption: Record<string, 1 | -1> =
       movies,
     });
   } catch (error) {
-    console.error('❌ Fel vid hämtning:', error);
+    console.error('Fel vid hämtning:', error);
     return NextResponse.json({ error: 'Kunde inte hämta filmer' }, { status: 500 });
   }
 }
