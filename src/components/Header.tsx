@@ -10,7 +10,6 @@ import HeaderProps from '@/lib/typesHeader';
 
 export default function Header({ showImage = true, showLoginButton = true, showRegisterButton = true }: HeaderProps) {
 
-
   return (
     <header className="bg-dark position-relative">
       <Link href="/">
