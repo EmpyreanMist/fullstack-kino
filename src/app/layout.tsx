@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import type { Metadata } from 'next';
 import ClientLayoutWrapper from './ClientLayoutWrapper';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export const metadata: Metadata = {
   title: 'Kino',
