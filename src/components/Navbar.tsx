@@ -17,11 +17,12 @@ export default function Navigation({
   showRegisterButton = true,
 }: HeaderProps) {
   const [user, setUser] = useState<UserData | null>(null);
+  /* const [loggedIn, setLoggedIn] = useState<boolean>(false); */
   const router = useRouter();
 
   const fetchUser = async () => {
     try {
-      const res = await fetch('/api/user', { credentials: 'include' });
+      const res = await fetch('/api/user', { credentials: 'include', cache: 'no-store' });
       const data = await res.json();
       if (res.ok && data.user) {
         setUser(data.user);
@@ -34,26 +35,13 @@ export default function Navigation({
     }
   };
 
-  // ✅ Kör på första render
   useEffect(() => {
     fetchUser();
   }, []);
 
-  // ✅ Kör varje gång användaren navigerar någonstans (t.ex. efter login/logout)
-  useEffect(() => {
-    const handle = () => {
-      fetchUser();
-    };
-
-    window.addEventListener('visibilitychange', handle);
-    return () => {
-      window.removeEventListener('visibilitychange', handle);
-    };
-  }, []);
-
   const handleLogout = async () => {
     try {
-      const res = await fetch('/api/logout', { method: 'GET' });
+      const res = await fetch('/api/logout', { method: 'POST' });
       if (res.ok) {
         setUser(null);
         router.refresh();
@@ -81,7 +69,7 @@ export default function Navigation({
           </Nav.Link>
         </Nav>
 
-        {user ? (
+        {user !== null ? (
           <div className="d-flex flex-row justify-content-center gap-2 align-items-center">
             <span className="navbar-text me-3">Hej, {user.fullName}</span>
 

@@ -12,12 +12,12 @@ export async function POST(req: Request) {
     });
 
     if (error || !data.session) {
-      return NextResponse.json({ error: 'Fel email eller lösenord' }, { status: 401 });
+      return NextResponse.json({status: 400})
     }
 
-    return NextResponse.json({ session: data.session });
+    return NextResponse.json({ status: 200 });
   } catch (error) {
     console.error('Login error:', error);
-    return NextResponse.json({ error: 'Invalid login request' }, { status: 400 });
+    return NextResponse.json({ status: 500 });
   }
 }
