@@ -1,10 +1,11 @@
-/* import Navigation from './Navbar'; */
+'use client';
+
+import Navigation from './Navbar'; // nu OK!
 import logoHead from '../../public/logoHead.png';
 import seats from '../../public/seats.png';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import HeaderProps from '@/lib/typesHeader';
+import type HeaderProps from '@/lib/typesHeader';
 
 export default function Header({
   showImage = true,
@@ -16,7 +17,8 @@ export default function Header({
       <Link href="/">
         <Image src={logoHead} alt="Kino-logo" className="d-block mx-auto img-fluid" />
       </Link>
-      {/* <Navigation showRegisterButton={showRegisterButton} showLoginButton={showLoginButton}/> */}
+
+      <Navigation showRegisterButton={showRegisterButton} showLoginButton={showLoginButton} />
 
       {showImage && (
         <Image
