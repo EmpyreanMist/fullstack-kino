@@ -1,31 +1,22 @@
-'use client';
-
-import { Navbar, Nav, Button } from 'react-bootstrap';
-import { supabase } from '@/lib/supabaseClient';
+/* import { Navbar, Nav, Button } from 'react-bootstrap';
+import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import type HeaderProps from '@/lib/typesHeader';
-import UseGlobalLoginTimerResult from './GlobalLoginTimer';
 
-export default function Navigation({
+export default async function Navigation({
   showLoginButton = true,
   showRegisterButton = true,
 }: HeaderProps) {
-  const { user, isAuthenticated, secondsLeft, reset } = UseGlobalLoginTimerResult();
-
-  const handleSubmit = async () => {
-    try {
-      await supabase.auth.signOut(); // logga ut från Supabase
-      reset(); // nollställ lokal state
-    } catch (error) {
-      console.error('Kunde inte logga ut:', error);
-    }
-  };
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
     <Navbar expand="lg" bg="dark" variant="dark" className="p-3 text-light">
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
-        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
+        <Nav className="me-auto my-2 my-lg-0" navbarScroll>
           <Nav.Link as={Link} href="/" className="text-white">
             Hem
           </Nav.Link>
@@ -37,18 +28,15 @@ export default function Navigation({
           </Nav.Link>
         </Nav>
 
-        {isAuthenticated ? (
-          <>
-            <section className="d-flex flex-row justify-content-center gap-2 align-items-center">
-              <div className="d-flex flex-column">
-                <span className="navbar-text me-3">Hej, {user?.user_metadata.fullName}</span>
-                {secondsLeft <= 30 && <p className="text-danger">Du loggas ut om {secondsLeft} sekunder</p>}
-              </div>
-              <button onClick={handleSubmit} type="submit" className="btn btn-primary" style={{maxWidth: '100px'}}>
+        {user ? (
+          <div className="d-flex flex-row justify-content-center gap-2 align-items-center">
+            <span className="navbar-text me-3">Hej, {user.user_metadata.fullName}</span>
+            <form action="/logout" method="GET">
+              <Button type="submit" className="btn btn-primary" style={{ maxWidth: '100px' }}>
                 Logga ut
-              </button>
-            </section>
-          </>
+              </Button>
+            </form>
+          </div>
         ) : (
           <>
             {showRegisterButton && (
@@ -67,3 +55,4 @@ export default function Navigation({
     </Navbar>
   );
 }
+ */

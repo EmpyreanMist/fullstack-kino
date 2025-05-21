@@ -1,75 +1,33 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import type { User } from '@supabase/supabase-js';
-import { supabase } from '@/lib/supabase/supabaseClient';
-import { loginWithCredentials } from '@/utils/loginWithCredentials';
-import Link from 'next/link';
+
+import { useState } from 'react';
+import { createClient } from '@/lib/supabase/client'; // du har denna
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function LoginForm() {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [warning, setWarning] = useState<string>('');
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [warning, setWarning] = useState('');
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (data?.user) {
-        setUser(data.user);
-        setIsLoggedIn(true);
-      } else {
-        setUser(null);
-        setIsLoggedIn(false);
-      }
-    };
-
-    fetchUser();
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setWarning('');
 
-    try {
-      const user = await loginWithCredentials(email, password);
-      setUser(user);
-      router.push('/');
-    } catch (error) {
-      if (error instanceof Error) {
-        setWarning(error.message);
-      } else {
-        setWarning('Okänt fel vid inloggning');
-      }
+    const supabase = createClient();
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      setWarning(error.message);
+    } else {
+      router.push('/'); // eller dashboard
     }
   };
-
-  if (isLoggedIn && user) {
-    return (
-      <div
-        className="min-vh-100 d-flex justify-content-center align-items-center"
-        style={{
-          backgroundImage: 'url(/seats.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div
-          className="bg-dark p-4 rounded shadow text-white text-center"
-          style={{ opacity: 0.95 }}
-        >
-          <h2>Du är redan inloggad</h2>
-          <p>Välkommen, {user.user_metadata.fullName}</p>
-          <Link href="/" className="btn btn-primary mt-3">
-            Gå till startsidan
-          </Link>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div
@@ -122,9 +80,9 @@ export default function LoginForm() {
         </button>
 
         <div className="mt-3 text-center">
-          <a href="/register" className="text-white">
+          <Link href="/register" className="text-white">
             Skapa konto
-          </a>
+          </Link>
         </div>
       </form>
     </div>
