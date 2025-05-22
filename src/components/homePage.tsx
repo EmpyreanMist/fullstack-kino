@@ -105,6 +105,7 @@ const screenings: Screening[] = [
                                 width={200}
                                 height={200}
                                 id={movie.id}
+                                rating={1}
                             />
                         )};
                     </section>
