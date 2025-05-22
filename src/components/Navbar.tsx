@@ -17,7 +17,6 @@ export default function Navigation({
   showRegisterButton = true,
 }: HeaderProps) {
   const [user, setUser] = useState<UserData | null>(null);
-  /* const [loggedIn, setLoggedIn] = useState<boolean>(false); */
   const router = useRouter();
 
   const fetchUser = async () => {
