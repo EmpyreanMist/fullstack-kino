@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/lib//supabase/supabaseClient';
 import type { User } from '@supabase/supabase-js';
 
 export async function loginWithCredentials(email: string, password: string): Promise<User> {
