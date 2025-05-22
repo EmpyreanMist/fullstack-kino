@@ -56,14 +56,12 @@ export default function HomePage() {
   //let screenings: Screening[]=[];
  
    useEffect(() => {
-    console.log("trying to fetch in homepage");
       const fetchScreenings = async () => {
         const response = await fetch('api/screenings/upcoming')
         if (!response.ok) {
           throw new Error(`${response.status}`);
         }
         const payload = await response.json();
-        let upcomingScreenings: ScreeningProp[]; 
         payload.data.forEach((screening: ScreeningProp)=>{
           const date = new Date(screening.date);
           const datetime = date.toLocaleString();
@@ -72,8 +70,6 @@ export default function HomePage() {
           screening.date = datetime;
         })
         setScreenings(payload.data);
-        //console.log(screenings);
-        
       }
       fetchScreenings();
     }, []);
@@ -106,20 +102,17 @@ export default function HomePage() {
         </Col>
       </Container>
       <h2 className="text-white m-3 text-center">Kommande visningar</h2>
-      <div className="pb-3 pt-1 text-center d-flex flex-wrap justify-content-center">
-        <Col sm={15} md={10} lg={8} xl={6}>
+      <div className="pb-3 pt-1 text-center d-flex flex-wrap justify-content-center align-items-center">
+        <Col sm={15} md={12} lg={10} xl={8}>
           {screenings.map(screening => (
             <UpcomingScreening
-              key={/*screening.id*/Math.random()}
+              key={screening.id}
               title={screening.movie.title}
               date={screening.date}
-              //time={screening.time}
               room={screening.room}
-              id={screening.id}
               movieID={screening.movie.id}
             />
           ))}
-          ;
         </Col>
       </div>
     </main>
