@@ -95,7 +95,7 @@ export default function MovieSetupMain() {
           width={200}
           height={200}
           description={'AWESOME MOVIE precis vad jag tänkte'}
-          id={'#'}
+          id={'terminator-1'}
         />
         <CardPoster
           title={'Terminator'}
@@ -103,7 +103,7 @@ export default function MovieSetupMain() {
           width={200}
           height={200}
           description={'AWESOME MOVIE afasdasf sasf asdfasgas df asgdsa fgs ggsadfasf asdf '}
-          id={'#'}
+          id={'terminator-2'}
         />
         <CardPoster
           title={'Terminator'}
@@ -111,7 +111,7 @@ export default function MovieSetupMain() {
           width={200}
           height={200}
           description={'Movie description will go here in the future'}
-          id={'#'}
+          id={'terminator-3'}
         />
         <CardPoster
           title={'Terminator'}
@@ -119,7 +119,7 @@ export default function MovieSetupMain() {
           width={200}
           height={200}
           description={'AWESOME MOVIE'}
-          id={'#'}
+          id={'terminator-4'}
         />
         <CardPoster
           title={'Terminator'}
@@ -127,7 +127,7 @@ export default function MovieSetupMain() {
           width={200}
           height={200}
           description={'AWESOME MOVIE'}
-          id={'#'}
+          id={'terminator-5'}
         />
         <CardPoster
           title={'Terminator'}
@@ -135,7 +135,7 @@ export default function MovieSetupMain() {
           width={200}
           height={200}
           description={'AWESOME MOVIE'}
-          id={'#'}
+          id={'terminator-6'}
         />
         <CardPoster
           title={'Terminator'}
@@ -143,7 +143,7 @@ export default function MovieSetupMain() {
           width={200}
           height={200}
           description={'AWESOME MOVIE'}
-          id={'#'}
+          id={'terminator-7'}
         />
         <CardPoster
           title={'Terminator'}
@@ -151,7 +151,7 @@ export default function MovieSetupMain() {
           width={200}
           height={200}
           description={'AWESOME MOVIE'}
-          id={'#'}
+          id={'terminator-8'}
         />
         <CardPoster
           title={'Terminator'}
@@ -159,7 +159,7 @@ export default function MovieSetupMain() {
           width={200}
           height={200}
           description={'AWESOME MOVIE'}
-          id={'#'}
+          id={'terminator-9'}
         />
         <CardPoster
           title={'Terminator'}
@@ -167,7 +167,7 @@ export default function MovieSetupMain() {
           width={200}
           height={200}
           description={'AWESOME MOVIE'}
-          id={'#'}
+          id={'terminator-10'}
         />
         <CardPoster
           title={'Terminator'}
@@ -175,7 +175,7 @@ export default function MovieSetupMain() {
           width={200}
           height={200}
           description={'AWESOME MOVIE'}
-          id={'#'}
+          id={'terminator-11'}
         />
         <CardPoster
           title={'Terminator'}
@@ -183,7 +183,7 @@ export default function MovieSetupMain() {
           width={200}
           height={200}
           description={'AWESOME MOVIE'}
-          id={'#'}
+          id={'terminator-12'}
         />
       </section>
       <div className="d-flex justify-content-center pt-5 pb-2">
