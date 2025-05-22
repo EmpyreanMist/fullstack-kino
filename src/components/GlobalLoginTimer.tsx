@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/lib/supabase/supabaseClient';
 import { Session, User } from '@supabase/supabase-js';
 
 interface UseGlobalLoginTimerResult {

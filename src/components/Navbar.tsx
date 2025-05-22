@@ -1,7 +1,7 @@
 'use client';
 
 import { Navbar, Nav, Button } from 'react-bootstrap';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/lib/supabase/supabaseClient';
 import Link from 'next/link';
 import type HeaderProps from '@/lib/typesHeader';
 import UseGlobalLoginTimerResult from './GlobalLoginTimer';
