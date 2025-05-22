@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import connectDB from "../../../../../backend/config/db";
-import { Screening } from "../../../../../backend/models/screenings";
+import connectDB from "@/lib/mongodb/db";
+import { Screening } from "@/lib/mongodb/models/screenings";
 import sortScreenings from "@/components/ScreeningsSort";
 import { ScreeningProp } from "@/lib/typesScreening";
 
