@@ -6,13 +6,11 @@ export default function sortScreenings(screenings: ScreeningProp[]) : ScreeningP
     const limit = new Date();
     const sortedScreenings: ScreeningProp[] = [];
     limit.setDate(limit.getDate()+5);
-    console.log(today + " "+limit);
     screenings.forEach((screening)=>{
         if(screening.date >= today && screening.date <= limit){
             sortedScreenings.push(screening);
         }
     });
     sortedScreenings.sort((a, b) => a.date.getTime() - b.date.getTime());
-    console.log(sortedScreenings);
     return(sortedScreenings);
 }

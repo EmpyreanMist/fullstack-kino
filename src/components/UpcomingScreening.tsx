@@ -4,11 +4,12 @@ import Link from 'next/link';
 type Props = {
     title: String;
     date: String;
-    time: String;
+    //time: String;
     room: String;
     id: String;
+    movieID: String;
 }
-export default function UpcomingScreening({ title, date, time, room, id }: Props){
+export default function UpcomingScreening({ title, date/*, time*/ , room, id, movieID }: Props){
     return(
     <Card className="bg-dark border-light m-3 hover-shadow-5 grid" >
         <Row>
@@ -18,9 +19,9 @@ export default function UpcomingScreening({ title, date, time, room, id }: Props
         <Col>
             <h5 className="text-white m-2">{date}</h5>
         </Col>
-        <Col>
+        {/*<Col>
             <h5 className="text-white m-2">{time}</h5>
-        </Col>
+        </Col>*/}
         <Col>
             <h5 className="text-white m-2">{room}</h5>
         </Col>

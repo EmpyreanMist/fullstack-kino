@@ -1,21 +1,26 @@
+'use client'
 import { Button, Col, Container } from 'react-bootstrap';
 import Link from 'next/link';
 import UpcomingScreening from './UpcomingScreening';
 import CardPoster from './CardPoster';
+import { useEffect, useState } from 'react';
+import { ScreeningProp } from '@/lib/typesScreening';
+
 export default function HomePage() {
+  const [screenings, setScreenings] = useState<ScreeningProp[]>([]);
   type Movie = {
     img: string;
     title: string;
     description: string;
     id: string;
   };
-  type Screening = {
+ /* type Screening = {
     title: string;
     date: string;
-    time: string;
+    //time: string;
     room: string;
     id: string;
-  };
+  };*/
   const movies: Movie[] = [
     {
       img: '/seats.png',
@@ -48,14 +53,31 @@ export default function HomePage() {
       id: '5',
     },
   ];
-  const screenings: Screening[] = [
-    { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '6' },
-    { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '7' },
-    { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '8' },
-    { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '9' },
-    { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '0' },
-    { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '11' },
-  ];
+  //let screenings: Screening[]=[];
+ 
+   useEffect(() => {
+    console.log("trying to fetch in homepage");
+      const fetchScreenings = async () => {
+        const response = await fetch('api/screenings/upcoming')
+        if (!response.ok) {
+          throw new Error(`${response.status}`);
+        }
+        const payload = await response.json();
+        let upcomingScreenings: ScreeningProp[]; 
+        payload.data.forEach((screening: ScreeningProp)=>{
+          const date = new Date(screening.date);
+          const datetime = date.toLocaleString();
+          console.log("OG date is: "+screening.date);
+          console.log("Date string is: "+datetime);
+          screening.date = datetime;
+        })
+        setScreenings(payload.data);
+        //console.log(screenings);
+        
+      }
+      fetchScreenings();
+    }, []);
+ 
   return (
     <main className="bg-dark">
       <div className="text-center pt-5">
@@ -88,12 +110,13 @@ export default function HomePage() {
         <Col sm={15} md={10} lg={8} xl={6}>
           {screenings.map(screening => (
             <UpcomingScreening
-              key={screening.id}
-              title={screening.title}
+              key={/*screening.id*/Math.random()}
+              title={screening.movie.title}
               date={screening.date}
-              time={screening.time}
+              //time={screening.time}
               room={screening.room}
               id={screening.id}
+              movieID={screening.movie.id}
             />
           ))}
           ;
