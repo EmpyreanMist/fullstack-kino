@@ -9,7 +9,7 @@ const screeningSchema = new mongoose.Schema({
     },
 });
 
-const Screening = mongoose.model("Screening", screeningSchema);
+const Screening = mongoose.models.Screening ||mongoose.model("Screening", screeningSchema);
 export {
     Screening
 }
