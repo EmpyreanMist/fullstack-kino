@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import '@/styles/movieInfo/ReviewForm.css';
 import { createClient } from '@/lib/supabase/client';
 
@@ -16,23 +17,47 @@ const ReviewForm = ({ movieId, onReviewSubmitted }: ReviewFormProps) => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userProfile, setUserProfile] = useState<{ fullName?: string; email?: string } | null>(
+    null
+  );
 
-  //----chack for user loged in ------
+  //----check for user logged in and get user profile------
   useEffect(() => {
-    const checkLoginStatus = async () => {
+    const getUserData = async () => {
       const supabase = createClient();
-      const { data } = await supabase.auth.getSession();
-      setIsLoggedIn(!!data.session);
+      const { data: sessionData } = await supabase.auth.getSession();
+      const isUserLoggedIn = !!sessionData.session;
+      setIsLoggedIn(isUserLoggedIn);
+
+      if (isUserLoggedIn) {
+        //----Fetch user profile data----
+        try {
+          const response = await fetch('/api/user');
+          if (response.ok) {
+            const userData = await response.json();
+            if (userData.user) {
+              setUserProfile(userData.user);
+              setName(userData.user.fullName || userData.user.email || '');
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
     };
 
-    checkLoginStatus();
+    getUserData();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!name.trim()) {
-      setError('Please enter your name');
+      setError(
+        isLoggedIn
+          ? 'Your profile name is missing'
+          : 'Please enter your name or login to your account'
+      );
       return;
     }
 
@@ -97,15 +122,44 @@ const ReviewForm = ({ movieId, onReviewSubmitted }: ReviewFormProps) => {
           <label htmlFor="name" className="form-label">
             Your Name
           </label>
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            disabled={submitting}
-            required
-          />
+          {isLoggedIn ? (
+            //-----lock input to be user data only-----
+            <div className="input-group">
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                disabled={true}
+                required
+              />
+              <span className="input-group-text bg-success text-white">
+                <i className="bi bi-check-circle-fill"></i> Logged In
+              </span>
+            </div>
+          ) : (
+            //-------user not loged in------
+            <div>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                disabled={submitting}
+                placeholder="Enter your name"
+                required
+              />
+              <div className="form-text mt-1">
+                <span className="text-white">U are not loged in. </span>
+                <Link href="/login" className="text-primary">
+                  Login
+                </Link>
+                <span className="text-white"> to use ur name and profile pic</span>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="mb-3">
