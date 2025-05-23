@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import CastList from './CastList';
+import ReviewList from './ReviewList';
 import '@/styles/movieInfo/MovieTabs.css';
 
 type CastMember = {
@@ -11,9 +12,10 @@ type CastMember = {
 
 type MovieTabsProps = {
   cast: CastMember[];
+  movieId?: string;
 };
 
-const MovieTabs = ({ cast }: MovieTabsProps) => {
+const MovieTabs = ({ cast, movieId }: MovieTabsProps) => {
   const [activeTab, setActiveTab] = useState('cast');
 
   return (
@@ -81,12 +83,7 @@ const MovieTabs = ({ cast }: MovieTabsProps) => {
         <div className="tab-content-body">
           {activeTab === 'cast' && <CastList cast={cast} />}
 
-          {activeTab === 'Reviews' && (
-            <div className="content-placeholder">
-              <h3>Get review section</h3>
-              <p>Here will be filled with reviews from the data base</p>
-            </div>
-          )}
+          {activeTab === 'Reviews' && <ReviewList movieId={movieId} />}
 
           {activeTab === 'Make review' && (
             <div className="content-placeholder">

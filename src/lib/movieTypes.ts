@@ -9,6 +9,7 @@ export type GenreItem = {
 };
 
 export type Movie = {
+  _id?: string;
   imdbId?: string;
   title: string;
   year: string;
