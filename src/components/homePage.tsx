@@ -8,12 +8,15 @@ import { ScreeningProp } from '@/lib/typesScreening';
 
 export default function HomePage() {
   const [screenings, setScreenings] = useState<ScreeningProp[]>([]);
+  console.log("Screenings at start of homepage func "+screenings.length);
+  //console.log("Keys (start): "+screenings.keys.length);
   type Movie = {
     img: string;
     title: string;
     description: string;
     id: string;
   };
+
  /* type Screening = {
     title: string;
     date: string;
@@ -53,7 +56,7 @@ export default function HomePage() {
       id: '5',
     },
   ];
-  //let screenings: Screening[]=[];
+  
  
    useEffect(() => {
       const fetchScreenings = async () => {
@@ -70,9 +73,12 @@ export default function HomePage() {
           screening.date = datetime;
         })
         setScreenings(payload.data);
+        console.log("Screenings (in fetchScreenings): "+screenings.length);
       }
       fetchScreenings();
+      console.log("Screenings (after fetchScreenings): "+screenings.length);
     }, []);
+    
  
   return (
     <main className="bg-dark">
@@ -103,17 +109,21 @@ export default function HomePage() {
       </Container>
       <h2 className="text-white m-3 text-center">Kommande visningar</h2>
       <div className="pb-3 pt-1 text-center d-flex flex-wrap justify-content-center align-items-center">
-        <Col sm={15} md={12} lg={10} xl={8}>
-          {screenings.map(screening => (
-            <UpcomingScreening
-              key={screening.id}
-              title={screening.movie.title}
-              date={screening.date}
-              room={screening.room}
-              movieID={screening.movie.id}
-            />
-          ))}
-        </Col>
+        {(screenings.length == 0) && 
+          <h5 className='text-white '>Vi har tyvärr inga visningar de kommande dagarna</h5>
+        }
+        {(screenings.length > 0) &&  
+          <Col sm={15} md={12} lg={10} xl={8}>
+            {screenings.map(screening => (
+              <UpcomingScreening
+                key={screening.id}
+                title={screening.movie.title}
+                date={screening.date}
+                room={screening.room}
+                movieID={screening.movie.id}
+              />
+            ))}
+          </Col>}
       </div>
     </main>
   );
