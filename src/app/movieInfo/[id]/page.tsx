@@ -39,6 +39,9 @@ export default function Page({ params }: MoviePageProps) {
         }
 
         const data = await response.json();
+        console.log('Movie data from API:', data.movie);
+        console.log('Genre data:', data.movie.genre);
+
         setMovieData({
           _id: data.movie._id,
           imdbId: data.movie.imdbId,
@@ -136,7 +139,7 @@ export default function Page({ params }: MoviePageProps) {
               rating={movieData.rating}
               runTime={movieData.runTime || ''}
               description={movieData.plot}
-              genres={movieData.genre.map(g => Object.keys(g)[0])}
+              genres={movieData.genre}
               onPlayTrailer={playTrailer}
             />
           </div>
