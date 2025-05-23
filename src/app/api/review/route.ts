@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 
 const uri = process.env.MONGO_URI!;
 const client = new MongoClient(uri);
 
 type Review = {
-  movieId: string;
+  movieId: ObjectId;
   name: string;
   rating: number;
   comment: string;
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     };
 
     await client.connect();
-    const db = client.db(); 
+    const db = client.db();
     const collection = db.collection('reviews');
 
     const result = await collection.insertOne(review);
