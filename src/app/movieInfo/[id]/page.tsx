@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, use } from 'react';
 import { Movie } from '@/lib/movieTypes';
 import MoviePoster from '@/components/movieInfo/MoviePoster';
 import MovieTrailer from '@/components/movieInfo/MovieTrailer';
@@ -12,11 +12,12 @@ interface YouTubePlayer {
 }
 
 type MoviePageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }> | { id: string };
 };
 
 export default function Page({ params }: MoviePageProps) {
-  const movieId = params.id;
+  const resolvedParams = use(params as Promise<{ id: string }>);
+  const movieId = resolvedParams.id;
   const playerRef = useRef<YouTubePlayer>(null as unknown as YouTubePlayer);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
