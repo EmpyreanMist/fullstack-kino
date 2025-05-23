@@ -1,23 +1,58 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
-import { supabase } from '@/lib/supabase/supabaseClient';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import type HeaderProps from '@/lib/typesHeader';
-import UseGlobalLoginTimerResult from './GlobalLoginTimer';
+
+interface UserData {
+  email?: string;
+  fullName?: string;
+  id?: string;
+}
 
 export default function Navigation({
   showLoginButton = true,
   showRegisterButton = true,
 }: HeaderProps) {
-  const { user, isAuthenticated, secondsLeft, reset } = UseGlobalLoginTimerResult();
+  const [user, setUser] = useState<UserData | null>(null);
+  const router = useRouter();
 
-  const handleSubmit = async () => {
+  const fetchUser = async () => {
     try {
-      await supabase.auth.signOut(); // logga ut från Supabase
-      reset(); // nollställ lokal state
-    } catch (error) {
-      console.error('Kunde inte logga ut:', error);
+      const res = await fetch('/api/user', { credentials: 'include', cache: 'no-store' });
+      const data = await res.json();
+      if (res.ok && data.user) {
+        setUser(data.user);
+      } else {
+        setUser(null);
+      }
+    } catch (err) {
+      console.error('Kunde inte hämta användare:', err);
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch('/api/logout', { method: 'POST' });
+      if (res.ok) {
+        setUser(null);
+        if (window.location.pathname === '/profile') {
+          router.push('/login');
+        } else {
+          router.refresh();
+        }
+      } else {
+        console.error('Utloggning misslyckades');
+      }
+    } catch (err) {
+      console.error('Fel vid utloggning:', err);
     }
   };
 
@@ -25,7 +60,7 @@ export default function Navigation({
     <Navbar expand="lg" bg="dark" variant="dark" className="p-3 text-light">
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
-        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
+        <Nav className="me-auto my-2 my-lg-0" navbarScroll>
           <Nav.Link as={Link} href="/" className="text-white">
             Hem
           </Nav.Link>
@@ -37,18 +72,20 @@ export default function Navigation({
           </Nav.Link>
         </Nav>
 
-        {isAuthenticated ? (
-          <>
-            <section className="d-flex flex-row justify-content-center gap-2 align-items-center">
-              <div className="d-flex flex-column">
-                <span className="navbar-text me-3">Hej, {user?.user_metadata.fullName}</span>
-                {secondsLeft <= 30 && <p className="text-danger">Du loggas ut om {secondsLeft} sekunder</p>}
-              </div>
-              <button onClick={handleSubmit} type="submit" className="btn btn-primary" style={{maxWidth: '100px'}}>
-                Logga ut
-              </button>
-            </section>
-          </>
+        {user !== null ? (
+          <div className="d-flex flex-row justify-content-center gap-2 align-items-center">
+            <Link href="/profile">
+              <span className="navbar-text me-3">Hej, {user.fullName}</span>
+            </Link>
+
+            <Button
+              onClick={handleLogout}
+              className="btn btn-primary"
+              style={{ maxWidth: '100px' }}
+            >
+              Logga ut
+            </Button>
+          </div>
         ) : (
           <>
             {showRegisterButton && (

@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "@supabase/supabase-js": "^2.49.4",
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.49.7",
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
     "dotenv": "^16.5.0",

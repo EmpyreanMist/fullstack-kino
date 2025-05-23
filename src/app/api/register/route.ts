@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase/supabaseClient';
+import { createClient } from '@/lib/supabase/server';
 
 export async function POST(req: Request) {
   try {
+    const supabase = await createClient();
     const { fullName, email, password, birthDateString, phone, city } = await req.json();
 
     const { data, error } = await supabase.auth.signUp({
@@ -16,9 +17,9 @@ export async function POST(req: Request) {
       },
     });
 
-    if (error || data.user == null) {
+    if (error || !data.user) {
       return NextResponse.json(
-        { error: error?.message ?? 'Kunde inte skapa konto' },
+        { error: error?.message ?? 'Registrering misslyckades' },
         { status: 400 }
       );
     }
@@ -42,6 +43,6 @@ export async function POST(req: Request) {
     );
   } catch (err) {
     console.error(err);
-    return NextResponse.json({ error: 'Något gick fel' }, { status: 500 });
+    return NextResponse.json({ error: 'Internt serverfel' }, { status: 500 });
   }
 }

@@ -1,75 +1,42 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import type { User } from '@supabase/supabase-js';
-import { supabase } from '@/lib/supabase/supabaseClient';
-import { loginWithCredentials } from '@/utils/loginWithCredentials';
+
+import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 export default function LoginForm() {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [warning, setWarning] = useState<string>('');
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [warning, setWarning] = useState('');
 
-  const router = useRouter();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (data?.user) {
-        setUser(data.user);
-        setIsLoggedIn(true);
-      } else {
-        setUser(null);
-        setIsLoggedIn(false);
-      }
-    };
-
-    fetchUser();
-  }, []);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setWarning('');
 
     try {
-      const user = await loginWithCredentials(email, password);
-      setUser(user);
-      router.push('/');
-    } catch (error) {
-      if (error instanceof Error) {
-        setWarning(error.message);
-      } else {
-        setWarning('Okänt fel vid inloggning');
+      const res = await fetch('api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      const result = await res.json();
+      if (result.status === 400) {
+        setWarning('Fel email eller lösenord')
+      } else if (result.status === 200) {
+        setEmail('');
+        setPassword('');
+        window.location.reload();
+
       }
+      /*är det här jag ska lägga till router.push?*/
+    } catch (error) {
+      console.error('Login error:', error);
+      setWarning('Något gick fel');
+      return;
     }
   };
-
-  if (isLoggedIn && user) {
-    return (
-      <div
-        className="min-vh-100 d-flex justify-content-center align-items-center"
-        style={{
-          backgroundImage: 'url(/seats.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div
-          className="bg-dark p-4 rounded shadow text-white text-center"
-          style={{ opacity: 0.95 }}
-        >
-          <h2>Du är redan inloggad</h2>
-          <p>Välkommen, {user.user_metadata.fullName}</p>
-          <Link href="/" className="btn btn-primary mt-3">
-            Gå till startsidan
-          </Link>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div
@@ -87,7 +54,7 @@ export default function LoginForm() {
       >
         <h2 className="text-white mb-4 text-center">Logga in!</h2>
 
-        {warning && <div className="alert alert-danger">{warning}</div>}
+        {warning && <div className="alert alert-danger text-center">{warning}</div>}
 
         <div className="mb-3">
           <label htmlFor="email" className="form-label text-white">
@@ -116,15 +83,15 @@ export default function LoginForm() {
             required
           />
         </div>
-
+      
         <button type="submit" className="btn btn-primary w-100">
           Logga in
         </button>
 
         <div className="mt-3 text-center">
-          <a href="/register" className="text-white">
+          <Link href="/register" className="text-white">
             Skapa konto
-          </a>
+          </Link>
         </div>
       </form>
     </div>

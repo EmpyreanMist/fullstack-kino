@@ -10,9 +10,10 @@ type Props = {
   width: number;
   height: number;
   id: string;
+  description: string | null;
 };
 
-export default function CardPoster({ img, title, genres, width, height, id, rating = 0 }: Props) {
+export default function CardPoster({ img, title, genres, width, height, id, rating = 0, description = null }: Props) {
 
   return (
     <div className="card bg-dark hover-shadow" style={{ width: '18rem' }}>
@@ -35,7 +36,9 @@ export default function CardPoster({ img, title, genres, width, height, id, rati
             ) : (<p>Släpps snart</p>)
           }
           <h5 className="card-title text-white text-center">{title}</h5>
-            
+            {description && 
+            <p>{description}</p>
+            }
           </section>
 
           {genres && genres.length > 0 && (
