@@ -21,6 +21,11 @@ const MovieTabs = ({ cast, movieId }: MovieTabsProps) => {
   //-----refresh when new added-----
   const [refreshKey, setRefreshKey] = useState(0);
 
+  //---handle swithching tabs-----
+  const handleSwitchToReviewForm = () => {
+    setActiveTab('Make review');
+  };
+
   const handleReviewSubmitted = () => {
     setRefreshKey(prevKey => prevKey + 1);
   };
@@ -90,7 +95,13 @@ const MovieTabs = ({ cast, movieId }: MovieTabsProps) => {
         <div className="tab-content-body">
           {activeTab === 'cast' && <CastList cast={cast} />}
 
-          {activeTab === 'Reviews' && <ReviewList key={refreshKey} movieId={movieId} />}
+          {activeTab === 'Reviews' && (
+            <ReviewList
+              key={refreshKey}
+              movieId={movieId}
+              onWriteReviewClick={handleSwitchToReviewForm}
+            />
+          )}
 
           {activeTab === 'Make review' &&
             (movieId ? (

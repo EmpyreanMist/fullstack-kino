@@ -5,15 +5,12 @@ import ClientBootstrapSetup from '@/lib/ClientBootstrapSetup';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-export default function ClientLayoutWrapper({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ClientLayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   // Bakgrundsbild-logik
-  const showImage = !['/login', '/movieInfo'].includes(pathname);
+  const isMovieInfoPath = pathname === '/movieInfo' || pathname.startsWith('/movieInfo/');
+  const showImage = !['/login'].includes(pathname) && !isMovieInfoPath;
 
   // Knapp-logik
   const showLoginButton = pathname !== '/login';

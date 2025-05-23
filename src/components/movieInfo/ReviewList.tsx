@@ -16,9 +16,10 @@ type Review = {
 
 type ReviewListProps = {
   movieId?: string;
+  onWriteReviewClick?: () => void;
 };
 
-const ReviewList = ({ movieId }: ReviewListProps) => {
+const ReviewList = ({ movieId, onWriteReviewClick }: ReviewListProps) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -78,12 +79,7 @@ const ReviewList = ({ movieId }: ReviewListProps) => {
           <h5>No reviews yet</h5>
           <p className="text-muted">Be the first to share your thoughts about this movie!</p>
           {movieId && (
-            <button
-              className="btn btn-outline-primary mt-2"
-              onClick={() =>
-                document.querySelector('.tab-item:nth-child(3)')?.dispatchEvent(new Event('click'))
-              }
-            >
+            <button className="btn btn-outline-primary mt-2" onClick={onWriteReviewClick}>
               <i className="bi bi-pencil-fill me-2"></i>
               Write a Review
             </button>
