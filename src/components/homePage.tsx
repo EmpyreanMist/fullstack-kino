@@ -116,7 +116,7 @@ export default function HomePage() {
           <h5 className='text-white '>Vi har tyvärr inga visningar de kommande dagarna</h5>
         }
         {(screenings.length > 0) &&  
-          <Col sm={15} md={12} lg={10} xl={8}>
+          <Col sm={11} md={12} lg={10} xl={8}>
             {screenings.map(screening => (
               <UpcomingScreening
                 key={screening.id}
