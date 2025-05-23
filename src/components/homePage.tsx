@@ -67,9 +67,12 @@ export default function HomePage() {
         const payload = await response.json();
         payload.data.forEach((screening: ScreeningProp)=>{
           const date = new Date(screening.date);
-          const datetime = date.toLocaleString();
-          console.log("OG date is: "+screening.date);
-          console.log("Date string is: "+datetime);
+          const datetime = date.toLocaleString("sv-Se",{
+            day: "numeric",
+            month: "long",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
           screening.date = datetime;
         })
         setScreenings(payload.data);
