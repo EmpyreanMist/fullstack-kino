@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import CastList from './CastList';
 import ReviewList from './ReviewList';
+import ReviewForm from './ReviewForm';
 import '@/styles/movieInfo/MovieTabs.css';
 
 type CastMember = {
@@ -17,6 +18,12 @@ type MovieTabsProps = {
 
 const MovieTabs = ({ cast, movieId }: MovieTabsProps) => {
   const [activeTab, setActiveTab] = useState('cast');
+  //-----refresh when new added-----
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleReviewSubmitted = () => {
+    setRefreshKey(prevKey => prevKey + 1);
+  };
 
   return (
     <>
@@ -83,14 +90,17 @@ const MovieTabs = ({ cast, movieId }: MovieTabsProps) => {
         <div className="tab-content-body">
           {activeTab === 'cast' && <CastList cast={cast} />}
 
-          {activeTab === 'Reviews' && <ReviewList movieId={movieId} />}
+          {activeTab === 'Reviews' && <ReviewList key={refreshKey} movieId={movieId} />}
 
-          {activeTab === 'Make review' && (
-            <div className="content-placeholder">
-              <h3>Post review section</h3>
-              <p>Here should making review section be placed</p>
-            </div>
-          )}
+          {activeTab === 'Make review' &&
+            (movieId ? (
+              <ReviewForm movieId={movieId} onReviewSubmitted={handleReviewSubmitted} />
+            ) : (
+              <div className="alert alert-warning mt-3">
+                <i className="bi bi-exclamation-triangle me-2"></i>
+                Please select a movie to write a review
+              </div>
+            ))}
         </div>
       </div>
     </>

@@ -1,0 +1,63 @@
+.review-form-container {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.rating-selector {
+  display: flex;
+  align-items: center;
+}
+
+.rating-star {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #6c757d;
+  margin-right: 0.25rem;
+  transition: color 0.2s;
+}
+
+.rating-star.active {
+  color: #ffc107;
+}
+
+.rating-star:hover {
+  transform: scale(1.2);
+}
+
+.form-control {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.form-control:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: #0d6efd;
+  color: white;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.form-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+.alert {
+  margin-bottom: 1rem;
+}
