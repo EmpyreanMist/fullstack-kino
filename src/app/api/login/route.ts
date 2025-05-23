@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     });
 
     if (error || !data.session) {
-      return NextResponse.json({status: 400})
+      return NextResponse.json({ status: 400 });
     }
 
     return NextResponse.json({ status: 200 });
