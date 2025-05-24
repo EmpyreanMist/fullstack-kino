@@ -143,8 +143,14 @@ const ReviewList = ({ movieId, onWriteReviewClick }: ReviewListProps) => {
                 </div>
               </div>
               <div className="review-rating">
-                <span>{review.rating}</span>
-                <i className="bi bi-star-fill text-warning ms-1"></i>
+                {[...Array(5)].map((_, index) => (
+                  <i
+                    key={index}
+                    className={`bi ${
+                      index < review.rating ? 'bi-star-fill' : 'bi-star'
+                    } text-warning`}
+                  ></i>
+                ))}
               </div>
             </div>
             <div className="review-content">

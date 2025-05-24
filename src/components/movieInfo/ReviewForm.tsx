@@ -113,7 +113,11 @@ const ReviewForm = ({ movieId, onReviewSubmitted }: ReviewFormProps) => {
 
   return (
     <div className="review-form-container">
-      {success && <div className="alert alert-success">The review is submited, Nicely done!</div>}
+      {success && (
+        <div className="alert alert-success">
+          <i className="bi bi-check-circle me-2"></i> your review submitted, nicely done!
+        </div>
+      )}
 
       {error && <div className="alert alert-danger">{error}</div>}
 
@@ -152,11 +156,11 @@ const ReviewForm = ({ movieId, onReviewSubmitted }: ReviewFormProps) => {
                 required
               />
               <div className="form-text mt-1">
-                <span className="text-white">U are not loged in. </span>
+                <span className="text-white">You are not logged in btw. </span>
                 <Link href="/login" className="text-primary">
                   Login
                 </Link>
-                <span className="text-white"> to use ur name and profile pic</span>
+                <span className="text-white"> to use your name and pic</span>
               </div>
             </div>
           )}
@@ -173,16 +177,15 @@ const ReviewForm = ({ movieId, onReviewSubmitted }: ReviewFormProps) => {
                 className={`rating-star ${value <= rating ? 'active' : ''}`}
                 onClick={() => setRating(value)}
               >
-                <i className="bi bi-star-fill"></i>
+                <i className={`bi ${value <= rating ? 'bi-star-fill' : 'bi-star'}`}></i>
               </span>
             ))}
-            <span className="ms-2">({rating}/5)</span>
           </div>
         </div>
 
         <div className="mb-3">
           <label htmlFor="comment" className="form-label">
-            What do you think about the moviee?
+            What do you think about the movier?
           </label>
           <textarea
             className="form-control"
