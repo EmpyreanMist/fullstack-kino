@@ -74,13 +74,7 @@ const ReviewList = ({ movieId, onWriteReviewClick }: ReviewListProps) => {
         <div className="empty-review-state">
           <i className="bi bi-chat-left-text fs-1 mb-3 text-secondary"></i>
           <h5>No reviews yet</h5>
-          <p className="text-muted">Be the first to share your thoughts about this movie!</p>
-          {movieId && (
-            <button className="btn btn-outline-primary mt-2" onClick={onWriteReviewClick}>
-              <i className="bi bi-pencil-fill me-2"></i>
-              Write a Review
-            </button>
-          )}
+          <p className="text-white">Make your first review, Dont worry your data will be stored safely in Jans data base account (; </p>
         </div>
       </div>
     );

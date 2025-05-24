@@ -56,7 +56,7 @@ export default function Page({ params }: MoviePageProps) {
         });
       } catch (err) {
         console.error('Error fetching movie data:', err);
-        setError('shit. This could happen when u try invalid movie ID, try coming back to this page from movies page instead');
+        setError('shit. This could happen when u try invalid movie ID, try coming back thru movies page(alla filmer) instead');
       } finally {
         setLoading(false);
       }
