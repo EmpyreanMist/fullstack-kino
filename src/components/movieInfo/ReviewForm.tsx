@@ -185,7 +185,7 @@ const ReviewForm = ({ movieId, onReviewSubmitted }: ReviewFormProps) => {
 
         <div className="mb-3">
           <label htmlFor="comment" className="form-label">
-            What do you think about the movier?
+            What do you think about the movie?
           </label>
           <textarea
             className="form-control"

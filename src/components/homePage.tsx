@@ -79,6 +79,7 @@ export default function HomePage() {
                 rating={1}
               />
             ))}
+            ;
           </section>
         </Col>
       </Container>
@@ -95,6 +96,7 @@ export default function HomePage() {
               id={screening.id}
             />
           ))}
+          ;
         </Col>
       </div>
     </main>
