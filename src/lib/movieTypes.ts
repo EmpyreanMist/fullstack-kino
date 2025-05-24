@@ -4,11 +4,10 @@ export type CastMember = {
   image: string;
 };
 
-export type GenreItem = {
-  [key: string]: string;
-};
+export type GenreItem = string;
 
 export type Movie = {
+  _id?: string;
   imdbId?: string;
   title: string;
   year: string;

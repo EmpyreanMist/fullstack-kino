@@ -30,14 +30,14 @@ const CastList = ({ cast }: CastListProps) => {
                   <Image
                     src={actor.image}
                     alt={actor.name}
-                    width={120}
-                    height={120}
                     className="profile-image"
                     onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                       //---fallback-----
                       const target = e.currentTarget as HTMLImageElement;
-                      target.src = '/imageNotFound4v4';
+                      target.src = '/imageNotFound4v4.png';
                     }}
+                    fill={true}
+                    style={{ objectFit: 'cover' }}
                   />
                   <div className="image-overlay"></div>
                 </div>
