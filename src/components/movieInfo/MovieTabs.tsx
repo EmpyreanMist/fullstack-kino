@@ -21,7 +21,7 @@ const MovieTabs = ({ cast, movieId }: MovieTabsProps) => {
   //-----refresh when new added-----
   const [refreshKey, setRefreshKey] = useState(0);
 
-  //---handle swithching tabs-----
+  //---handle switching tabs-----
   const handleSwitchToReviewForm = () => {
     setActiveTab('Make review');
   };

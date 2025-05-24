@@ -40,8 +40,6 @@ export default function Page({ params }: MoviePageProps) {
         }
 
         const data = await response.json();
-        console.log('Movie data from API:', data.movie);
-        console.log('Genre data:', data.movie.genre);
 
         setMovieData({
           _id: data.movie._id,
@@ -58,7 +56,7 @@ export default function Page({ params }: MoviePageProps) {
         });
       } catch (err) {
         console.error('Error fetching movie data:', err);
-        setError('Could not load movie data. Please try again later.');
+        setError('shit. This could happen when u try invalid movie ID, try coming back to this page from movies page instead');
       } finally {
         setLoading(false);
       }

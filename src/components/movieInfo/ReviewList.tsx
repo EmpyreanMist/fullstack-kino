@@ -31,10 +31,6 @@ const ReviewList = ({ movieId, onWriteReviewClick }: ReviewListProps) => {
       try {
         setLoading(true);
         const url = movieId ? `/api/review?movieId=${movieId}` : '/api/review';
-
-        console.log('Fetching reviews from:', url);
-        console.log('Movie ID:', movieId);
-
         const response = await fetch(url);
 
         if (!response.ok) {
@@ -42,7 +38,6 @@ const ReviewList = ({ movieId, onWriteReviewClick }: ReviewListProps) => {
         }
 
         const data = await response.json();
-        console.log('Reviews data:', data);
         const reviewsData = data.reviews || [];
         setReviews(reviewsData);
       } catch (err) {
