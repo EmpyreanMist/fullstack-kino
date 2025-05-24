@@ -57,12 +57,35 @@
   margin: 0;
   font-size: 0.95rem;
   font-weight: 600;
+  display: flex;
+  align-items: center;
 }
 
 .review-date {
   margin: 0;
   font-size: 0.75rem;
   color: #aaa;
+}
+
+.member-badge,
+.guest-badge {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.member-badge {
+  background-color: rgba(25, 135, 84, 0.2);
+  color: #1aad68;
+  border: 1px solid rgba(25, 135, 84, 0.3);
+}
+
+.guest-badge {
+  background-color: rgba(108, 117, 125, 0.2);
+  color: #adb5bd;
+  border: 1px solid rgba(108, 117, 125, 0.3);
 }
 
 .review-rating {
@@ -99,6 +122,26 @@
   border-radius: 50%;
   padding: 0.25rem 0.5rem;
   min-width: 22px;
+}
+
+.pagination-controls {
+  padding: 0.75rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pagination-info {
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.pagination-controls .btn {
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
+}
+
+.pagination-controls .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Debug button styles */

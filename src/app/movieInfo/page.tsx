@@ -21,7 +21,7 @@ export default function Page() {
   const [error, setError] = useState<string | null>(null);
   const [movieData, setMovieData] = useState<Movie | null>(null);
 
-  // Redirect to dynamic route if movieId is present in query params
+  //--Redirect to dynamic route if movieId is present in query params--
   useEffect(() => {
     if (movieId) {
       router.replace(`/movieInfo/${movieId}`);
@@ -69,31 +69,6 @@ export default function Page() {
     fetchMovieData();
   }, [movieId]);
 
-  // Fallback movie data for development/testing
-  const fallbackMovieData: Movie = {
-    imdbId: 'tt123456',
-    title: 'Transformers One',
-    year: '2024',
-    rating: '7.1',
-    runTime: '104',
-    poster: '/transformerOne.jpg',
-    trailer: '0rmJXXKDrsM',
-    plot: 'Discover how Optimus Prime and Megatron, once brothers-in-arms, became mortal enemies in this origin story set on their home planet Cybertron. The animated prequel explores the early relationship between these iconic Transformers before their bitter rivalry.',
-    genre: [
-      { Animation: 'Animation' },
-      { Action: 'Action' },
-      { Adventure: 'Adventure' },
-      { 'Sci-Fi': 'Sci-Fi' },
-    ],
-    cast: [
-      { name: 'Chris Hemsworth', character: 'Orion Pax / Optimus Prime', image: '/images.jpeg' },
-      { name: 'Jon Hamm', character: 'Sentinel Prime', image: '/imageNotFound4v4.png' },
-      { name: 'Brian Tyree Henry', character: 'D-16 / Megatron', image: '/c.jpg' },
-      { name: 'Scarlett Johansson', character: 'Elita-1', image: '/imageNotFound4v4.png' },
-      { name: 'Keegan-Michael Key', character: 'B-127 / Bumblebee', image: '/Tom-Hardy.jpg' },
-    ],
-  };
-
   //-------play trailer--------
   const playTrailer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -106,9 +81,9 @@ export default function Page() {
     return (
       <div className="container mt-5 text-center">
         <div className="alert alert-info">
-          <h3>No Movie Selected</h3>
+          <h3>what happended? No Movie Selected</h3>
           <p>
-            Please go to the{' '}
+            go to the{' '}
             <a href="/movies" className="alert-link">
               Movies page
             </a>{' '}
