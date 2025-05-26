@@ -60,14 +60,14 @@ export default function HomePage() {
           <section className="d-flex flex-wrap justify-content-center gap-4 pb-3">
             {movies.map(movie => (
               <CardPoster
-                key={movie.id}
-                img={movie.img}
+                key={movie._id}
+                img={movie.poster}
                 title={movie.title}
-                description={movie.description}
+                description={''}
                 width={200}
-                height={200}
-                id={movie.id}
-                rating={1}
+                height={300}
+                id={movie._id}
+                rating={parseFloat(movie.rating.slice(0, 3))}
               />
             ))}
             ;
