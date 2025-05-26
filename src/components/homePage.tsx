@@ -26,7 +26,18 @@ type Screening = {
 export default function HomePage() {
   const [movies, setMovies] = useState<Movie[]>([]);
 
- 
+  // Hämta filmer från API
+  useEffect(() => {
+    const fetchTopMovies = async () => {
+      const res = await fetch('/api/movies?sort=highest-rating&page=1');
+      const data = await res.json();
+      // Hämta de 5 första
+      setMovies(data.movies.slice(0, 5));
+    };
+    fetchTopMovies();
+  }, []);
+
+
 
   const screenings: Screening[] = [
     { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '6' },
