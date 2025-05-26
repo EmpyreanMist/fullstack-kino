@@ -5,7 +5,7 @@ import Movie from '@/lib/mongodb/models/movies';
 
 export async function GET(req: NextRequest) {
   await connectDB();
-  console.log("Databas:", mongoose.connection.name);
+  console.log('Databas:', mongoose.connection.name);
 
   const { searchParams } = new URL(req.url);
 
@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
   const skip = (page - 1) * limit;
 
   // Bygg filter beroende på query
-const filter: Record<string, unknown> = {};
+  const filter: Record<string, unknown> = {};
 
   if (search) {
     filter.title = { $regex: search, $options: 'i' }; // sök i titlar, case-insensitive
@@ -29,12 +29,15 @@ const filter: Record<string, unknown> = {};
   }
 
   //  Sorteringslogik
-//  Returnerar alltid ett giltigt objekt för sortering
-const sortOption: Record<string, 1 | -1> = 
-  sort === 'highest-rating' ? { rating: -1 } :
-  sort === 'lowest-rating' ? { rating: 1 } :
-  sort === 'release-rating' ? { year: -1 } :
-  {}; // default: ingen sortering
+  //  Returnerar alltid ett giltigt objekt för sortering
+  const sortOption: Record<string, 1 | -1> =
+    sort === 'highest-rating'
+      ? { rating: -1 }
+      : sort === 'lowest-rating'
+      ? { rating: 1 }
+      : sort === 'release-rating'
+      ? { year: -1 }
+      : {}; // default: ingen sortering
 
   try {
     const movies = await Movie.find(filter, 'title poster rating year genre')

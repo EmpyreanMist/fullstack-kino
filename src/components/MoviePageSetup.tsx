@@ -2,7 +2,8 @@
 
 import '../styles/globals.css';
 import CardPoster from './CardPoster';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 type Movie = {
   _id: string;
@@ -22,18 +23,33 @@ export default function MovieSetupMain() {
   const [sort, setSort] = useState('');
   const [genreSelection, setGenreSelection] = useState<string[]>([]);
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const urlPage: number = parseInt(searchParams.get('page') || '1', 10);
+    const urlSearch: string = searchParams.get('search') || '';
+    const urlGenres: string = searchParams.get('genre') || '';
+    const urlSort: string = searchParams.get('sort') || '';
+
+    setPage(urlPage);
+    setSearch(urlSearch);
+    setGenres(urlGenres ? urlGenres.split(',') : []);
+    setSort(urlSort);
+  }, [searchParams]);
+
   // Hämta alla genrar från api:n
   useEffect(() => {
     const fetchGenre = async () => {
       const res = await fetch('api/movies/genre');
       if (!res.ok) {
-        throw new Error(`${res.status}`)
+        throw new Error(`${res.status}`);
       }
       const genreData = await res.json();
-      setGenreSelection(genreData.genres)
-    }
+      setGenreSelection(genreData.genres);
+    };
     fetchGenre();
-  }, [])
+  }, []);
 
   // Fetch från API baserat på search, genre, sort, page
   useEffect(() => {
@@ -52,11 +68,19 @@ export default function MovieSetupMain() {
     fetchMovies();
   }, [search, genres, sort, page]);
 
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (search) params.set('search', search);
+    if (genres.length > 0) params.set('genre', genres.join(','));
+    if (sort) params.set('sort', sort);
+
+    params.set('page', page.toString());
+    router.push(`?${params.toString()}`);
+  }, [search, genres, sort, page]);
+
   const handleGenreToggle = (genre: string) => {
-    setPage(1); // återställ till första sidan
-    setGenres((prev) =>
-      prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre]
-    );
+    setPage(1);
+    setGenres(prev => (prev.includes(genre) ? prev.filter(g => g !== genre) : [...prev, genre]));
   };
 
   return (
@@ -68,7 +92,7 @@ export default function MovieSetupMain() {
           <div className="position-relative w-50">
             <input
               value={search}
-              onChange={(e) => {
+              onChange={e => {
                 setSearch(e.target.value);
                 setPage(1);
               }}
@@ -81,7 +105,7 @@ export default function MovieSetupMain() {
 
         {/* Genrefilter */}
         <section className="d-flex justify-content-center flex-wrap gap-2 pb-3">
-          {genreSelection.map((genre) => (
+          {genreSelection.map(genre => (
             <button
               key={genre}
               onClick={() => handleGenreToggle(genre)}
@@ -98,17 +122,33 @@ export default function MovieSetupMain() {
             Sortera efter
           </button>
           <ul className="dropdown-menu">
-            <li><button className="dropdown-item" onClick={() => setSort('highest-rating')}>Högst betyg</button></li>
-            <li><button className="dropdown-item" onClick={() => setSort('lowest-rating')}>Lägst betyg</button></li>
-            <li><button className="dropdown-item" onClick={() => setSort('release-rating')}>Senaste filmer</button></li>
-            <li><button className="dropdown-item" onClick={() => setSort('')}>Inget</button></li>
+            <li>
+              <button className="dropdown-item" onClick={() => setSort('highest-rating')}>
+                Högst betyg
+              </button>
+            </li>
+            <li>
+              <button className="dropdown-item" onClick={() => setSort('lowest-rating')}>
+                Lägst betyg
+              </button>
+            </li>
+            <li>
+              <button className="dropdown-item" onClick={() => setSort('release-rating')}>
+                Senaste filmer
+              </button>
+            </li>
+            <li>
+              <button className="dropdown-item" onClick={() => setSort('')}>
+                Inget
+              </button>
+            </li>
           </ul>
         </div>
       </div>
 
       {/* Filmer */}
       <section className="d-flex flex-wrap justify-content-center gap-4 mx-auto container-80">
-        {movies.map((movie) => (
+        {movies.map(movie => (
           <CardPoster
             key={movie._id}
             title={movie.title}
@@ -127,15 +167,24 @@ export default function MovieSetupMain() {
         <nav aria-label="Pagination">
           <ul className="pagination">
             <li className={`page-item ${page === 1 ? 'disabled' : ''}`}>
-              <button className="page-link" onClick={() => setPage((p) => Math.max(1, p - 1))}>Föregående</button>
+              <button className="page-link" onClick={() => setPage(p => Math.max(1, p - 1))}>
+                Föregående
+              </button>
             </li>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
               <li key={p} className={`page-item ${p === page ? 'active' : ''}`}>
-                <button className="page-link" onClick={() => setPage(p)}>{p}</button>
+                <button className="page-link" onClick={() => setPage(p)}>
+                  {p}
+                </button>
               </li>
             ))}
             <li className={`page-item ${page === totalPages ? 'disabled' : ''}`}>
-              <button className="page-link" onClick={() => setPage((p) => Math.min(totalPages, p + 1))}>Nästa</button>
+              <button
+                className="page-link"
+                onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+              >
+                Nästa
+              </button>
             </li>
           </ul>
         </nav>
