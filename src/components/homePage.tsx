@@ -9,21 +9,12 @@ import { ScreeningProp } from '@/lib/typesScreening';
 export default function HomePage() {
   const [screenings, setScreenings] = useState<ScreeningProp[]>([]);
   console.log("Screenings at start of homepage func "+screenings.length);
-  //console.log("Keys (start): "+screenings.keys.length);
   type Movie = {
     img: string;
     title: string;
     description: string;
     id: string;
   };
-
- /* type Screening = {
-    title: string;
-    date: string;
-    //time: string;
-    room: string;
-    id: string;
-  };*/
   const movies: Movie[] = [
     {
       img: '/seats.png',
@@ -126,7 +117,8 @@ export default function HomePage() {
                 movieID={screening.movie.id}
               />
             ))}
-          </Col>}
+          </Col>
+        }
       </div>
     </main>
   );
