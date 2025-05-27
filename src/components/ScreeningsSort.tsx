@@ -7,10 +7,11 @@ export default function sortScreenings(screenings: ScreeningProp[]) : ScreeningP
     const sortedScreenings: ScreeningProp[] = [];
     limit.setDate(limit.getDate()+5);
     screenings.forEach((screening)=>{
-        if(screening.date >= today && screening.date <= limit){
+        const date = new Date(screening.date);
+        if(date >= today && date <= limit){
             sortedScreenings.push(screening);
         }
     });
-    sortedScreenings.sort((a, b) => a.date.getTime() - b.date.getTime());
+    sortedScreenings.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     return(sortedScreenings);
 }
