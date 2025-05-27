@@ -8,8 +8,6 @@ import { ScreeningProp } from '@/lib/typesScreening';
 
 export default function HomePage() {
   const [screenings, setScreenings] = useState<ScreeningProp[]>([]);
-  console.log("Screenings at start of homepage func "+screenings.length);
-  //console.log("Keys (start): "+screenings.keys.length);
   type Movie = {
     img: string;
     title: string;
@@ -17,13 +15,7 @@ export default function HomePage() {
     id: string;
   };
 
- /* type Screening = {
-    title: string;
-    date: string;
-    //time: string;
-    room: string;
-    id: string;
-  };*/
+
   const movies: Movie[] = [
     {
         img: "/seats.png",
@@ -76,10 +68,8 @@ export default function HomePage() {
           screening.date = datetime;
         })
         setScreenings(payload.data);
-        console.log("Screenings (in fetchScreenings): "+screenings.length);
       }
       fetchScreenings();
-      console.log("Screenings (after fetchScreenings): "+screenings.length);
     }, []);
     
  
