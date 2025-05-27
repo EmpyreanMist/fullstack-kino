@@ -22,6 +22,7 @@ export default function MovieSetupMain() {
   const [genres, setGenres] = useState<string[]>([]);
   const [sort, setSort] = useState('');
   const [genreSelection, setGenreSelection] = useState<string[]>([]);
+  const [loader, setLoader] = useState(true);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -54,6 +55,7 @@ export default function MovieSetupMain() {
   // Fetch från API baserat på search, genre, sort, page
   useEffect(() => {
     const fetchMovies = async () => {
+      setLoader(true);
       const params = new URLSearchParams();
       if (search) params.set('search', search);
       if (genres.length > 0) params.set('genre', genres.join(','));
@@ -64,6 +66,7 @@ export default function MovieSetupMain() {
       const data = await res.json();
       setMovies(data.movies);
       setTotalPages(data.totalPages);
+      setLoader(false);
     };
     fetchMovies();
   }, [search, genres, sort, page]);
@@ -148,18 +151,33 @@ export default function MovieSetupMain() {
 
       {/* Filmer */}
       <section className="d-flex flex-wrap justify-content-center gap-4 mx-auto container-80">
-        {movies.map(movie => (
-          <CardPoster
-            key={movie._id}
-            title={movie.title}
-            img={movie.poster}
-            width={200}
-            height={300}
-            genres={movie.genre}
-            id={movie._id}
-            rating={parseFloat(movie.rating.slice(0, 3))}
-          />
-        ))}
+        {loader ? (
+          <div
+            className="d-flex justify-content-center align-items-center"
+            style={{ height: '300px' }}
+          >
+            <div
+              className="spinner-border text-light"
+              style={{ width: '5rem', height: '5rem' }}
+              role="status"
+            >
+              <span className="visually-hidden">Laddar...</span>
+            </div>
+          </div>
+        ) : (
+          movies.map(movie => (
+            <CardPoster
+              key={movie._id}
+              title={movie.title}
+              img={movie.poster}
+              width={200}
+              height={300}
+              genres={movie.genre}
+              id={movie._id}
+              rating={parseFloat(movie.rating.slice(0, 3))}
+            />
+          ))
+        )}
       </section>
 
       {/* Paginering */}
