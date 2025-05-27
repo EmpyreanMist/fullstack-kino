@@ -2,7 +2,8 @@
 
 import '../styles/globals.css';
 import CardPoster from './CardPoster';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 type Movie = {
   _id: string;
@@ -22,6 +23,21 @@ export default function MovieSetupMain() {
   const [sort, setSort] = useState('');
   const [genreSelection, setGenreSelection] = useState<string[]>([]);
   const [loader, setLoader] = useState(true);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const urlPage: number = parseInt(searchParams.get('page') || '1', 10);
+    const urlSearch: string = searchParams.get('search') || '';
+    const urlGenres: string = searchParams.get('genre') || '';
+    const urlSort: string = searchParams.get('sort') || '';
+
+    setPage(urlPage);
+    setSearch(urlSearch);
+    setGenres(urlGenres ? urlGenres.split(',') : []);
+    setSort(urlSort);
+  }, [searchParams]);
 
   // Hämta alla genrar från api:n
   useEffect(() => {
@@ -55,8 +71,18 @@ export default function MovieSetupMain() {
     fetchMovies();
   }, [search, genres, sort, page]);
 
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (search) params.set('search', search);
+    if (genres.length > 0) params.set('genre', genres.join(','));
+    if (sort) params.set('sort', sort);
+
+    params.set('page', page.toString());
+    router.push(`?${params.toString()}`);
+  }, [search, genres, sort, page]);
+
   const handleGenreToggle = (genre: string) => {
-    setPage(1); // återställ till första sidan
+    setPage(1);
     setGenres(prev => (prev.includes(genre) ? prev.filter(g => g !== genre) : [...prev, genre]));
   };
 
