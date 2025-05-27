@@ -1,53 +1,44 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import { Button, Col, Container } from 'react-bootstrap';
 import Link from 'next/link';
 import UpcomingScreening from './UpcomingScreening';
 import CardPoster from './CardPoster';
+
+type Movie = {
+  _id: string;
+  title: string;
+  poster: string;
+  year: string;
+  rating: string;
+  genre: string[];
+};
+
+type Screening = {
+  title: string;
+  date: string;
+  time: string;
+  room: string;
+  id: string;
+};
+
 export default function HomePage() {
-  type Movie = {
-    img: string;
-    title: string;
-    description: string;
-    id: string;
-  };
-  type Screening = {
-    title: string;
-    date: string;
-    time: string;
-    room: string;
-    id: string;
-  };
-  const movies: Movie[] = [
-    {
-      img: '/seats.png',
-      title: 'Star Wars',
-      description: 'Movie info goes here',
-      id: '1',
-    },
-    {
-      img: '/seats.png',
-      title: 'Godzilla',
-      description: 'Movie info goes here',
-      id: '2',
-    },
-    {
-      img: '/seats.png',
-      title: 'The Hobbit',
-      description: 'Movie info goes here',
-      id: '3',
-    },
-    {
-      img: '/seats.png',
-      title: 'Lord of the Rings',
-      description: 'Movie info goes here',
-      id: '4',
-    },
-    {
-      img: '/seats.png',
-      title: 'Terminator',
-      description: 'Movie info goes here',
-      id: '5',
-    },
-  ];
+  const [movies, setMovies] = useState<Movie[]>([]);
+
+  // Hämta filmer från API
+  useEffect(() => {
+    const fetchTopMovies = async () => {
+      const res = await fetch('/api/movies?sort=highest-rating&page=1');
+      const data = await res.json();
+      // Hämta de 5 första
+      setMovies(data.movies.slice(0, 5));
+    };
+    fetchTopMovies();
+  }, []);
+
+
+
   const screenings: Screening[] = [
     { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '6' },
     { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '7' },
@@ -69,14 +60,14 @@ export default function HomePage() {
           <section className="d-flex flex-wrap justify-content-center gap-4 pb-3">
             {movies.map(movie => (
               <CardPoster
-                key={movie.id}
-                img={movie.img}
+                key={movie._id}
+                img={movie.poster}
                 title={movie.title}
-                description={movie.description}
+                description={''}
                 width={200}
-                height={200}
-                id={movie.id}
-                rating={1}
+                height={300}
+                id={movie._id}
+                rating={parseFloat(movie.rating.slice(0, 3))}
               />
             ))}
             ;
