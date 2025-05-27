@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-'use client'
 import { Button, Col, Container } from 'react-bootstrap';
 import Link from 'next/link';
 import UpcomingScreening from './UpcomingScreening';
