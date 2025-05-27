@@ -43,7 +43,11 @@ export default function Navigation({
       const res = await fetch('/api/logout', { method: 'POST' });
       if (res.ok) {
         setUser(null);
-        router.refresh();
+        if (window.location.pathname === '/profile') {
+          router.push('/login');
+        } else {
+          router.refresh();
+        }
       } else {
         console.error('Utloggning misslyckades');
       }
@@ -70,7 +74,9 @@ export default function Navigation({
 
         {user !== null ? (
           <div className="d-flex flex-row justify-content-center gap-2 align-items-center">
-            <span className="navbar-text me-3">Hej, {user.fullName}</span>
+            <Link href="/profile">
+              <span className="navbar-text me-3">Hej, {user.fullName}</span>
+            </Link>
 
             <Button
               onClick={handleLogout}

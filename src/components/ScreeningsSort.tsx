@@ -1,4 +1,4 @@
-import { ScreeningProp } from "@/lib/typesScreening";
+import { ScreeningProp } from '@/lib/typesScreening';
 
 //Screenings for the upcoming 5 days
 export default function sortScreenings(screenings: ScreeningProp[]) : ScreeningProp[]{

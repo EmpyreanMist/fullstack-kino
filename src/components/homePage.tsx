@@ -1,78 +1,63 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 'use client'
 import { Button, Col, Container } from 'react-bootstrap';
 import Link from 'next/link';
 import UpcomingScreening from './UpcomingScreening';
 import CardPoster from './CardPoster';
-import { useEffect, useState } from 'react';
 import { ScreeningProp } from '@/lib/typesScreening';
+
+type Movie = {
+  _id: string;
+  title: string;
+  poster: string;
+  year: string;
+  rating: string;
+  genre: string[];
+};
+
 
 export default function HomePage() {
   const [screenings, setScreenings] = useState<ScreeningProp[]>([]);
-  type Movie = {
-    img: string;
-    title: string;
-    description: string;
-    id: string;
-  };
+  const [movies, setMovies] = useState<Movie[]>([]);
 
-
-  const movies: Movie[] = [
-    {
-        img: "/seats.png",
-        title: "Star Wars",
-        description: "Movie info goes here",
-        id: "1"
-    },
-    {
-        img: "/seats.png",
-        title: "Godzilla",
-        description: "Movie info goes here",
-        id: "2"
-    },
-    {
-        img: "/seats.png",
-        title: "The Hobbit",
-        description: "Movie info goes here",
-        id: "3"
-    },
-    {
-        img: "/seats.png",
-        title: "Lord of the Rings",
-        description: "Movie info goes here",
-        id: "4"
-    },
-    {
-      img: '/seats.png',
-      title: 'Terminator',
-      description: 'Movie info goes here',
-      id: '5',
-    },
-  ];
-  
- 
-   useEffect(() => {
-      const fetchScreenings = async () => {
-        const response = await fetch('api/screenings/upcoming')
-        if (!response.ok) {
-          throw new Error(`${response.status}`);
-        }
-        const payload = await response.json();
-        payload.data.forEach((screening: ScreeningProp)=>{
-          const date = new Date(screening.date);
-          const datetime = date.toLocaleString("sv-Se",{
-            day: "numeric",
-            month: "long",
-            hour: "2-digit",
-            minute: "2-digit",
-          });
-          screening.date = datetime;
-        })
-        setScreenings(payload.data);
+  // Hämta filmer från API
+  useEffect(() => {
+    const fetchTopMovies = async () => {
+      const res = await fetch('/api/movies?sort=highest-rating&page=1');
+      const data = await res.json();
+      // Hämta de 5 första
+      setMovies(data.movies.slice(0, 5));
+    };
+    fetchTopMovies();
+  }, []);
+  useEffect(() => {
+    const fetchScreenings = async () => {
+      const response = await fetch('api/screenings/upcoming')
+      if (!response.ok) {
+        throw new Error(`${response.status}`);
       }
-      fetchScreenings();
-    }, []);
-    
- 
+      const payload = await response.json();
+      payload.data.forEach((screening: ScreeningProp)=>{
+        const date = new Date(screening.date);
+        const datetime = date.toLocaleString("sv-Se",{
+          day: "numeric",
+          month: "long",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        screening.date = datetime;
+      })
+      setScreenings(payload.data);
+    }
+    fetchScreenings();
+  }, []);
+  
+
+
+
+
   return (
     <main className="bg-dark">
       <div className="text-center pt-5">
@@ -86,14 +71,14 @@ export default function HomePage() {
           <section className="d-flex flex-wrap justify-content-center gap-4 pb-3">
             {movies.map(movie => (
               <CardPoster
-                key={movie.id}
-                img={movie.img}
+                key={movie._id}
+                img={movie.poster}
                 title={movie.title}
-                description={movie.description}
+                description={''}
                 width={200}
-                height={200}
-                id={movie.id}
-                rating={1}
+                height={300}
+                id={movie._id}
+                rating={parseFloat(movie.rating.slice(0, 3))}
               />
             ))}
             ;

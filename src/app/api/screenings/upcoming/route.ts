@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
-import connectDB from "@/lib/mongodb/db";
-import { Screening } from "@/lib/mongodb/models/screenings";
-import sortScreenings from "@/components/ScreeningsSort";
-import { ScreeningProp } from "@/lib/typesScreening";
+import { NextResponse } from 'next/server';
+import connectDB from '@/lib/mongodb/db';
+import { Screening } from '@/lib/mongodb/models/screenings';
+import sortScreenings from '@/components/ScreeningsSort';
+import { ScreeningProp } from '@/lib/typesScreening';
 
 export async function GET(){
     let sortedScreenings : ScreeningProp[];
