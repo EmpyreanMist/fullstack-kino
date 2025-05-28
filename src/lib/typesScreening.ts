@@ -5,5 +5,6 @@ export interface ScreeningProp {
     }
     date: string,
     room: String,
-    id: string
+    id: string,
+    uniqueKey?: string;
 };
