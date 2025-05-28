@@ -16,7 +16,6 @@ type Movie = {
   genre: string[];
 };
 
-
 export default function HomePage() {
   const [screenings, setScreenings] = useState<ScreeningProp[]>([]);
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -52,10 +51,6 @@ export default function HomePage() {
     }
     fetchScreenings();
   }, []);
-  
-
-
-
 
   return (
     <main className="bg-dark">

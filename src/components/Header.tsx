@@ -29,6 +29,7 @@ export default function Header({
             objectFit: 'cover',
             height: '400px',
           }}
+          priority={true}
         />
       )}
     </header>
