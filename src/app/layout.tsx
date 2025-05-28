@@ -6,6 +6,9 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 export const metadata: Metadata = {
   title: 'Kino',
   description: 'Världens bästa biograf!',
+  icons: {
+    icon: '/popcorn.png',
+  },
 };
 
 export default function RootLayout({
