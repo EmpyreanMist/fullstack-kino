@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.6.0",
     "@popperjs/core": "^2.11.8",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/ssr": "^0.6.1",
@@ -16,6 +17,7 @@
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
     "dotenv": "^16.5.0",
+    "lottie-react": "^2.4.1",
     "mongodb": "^6.16.0",
     "mongoose": "^8.14.1",
     "next": "15.3.1",
