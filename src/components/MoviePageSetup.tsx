@@ -79,7 +79,7 @@ export default function MovieSetupMain() {
 
     params.set('page', page.toString());
     router.push(`?${params.toString()}`);
-  }, [search, genres, sort, page]);
+  }, [search, genres, sort, page, router]);
 
   const handleGenreToggle = (genre: string) => {
     setPage(1);
