@@ -2,7 +2,7 @@
 
 import '../styles/globals.css';
 import CardPoster from './CardPoster';
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 type Movie = {
