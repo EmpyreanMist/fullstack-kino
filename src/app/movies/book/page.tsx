@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 
-export default function BookingPage() {
+/*export default function BookingPage() {
     console.log("in booking page reroute");
     const router = useRouter();
     const SearchParams = useSearchParams();
@@ -13,4 +13,4 @@ export default function BookingPage() {
             router.replace(`/booking/${id}`);
         }
     }, [id, router]);
-}
+}*/

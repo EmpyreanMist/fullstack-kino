@@ -1,5 +1,8 @@
 export default function BookingSetUp(){
     return(
-        <h1>Bokningssida</h1>
+        <div className="bg-dark text-light">
+            <h1>Bokningssida</h1>
+        </div>
+        
     )
 }
