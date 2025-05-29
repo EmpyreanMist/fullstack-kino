@@ -68,7 +68,7 @@ const MovieDetails = ({
           <div className="movie-genres mb-2">
             {genres.map((genre, index) => (
               <span key={index} className="badge genre-badge me-2">
-                {genre}
+                {typeof genre === 'string' ? genre : 'Unknown'}
               </span>
             ))}
           </div>

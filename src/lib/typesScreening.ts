@@ -1,8 +1,9 @@
 export interface ScreeningProp {
     movie: {
-        title: String,
-        id: String,
+        title: string,
+        id: string,
     }
-    date: Date,
+    date: string,
     room: String,
+    id: string
 };

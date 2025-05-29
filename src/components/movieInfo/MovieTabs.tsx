@@ -1,6 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import CastList from './CastList';
+import ReviewList from './ReviewList';
+import ReviewForm from './ReviewForm';
 import '@/styles/movieInfo/MovieTabs.css';
 
 type CastMember = {
@@ -11,10 +13,22 @@ type CastMember = {
 
 type MovieTabsProps = {
   cast: CastMember[];
+  movieId?: string;
 };
 
-const MovieTabs = ({ cast }: MovieTabsProps) => {
+const MovieTabs = ({ cast, movieId }: MovieTabsProps) => {
   const [activeTab, setActiveTab] = useState('cast');
+  //-----refresh when new added-----
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  //---handle swithching tabs-----
+  const handleSwitchToReviewForm = () => {
+    setActiveTab('Make review');
+  };
+
+  const handleReviewSubmitted = () => {
+    setRefreshKey(prevKey => prevKey + 1);
+  };
 
   return (
     <>
@@ -82,18 +96,22 @@ const MovieTabs = ({ cast }: MovieTabsProps) => {
           {activeTab === 'cast' && <CastList cast={cast} />}
 
           {activeTab === 'Reviews' && (
-            <div className="content-placeholder">
-              <h3>Get review section</h3>
-              <p>Here will be filled with reviews from the data base</p>
-            </div>
+            <ReviewList
+              key={refreshKey}
+              movieId={movieId}
+              onWriteReviewClick={handleSwitchToReviewForm}
+            />
           )}
 
-          {activeTab === 'Make review' && (
-            <div className="content-placeholder">
-              <h3>Post review section</h3>
-              <p>Here should making review section be placed</p>
-            </div>
-          )}
+          {activeTab === 'Make review' &&
+            (movieId ? (
+              <ReviewForm movieId={movieId} onReviewSubmitted={handleReviewSubmitted} />
+            ) : (
+              <div className="alert alert-warning mt-3">
+                <i className="bi bi-exclamation-triangle me-2"></i>
+                Please select a movie to write a review
+              </div>
+            ))}
         </div>
       </div>
     </>

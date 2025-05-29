@@ -116,7 +116,7 @@
   background: #0d6efd;
   color: white;
   box-shadow: 0 4px 15px rgba(13, 110, 253, 0.4);
-  animation: pulse 2s infinite; /* Restored animation */
+  animation: pulse 2s infinite;
 }
 .btn-ticket:hover {
   /* transform: translateY(-2px); */

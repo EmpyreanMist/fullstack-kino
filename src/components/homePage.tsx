@@ -5,6 +5,7 @@ import { Button, Col, Container } from 'react-bootstrap';
 import Link from 'next/link';
 import UpcomingScreening from './UpcomingScreening';
 import CardPoster from './CardPoster';
+import { ScreeningProp } from '@/lib/typesScreening';
 
 type Movie = {
   _id: string;
@@ -15,15 +16,9 @@ type Movie = {
   genre: string[];
 };
 
-type Screening = {
-  title: string;
-  date: string;
-  time: string;
-  room: string;
-  id: string;
-};
 
 export default function HomePage() {
+  const [screenings, setScreenings] = useState<ScreeningProp[]>([]);
   const [movies, setMovies] = useState<Movie[]>([]);
 
   // Hämta filmer från API
@@ -36,17 +31,32 @@ export default function HomePage() {
     };
     fetchTopMovies();
   }, []);
+  useEffect(() => {
+    const fetchScreenings = async () => {
+      const response = await fetch('api/screenings/upcoming')
+      if (!response.ok) {
+        throw new Error(`${response.status}`);
+      }
+      const payload = await response.json();
+      payload.data.forEach((screening: ScreeningProp)=>{
+        const date = new Date(screening.date);
+        const datetime = date.toLocaleString("sv-Se",{
+          day: "numeric",
+          month: "long",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        screening.date = datetime;
+      })
+      setScreenings(payload.data);
+    }
+    fetchScreenings();
+  }, []);
+  
 
 
 
-  const screenings: Screening[] = [
-    { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '6' },
-    { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '7' },
-    { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '8' },
-    { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '9' },
-    { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '0' },
-    { title: 'Star Wars', date: '15 maj', time: '17.00', room: 'Salong 1', id: '11' },
-  ];
+
   return (
     <main className="bg-dark">
       <div className="text-center pt-5">
@@ -75,20 +85,22 @@ export default function HomePage() {
         </Col>
       </Container>
       <h2 className="text-white m-3 text-center">Kommande visningar</h2>
-      <div className="pb-3 pt-1 text-center d-flex flex-wrap justify-content-center">
-        <Col sm={15} md={10} lg={8} xl={6}>
-          {screenings.map(screening => (
-            <UpcomingScreening
-              key={screening.id}
-              title={screening.title}
-              date={screening.date}
-              time={screening.time}
-              room={screening.room}
-              id={screening.id}
-            />
-          ))}
-          ;
-        </Col>
+      <div className="pb-3 pt-1 text-center d-flex flex-wrap justify-content-center align-items-center">
+        {(screenings.length == 0) && 
+          <h5 className='text-white '>Vi har tyvärr inga visningar de kommande dagarna</h5>
+        }
+        {(screenings.length > 0) &&  
+          <Col sm={11} md={12} lg={10} xl={8}>
+            {screenings.map(screening => (
+              <UpcomingScreening
+                key={screening.id}
+                title={screening.movie.title}
+                date={screening.date}
+                room={screening.room}
+                movieID={screening.movie.id}
+              />
+            ))}
+          </Col>}
       </div>
     </main>
   );

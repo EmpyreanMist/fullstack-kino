@@ -25,7 +25,7 @@ export default function CardPoster({
 }: Props) {
   return (
     <div className="card bg-dark hover-shadow" style={{ width: '18rem' }}>
-      <Link href={`/movieInfo`} className="text-decoration-none">
+      <Link href={`/movieInfo/${id}`} className="text-decoration-none">
         <Image
           src={img}
           className="card-img-top fluid object-fit-fill"
