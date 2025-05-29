@@ -51,12 +51,9 @@ export default function HomePage() {
       setScreenings(payload.data);
     }
     fetchScreenings();
+    
   }, []);
   
-
-
-
-
   return (
     <main className="bg-dark">
       <div className="text-center pt-5">
@@ -97,7 +94,7 @@ export default function HomePage() {
                 title={screening.movie.title}
                 date={screening.date}
                 room={screening.room}
-                movieID={screening.movie.id}
+                movieID={screening.movie.movie_id}
               />
             ))}
           </Col>}

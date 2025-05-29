@@ -21,7 +21,7 @@ export default function UpcomingScreening({ title, date, room, movieID }: Props)
                 <h5 className="text-white m-2">{room}</h5>
             </Col>
             <Col xs={6} sm={2}>
-                <Link href={`movies/book/${movieID}`}>
+                <Link href={`/movies/book/${movieID}`}>
                     <Button className="m-2">Köp biljett</Button>
                 </Link>
             </Col>

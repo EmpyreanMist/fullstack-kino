@@ -133,6 +133,7 @@ export default function Page({ params }: MoviePageProps) {
         <div className="row">
           <div className="col-12">
             <MovieDetails
+              id={movieId}
               title={movieData.title}
               year={movieData.year}
               rating={movieData.rating}
