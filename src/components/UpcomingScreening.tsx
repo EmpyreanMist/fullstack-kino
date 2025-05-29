@@ -2,10 +2,10 @@ import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import Link from 'next/link';
 
 type Props = {
-    title: String;
-    date: String;
-    room: String;
-    movieID: String;
+    title: string;
+    date: string;
+    room: string;
+    movieID: string;
 }
 export default function UpcomingScreening({ title, date, room, movieID }: Props){
     return(
