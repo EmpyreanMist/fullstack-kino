@@ -1,13 +1,9 @@
 'use client'
 import BookingSetUp from "@/components/BookingPage";
-
-type BookingProps = {
-    params: Promise<{ id: string}> | { id: string };
-}
+import { BookingProps } from "@/lib/TypesBooking";
 
 export default function BookingPage({ params }: BookingProps){
-    console.log("In booking page")
     return(
-        <BookingSetUp/>
+        <BookingSetUp params= { params }/>
     )
 }
