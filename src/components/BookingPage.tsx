@@ -20,7 +20,7 @@ export default function BookingSetUp({ params }: BookingProps){
                 return;
             }
             try{
-                const response = await fetch(`/api/movies/${id}`);
+                const response = await fetch(`/api/bookings/${id}`);
                     if(!response.ok){
                         
                         throw new Error ("Failed to fetch movie info");
