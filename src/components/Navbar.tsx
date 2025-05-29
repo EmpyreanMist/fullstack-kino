@@ -61,13 +61,13 @@ export default function Navigation({
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
         <Nav className="me-auto my-2 my-lg-0" navbarScroll>
-          <Nav.Link as={Link} href="/" className="text-white pe-4">
+          <Nav.Link as={Link} href="/" className="text-white pe-4 hover-text">
             Hem
           </Nav.Link>
-          <Nav.Link as={Link} href="/movies" className="text-white pe-4">
+          <Nav.Link as={Link} href="/movies" className="text-white pe-4 hover-text">
             Alla filmer
           </Nav.Link>
-          <Nav.Link as={Link} href="/about" className="text-white pe-4">
+          <Nav.Link as={Link} href="/about" className="text-white pe-4 hover-text">
             Om oss
           </Nav.Link>
         </Nav>
