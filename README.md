@@ -91,7 +91,9 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
 
 ## Run it localy | ADD LATER
 
-## View live version: We haven't deployed yet, UPDATE THIS AFTER
+## View live version:
+
+- https://fullstack-kino.vercel.app/
 
 ## Mongo Atlas
 
