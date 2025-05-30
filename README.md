@@ -95,7 +95,7 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
 
 ## Run it localy | ADD LATER
 
-# Supabase Setup Guide: Users Table
+## Supabase Setup Guide: Users Table
 
 ## 1. Initialize Supabase Project
 1. Create account at [supabase.com](https://supabase.com)
@@ -128,6 +128,7 @@ TO public
 WITH CHECK (
   true
 );
+```
 
 ## View Live Version
 
@@ -154,6 +155,7 @@ To deploy this project to **Vercel**, follow these steps:
    ```bash
    npm install
    npm run build
+   ```
 
 
 ## Mongo Atlas
