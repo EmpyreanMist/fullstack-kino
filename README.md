@@ -144,6 +144,23 @@ All screening data was uploaded to a separate MongoDB cluster. The data follows 
 }
 ```
 
+**Reviews:**
+
+All review data is saved to a separate MongoDB cluster. It is updated everytime a user leaves a review on the website. The data follows this structure:
+
+```json
+{
+  "id": "",
+  "movieId": "",
+  "name": "",
+  "rating": ,
+  "comment": "",
+  "loggedIn": "",
+  "profileImageId": "",
+  "createdAt": ""
+}
+```
+
 ## Supabase "Users" Table
 
 | Field             | Description                                  |
