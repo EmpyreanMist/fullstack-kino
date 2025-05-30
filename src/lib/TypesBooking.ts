@@ -1,3 +1,3 @@
 export type BookingProps = {
-    params: Promise<{ id: string}> | { id: string };
-}
+  params: Promise<{ id: string }>;
+};

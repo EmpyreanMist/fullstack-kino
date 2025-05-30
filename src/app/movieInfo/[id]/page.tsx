@@ -12,12 +12,11 @@ interface YouTubePlayer {
 }
 
 type MoviePageProps = {
-  params: Promise<{ id: string }> | { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default function Page({ params }: MoviePageProps) {
-  const resolvedParams = use(params as Promise<{ id: string }>);
-  const movieId = resolvedParams.id;
+  const { id: movieId } = use(params);
   const playerRef = useRef<YouTubePlayer>(null as unknown as YouTubePlayer);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -56,7 +55,9 @@ export default function Page({ params }: MoviePageProps) {
         });
       } catch (err) {
         console.error('Error fetching movie data:', err);
-        setError('shit. This could happen when u try invalid movie ID, try coming back thru movies page(alla filmer) instead');
+        setError(
+          'shit. This could happen when u try invalid movie ID, try coming back thru movies page(alla filmer) instead'
+        );
       } finally {
         setLoading(false);
       }
@@ -91,6 +92,7 @@ export default function Page({ params }: MoviePageProps) {
       <div className="container mt-5 text-center alert alert-warning">Movie data not available</div>
     );
   }
+
   const onPlayerReady = (player: unknown) => {
     playerRef.current = player as YouTubePlayer;
   };
