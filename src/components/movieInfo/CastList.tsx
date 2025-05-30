@@ -30,6 +30,7 @@ const CastList = ({ cast }: CastListProps) => {
                   <Image
                     src={actor.image}
                     alt={actor.name}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="profile-image"
                     onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                       //---fallback-----

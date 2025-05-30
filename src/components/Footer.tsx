@@ -8,33 +8,33 @@ export default function Footer() {
         <Row>
           <Col>
             <Nav className="flex-column fs-5 p-5">
-              <Link href="/about" className="text-white text-decoration-none">
+              <Link href="/about" className="text-white text-decoration-none pb-3">
                 Om oss
               </Link>
-              <Link href="/movies" className="text-white text-decoration-none">
+              <Link href="/movies" className="text-white text-decoration-none pb-3">
                 Alla filmer
               </Link>
             </Nav>
           </Col>
           <Col>
             <Nav className="flex-column fs-5 p-5">
-              <Link href="/" className="text-white text-decoration-none">
+              <Link href="/" className="text-white text-decoration-none pb-3">
                 Instagram
               </Link>
-              <Link href="/" className="text-white text-decoration-none">
+              <Link href="/" className="text-white text-decoration-none pb-3">
                 Facebook
               </Link>
-              <Link href="/" className="text-white text-decoration-none">
+              <Link href="/" className="text-white text-decoration-none pb-3">
                 X
               </Link>
             </Nav>
           </Col>
           <Col>
             <Nav className="flex-column fs-5 p-5">
-              <Link href="/" className="text-white text-decoration-none">
+              <Link href="/" className="text-white text-decoration-none pb-3">
                 ToS
               </Link>
-              <Link href="/" className="text-white text-decoration-none">
+              <Link href="/" className="text-white text-decoration-none pb-3">
                 Privacy policy
               </Link>
             </Nav>
