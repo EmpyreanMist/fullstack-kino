@@ -89,6 +89,10 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
 
 - Displays information about the website
 
+### `/movies/book/[id]`
+ - A placeholder for the booking page
+ - Includes the title of the movie and a link to `movieInfo/[id]`
+
 ## Run it localy | ADD LATER
 
 ## View live version: We haven't deployed yet, UPDATE THIS AFTER
