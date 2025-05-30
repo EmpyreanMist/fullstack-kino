@@ -208,3 +208,13 @@ All review data is saved to a separate MongoDB cluster. It is updated everytime 
 | Method | Endpoint          | Description                              |
 | ------ | ----------------- | ---------------------------------------- |
 | GET    | `/api/screenings` | Returns all upcoming screenings (sorted) |
+
+
+---
+
+### Booking Routes (MongoDB)
+
+| Method | Endpoint            | Description                            |
+| ------ | ------------------- | -------------------------------------- |
+| GET    | `/api/booking/[id]` | Returns the title and ID of the movie  |
+|        |                     | being booked                           |
