@@ -1,7 +1,9 @@
-import AboutUs from "@/components/AboutUs";
+import AboutUs from '@/components/AboutUs';
 
 export default function Home() {
-  return <div>
-    <AboutUs/>
-  </div>;
+  return (
+    <div>
+      <AboutUs />
+    </div>
+  );
 }
