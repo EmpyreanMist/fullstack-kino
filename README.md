@@ -95,9 +95,32 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
 
 ## Run it localy | ADD LATER
 
-## View live version:
+## View Live Version
 
-- https://fullstack-kino.vercel.app/
+Live demo: [https://fullstack-kino.vercel.app/](https://fullstack-kino.vercel.app/)
+
+## Deploy to Vercel
+
+To deploy this project to **Vercel**, follow these steps:
+
+1. **Connect your GitHub repository to Vercel**  
+   Import the project via [vercel.com](https://vercel.com) by linking your GitHub account.
+
+2. **Set required environment variables** under the *Environment Variables* section:
+   - `SUPABASE_URL`
+   - `SUPABASE_ANON_KEY`
+   - `MONGODB_URI`
+
+3. **Use the official Supabase Integration** *(optional but recommended)*  
+   To simplify the connection to Supabase, we use the official  
+   [Supabase Integration with Vercel](https://vercel.com/marketplace/supabase) available via the Vercel Marketplace.
+
+4. **Build process**  
+   Vercel automatically runs the following commands during deployment:
+   ```bash
+   npm install
+   npm run build
+
 
 ## Mongo Atlas
 
