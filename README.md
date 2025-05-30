@@ -99,6 +99,8 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
 
 ## Mongo Atlas
 
+**Movies:**
+
 All movie data uploaded to MongoDB Atlas was collected from TMDb (The Movie Database) using their API.
 
 The data follows this structure:
@@ -125,6 +127,22 @@ The data follows this structure:
 ```
 
 A total of 82 movie objects were uploaded to the database, based on a 3418-line JSON file retrieved and processed from TMDb.
+
+**Screenings:**
+
+All screening data was uploaded to a separate MongoDB cluster. The data follows this structure:
+
+```json 
+{
+  "_id": "",
+  "date": "",
+  "room": "",
+  "movie": {
+    "title": "",
+    "movie_id": ""
+  }
+}
+```
 
 ## Supabase "Users" Table
 
