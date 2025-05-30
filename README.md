@@ -11,7 +11,7 @@ This fullstack movie application was developed as part of an assignment during t
 - Kai [@kai-ericson](https://github.com/kai-ericson)
 - Nasrolla [@kikoDevv](https://github.com/kikoDevv)
 - Jan [@jan-elia-24](https://github.com/jan-elia-24)
-- Per [@NordicNomadicLife](https://github.com/NordicNomadicLife)
+- Pelle [@NordicNomadicLife](https://github.com/NordicNomadicLife)
 
 ## Features
 
