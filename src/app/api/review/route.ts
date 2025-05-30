@@ -15,16 +15,6 @@ const reviewSchema = new mongoose.Schema({
 
 const Review = mongoose.models.Review || mongoose.model('Review', reviewSchema);
 
-type ReviewType = {
-  movieId: string;
-  name: string;
-  rating: number;
-  comment: string;
-  loggedIn: boolean;
-  profileImageId: string;
-  createdAt: Date;
-};
-
 export async function GET(req: NextRequest) {
   try {
     const searchParams = new URL(req.url).searchParams;

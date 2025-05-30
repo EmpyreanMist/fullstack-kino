@@ -3,14 +3,17 @@ import mongoose from 'mongoose';
 import connectDB from '@/lib/mongodb/db';
 import Movie from '@/lib/mongodb/models/movies';
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+
+export async function GET(req: NextRequest) {
   try {
+    const url = new URL(req.url);
+    const pathSegments = url.pathname.split('/'); 
+    const id = pathSegments[pathSegments.length - 1];
+
+    console.log('Movie ID from URL:', id);
+
     await connectDB();
     console.log('Database:', mongoose.connection.name);
-
-    // ---saving id to be save any heavy usecase-----
-    const id = params.id;
-    console.log('Fetching movie with ID:', id);
 
     const movie = await Movie.findById(id).lean();
 

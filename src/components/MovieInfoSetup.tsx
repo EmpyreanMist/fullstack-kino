@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
-export default function Page() {
+export default function MovieInfoSetup() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const movieId = searchParams.get('id');
@@ -16,17 +16,19 @@ export default function Page() {
 
   // If there's no movieId at all, show a friendly message
   return (
-    <div className="container mt-5 text-center">
-      <div className="alert alert-info">
-        <h3>No Movie Selected</h3>
-        <p>
-          Go to the{' '}
-          <a href="/movies" className="alert-link">
-            Movies page
-          </a>{' '}
-          and select a movie to view details.
-        </p>
+    <>
+      <div className="container mt-5 text-center">
+        <div className="alert alert-info">
+          <h3>No Movie Selected</h3>
+          <p>
+            Go to the{' '}
+            <a href="/movies" className="alert-link">
+              Movies page
+            </a>{' '}
+            and select a movie to view details.
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -32,6 +32,7 @@ export default function CardPoster({
           alt="..."
           width={width}
           height={height}
+          style={{ height: 'auto' }}
         />
         <div className="card-body">
           <section className="d-flex justify-content-start gap-2 pb-2">
