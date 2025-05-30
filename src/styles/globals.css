@@ -1,9 +1,15 @@
+body{
+  font-family:'Noto sans', sans-serif;
+}
 .hover-shadow {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .hover-shadow:hover {
   transform: translateY(-5px);
   box-shadow: 0 0.75rem 1.5rem #6C757D;
+}
+.hover-text:hover {
+  text-decoration: underline;
 }
 
 .container-80 {

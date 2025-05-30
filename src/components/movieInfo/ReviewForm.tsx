@@ -17,9 +17,7 @@ const ReviewForm = ({ movieId, onReviewSubmitted }: ReviewFormProps) => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userProfile, setUserProfile] = useState<{ fullName?: string; email?: string } | null>(
-    null
-  );
+  const [, setUserProfile] = useState<{ fullName?: string; email?: string } | null>(null);
 
   //----check for user logged in and get user profile------
   useEffect(() => {

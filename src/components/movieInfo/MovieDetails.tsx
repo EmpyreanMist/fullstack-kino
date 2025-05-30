@@ -1,8 +1,10 @@
 'use client';
 import React from 'react';
 import '@/styles/movieInfo/MovieDetails.css';
+import Link from 'next/link';
 
 type MovieDetailsProps = {
+  id: string,
   title: string;
   year: string;
   rating: string;
@@ -13,6 +15,7 @@ type MovieDetailsProps = {
 };
 
 const MovieDetails = ({
+  id,
   title,
   year,
   rating,
@@ -52,10 +55,13 @@ const MovieDetails = ({
             <i className="bi bi-play-circle-fill me-2"></i>
             Watch Trailer
           </button>
-          <button className="btn-ticket">
-            <i className="bi bi-ticket-perforated-fill me-2"></i>
-            Book Ticket
-          </button>
+          <Link href={`/movies/book/${id}`}>
+            <button className="btn-ticket">
+              <i className="bi bi-ticket-perforated-fill me-2"></i>
+              Book Ticket
+            </button>
+          </Link>
+          
         </div>
       </div>
       {/*--------description section---------*/}

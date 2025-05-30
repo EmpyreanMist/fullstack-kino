@@ -11,7 +11,7 @@ This fullstack movie application was developed as part of an assignment during t
 - Kai [@kai-ericson](https://github.com/kai-ericson)
 - Nasrolla [@kikoDevv](https://github.com/kikoDevv)
 - Jan [@jan-elia-24](https://github.com/jan-elia-24)
-- Per [@NordicNomadicLife](https://github.com/NordicNomadicLife)
+- Pelle [@NordicNomadicLife](https://github.com/NordicNomadicLife)
 
 ## Features
 
@@ -89,6 +89,10 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
 
 - Displays information about the website
 
+### `/movies/book/[id]`
+ - A placeholder for the booking page
+ - Includes the title of the movie and a link to `movieInfo/[id]`
+
 ## Run it localy | ADD LATER
 
 ## View live version:
@@ -96,6 +100,8 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
 - https://fullstack-kino.vercel.app/
 
 ## Mongo Atlas
+
+**Movies:**
 
 All movie data uploaded to MongoDB Atlas was collected from TMDb (The Movie Database) using their API.
 
@@ -123,6 +129,39 @@ The data follows this structure:
 ```
 
 A total of 82 movie objects were uploaded to the database, based on a 3418-line JSON file retrieved and processed from TMDb.
+
+**Screenings:**
+
+All screening data was uploaded to a separate MongoDB cluster. The data follows this structure:
+
+```json 
+{
+  "_id": "",
+  "date": "",
+  "room": "",
+  "movie": {
+    "title": "",
+    "movie_id": ""
+  }
+}
+```
+
+**Reviews:**
+
+All review data is saved to a separate MongoDB cluster. It is updated everytime a user leaves a review on the website. The data follows this structure:
+
+```json
+{
+  "id": "",
+  "movieId": "",
+  "name": "",
+  "rating": ,
+  "comment": "",
+  "loggedIn": "",
+  "profileImageId": "",
+  "createdAt": ""
+}
+```
 
 ## Supabase "Users" Table
 
@@ -171,3 +210,13 @@ A total of 82 movie objects were uploaded to the database, based on a 3418-line 
 | Method | Endpoint          | Description                              |
 | ------ | ----------------- | ---------------------------------------- |
 | GET    | `/api/screenings` | Returns all upcoming screenings (sorted) |
+
+
+---
+
+### Booking Routes (MongoDB)
+
+| Method | Endpoint            | Description                            |
+| ------ | ------------------- | -------------------------------------- |
+| GET    | `/api/booking/[id]` | Returns the title and ID of the movie  |
+|        |                     | being booked                           |
