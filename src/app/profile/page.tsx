@@ -19,7 +19,6 @@ export default function ProfilePage() {
       const data = await res.json();
       if (!res.ok || data.user == null) {
         router.push('/login');
-        1;
       } else {
         setUser(data.user);
       }

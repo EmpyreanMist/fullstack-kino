@@ -74,7 +74,12 @@ const ReviewList = ({ movieId, onWriteReviewClick }: ReviewListProps) => {
         <div className="empty-review-state">
           <i className="bi bi-chat-left-text fs-1 mb-3 text-secondary"></i>
           <h5>No reviews yet</h5>
-          <p className="text-white">Make your first review, Dont worry your data will be stored safely in Jans data base account (; </p>
+          <p className="text-white">Make your first review(;</p>
+          {onWriteReviewClick && (
+            <button onClick={onWriteReviewClick} className="btn btn-primary mt-2">
+              Write a review
+            </button>
+          )}
         </div>
       </div>
     );
@@ -110,10 +115,10 @@ const ReviewList = ({ movieId, onWriteReviewClick }: ReviewListProps) => {
                       width={40}
                       height={40}
                       className="rounded-circle"
-                      onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                        const target = e.currentTarget as HTMLImageElement;
-                        target.src = '/imageNotFound4v4.png';
+                      onError={e => {
+                        e.currentTarget.src = '/imageNotFound4v4.png';
                       }}
+                      unoptimized
                     />
                   ) : (
                     <div className="default-avatar">{review.name.charAt(0).toUpperCase()}</div>
