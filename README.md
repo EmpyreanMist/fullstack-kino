@@ -95,6 +95,40 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
 
 ## Run it localy | ADD LATER
 
+# Supabase Setup Guide: Users Table
+
+## 1. Initialize Supabase Project
+1. Create account at [supabase.com](https://supabase.com)
+2. Create new project
+3. Wait for database initialization to complete
+
+## 2. Create Users Table
+
+### Using Table Editor
+1. Navigate to **Table Editor** in dashboard
+2. Click **Create New Table**
+3. Configure table:
+   - Name: `users`
+   - Columns:
+     - `id` (UUID, Primary Key) → Set default to `gen_random_uuid()`
+     - `full_name` (text)
+     - `birthdate` (date)
+     - `phone` (text)
+     - `city` (text)
+     - `email` (text)
+     - `created_at` (timestamp) → Set default to `now()`
+
+## 3. Configure Security Policy
+
+```sql
+-- Policy allowing public access to Users table
+ALTER POLICY "Allowed for all users" 
+ON "public"."users"
+TO public
+WITH CHECK (
+  true
+);
+
 ## View Live Version
 
 Live demo: [https://fullstack-kino.vercel.app/](https://fullstack-kino.vercel.app/)
