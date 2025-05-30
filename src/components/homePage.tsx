@@ -48,7 +48,7 @@ export default function HomePage() {
           throw new Error(`${response.status}`);
         }
         const payload = await response.json();
-        
+
         const processedScreenings = payload.data.map((screening: ScreeningProp, index: number) => {
           const date = new Date(screening.date);
           const datetime = date.toLocaleString('sv-Se', {
@@ -57,15 +57,15 @@ export default function HomePage() {
             hour: '2-digit',
             minute: '2-digit',
           });
-          
+
           return {
             ...screening,
             date: datetime,
             // Create a unique key if id is missing
-            uniqueKey: screening.id ? screening.id : `screening-${index}-${date.getTime()}`
+            uniqueKey: screening.id ? screening.id : `screening-${index}-${date.getTime()}`,
           };
         });
-        
+
         setScreenings(processedScreenings);
       } catch (error) {
         console.error('Error fetching screenings:', error);
@@ -81,9 +81,9 @@ export default function HomePage() {
           <Button className="fs-5 p-3 ps-5 pe-5">Alla filmer</Button>
         </Link>
       </div>
-      
+
       <h2 className="text-white m-5 text-center">Top 5 movies</h2>
-      
+
       {loader ? (
         <div
           className="d-flex justify-content-center align-items-center"
@@ -103,7 +103,7 @@ export default function HomePage() {
           <Container className="d-flex flex-wrap justify-content-center">
             <Col sm={12} md={12} lg={12} xl={10}>
               <section className="d-flex flex-wrap justify-content-center gap-4 pb-3">
-                {movies.map((movie) => (
+                {movies.map(movie => (
                   <CardPoster
                     key={`movie-${movie._id}`}
                     img={movie.poster}
@@ -123,18 +123,16 @@ export default function HomePage() {
           <h2 className="text-white m-3 text-center">Kommande visningar</h2>
           <div className="pb-3 pt-1 text-center d-flex flex-wrap justify-content-center align-items-center">
             {screenings.length === 0 ? (
-              <h5 className="text-white">
-                Vi har tyvärr inga visningar de kommande dagarna
-              </h5>
+              <h5 className="text-white">Vi har tyvärr inga visningar de kommande dagarna</h5>
             ) : (
               <Col sm={11} md={12} lg={10} xl={8}>
-                {screenings.map((screening) => (
+                {screenings.map(screening => (
                   <UpcomingScreening
                     key={screening.uniqueKey}
                     title={screening.movie.title}
                     date={screening.date}
                     room={screening.room}
-                    movieID={screening.movie.id}
+                    movieID={screening.movie.movie_id}
                   />
                 ))}
               </Col>

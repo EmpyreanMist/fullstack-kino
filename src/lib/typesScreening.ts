@@ -1,10 +1,10 @@
 export interface ScreeningProp {
-    movie: {
-        title: string,
-        id: string,
-    }
-    date: string,
-    room: String,
-    id: string,
-    uniqueKey?: string;
-};
+  movie: {
+    title: string;
+    movie_id: string;
+  };
+  date: string;
+  room: string;
+  id: string;
+  uniqueKey?: string;
+}

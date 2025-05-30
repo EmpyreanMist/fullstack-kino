@@ -15,7 +15,12 @@ export default function Header({
   return (
     <header className="bg-dark position-relative">
       <Link href="/">
-        <Image src={logoHead} alt="Kino-logo" className="d-block mx-auto img-fluid" />
+        <Image
+          src={logoHead}
+          alt="Kino-logo"
+          className="d-block mx-auto img-fluid"
+          priority={true}
+        />
       </Link>
 
       <Navigation showRegisterButton={showRegisterButton} showLoginButton={showLoginButton} />
