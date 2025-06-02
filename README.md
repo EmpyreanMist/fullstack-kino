@@ -53,7 +53,7 @@ This fullstack movie application was developed as part of an assignment during t
 
 - Users login via the `/login` page using email and password.
 - Credentials are sent to `/api/login` which uses the **Supabase Auth API** to authenticate the user.
-- If login is successfull, Supabase internally sets a **secure cookie** with the session token.
+- If login is successful, Supabase internally sets a **secure cookie** with the session token.
 - On future requests, Supabase reads the session from the cookie to identify the logged-in user.
 
 Protected pages like `/profile` check for an authenticated session by calling the `/api/user` route.
@@ -83,35 +83,47 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
 
 ### `/register`
 
-- User registration page with form and SUpabase integration
+- User registration page with form and Supabase integration
 
 ### `/about` UPDATE WHEN MERGED
 
 - Displays information about the website
 
 ### `/movies/book/[id]`
- - A placeholder for the booking page
- - Includes the title of the movie and a link to `movieInfo/[id]`
 
-## Run it localy
-1. Clone ***fullstack-kino*** repo
-    - Run git clone https://github.com/EmpyreanMist/fullstack-kino.git in ***Git-Bash/PowerShell/Command Prompt/terminal***
+- A placeholder for the booking page
+- Includes the title of the movie and a link to `movieInfo/[id]`
+
+## Run it locally
+
+1. Clone **_fullstack-kino_** repo
+   - Run git clone https://github.com/EmpyreanMist/fullstack-kino.git in **_Git-Bash/PowerShell/Command Prompt/terminal_**
+
 ### 2. Create .env.local file and add following keys:
+
     - NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
     - NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.examplekey1234567890abcdefg
     - MONGO_URI=mongodb+srv://username:password@cluster0.mongodb.net/your-database
-### 3. Navigate to you're cloned folder, thereafter run:
+
+### 3. Navigate to your cloned folder, thereafter run:
+
     - npm install
     - npm run build
     - npm run start
-* Now the application will run
+
+- Now the application will run
+
 ### Special note:
-### * If you want to run the application in development, just run:
+
+### \* If you want to run the application in development, just run:
+
     - npm install
     - npm run dev
+
 ## Supabase Setup Guide: Users Table
 
 ## 1. Initialize Supabase Project
+
 1. Create account at [supabase.com](https://supabase.com)
 2. Create new project
 3. Wait for database initialization to complete
@@ -119,6 +131,7 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
 ## 2. Create Users Table
 
 ### Using Table Editor
+
 1. Navigate to **Table Editor** in dashboard
 2. Click **Create New Table**
 3. Configure table:
@@ -136,7 +149,7 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
 
 ```sql
 -- Policy allowing public access to Users table
-ALTER POLICY "Allowed for all users" 
+ALTER POLICY "Allowed for all users"
 ON "public"."users"
 TO public
 WITH CHECK (
@@ -155,12 +168,13 @@ To deploy this project to **Vercel**, follow these steps:
 1. **Connect your GitHub repository to Vercel**  
    Import the project via [vercel.com](https://vercel.com) by linking your GitHub account.
 
-2. **Set required environment variables** under the *Environment Variables* section:
+2. **Set required environment variables** under the _Environment Variables_ section:
+
    - `SUPABASE_URL`
    - `SUPABASE_ANON_KEY`
    - `MONGODB_URI`
 
-3. **Use the official Supabase Integration** *(optional but recommended)*  
+3. **Use the official Supabase Integration** _(optional but recommended)_  
    To simplify the connection to Supabase, we use the official  
    [Supabase Integration with Vercel](https://vercel.com/marketplace/supabase) available via the Vercel Marketplace.
 
@@ -170,7 +184,6 @@ To deploy this project to **Vercel**, follow these steps:
    npm install
    npm run build
    ```
-
 
 ## Mongo Atlas
 
@@ -207,7 +220,7 @@ A total of 82 movie objects were uploaded to the database, based on a 3418-line 
 
 All screening data was uploaded to a separate MongoDB cluster. The data follows this structure:
 
-```json 
+```json
 {
   "_id": "",
   "date": "",
@@ -284,12 +297,11 @@ All review data is saved to a separate MongoDB cluster. It is updated everytime 
 | ------ | ----------------- | ---------------------------------------- |
 | GET    | `/api/screenings` | Returns all upcoming screenings (sorted) |
 
-
 ---
 
 ### Booking Routes (MongoDB)
 
-| Method | Endpoint            | Description                            |
-| ------ | ------------------- | -------------------------------------- |
-| GET    | `/api/booking/[id]` | Returns the title and ID of the movie  |
-|        |                     | being booked                           |
+| Method | Endpoint            | Description                           |
+| ------ | ------------------- | ------------------------------------- |
+| GET    | `/api/booking/[id]` | Returns the title and ID of the movie |
+|        |                     | being booked                          |
