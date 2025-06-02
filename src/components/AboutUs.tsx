@@ -37,7 +37,6 @@ export default function AboutUs() {
           <div className="row gx-4 align-items-center justify-content-between">
             <div className="col-md-5 order-2 order-md-1">
               <div className="mt-5 mt-md-0">
-                <span className="text-muted">Our Story</span>
                 <h2 className="display-5 fw-bold">Om oss</h2>
                 <p className="lead">
                   Kino i Åre är en mysig biograf med fokus på kvalitetsfilm. Här visas både nya
