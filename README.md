@@ -93,8 +93,22 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
  - A placeholder for the booking page
  - Includes the title of the movie and a link to `movieInfo/[id]`
 
-## Run it localy | ADD LATER
-
+## Run it localy
+1. Clone ***fullstack-kino*** repo
+    - Run git clone https://github.com/EmpyreanMist/fullstack-kino.git in ***Git-Bash/PowerShell/Command Prompt/terminal***
+### 2. Create .env.local file and add following keys:
+    - NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+    - NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.examplekey1234567890abcdefg
+    - MONGO_URI=mongodb+srv://username:password@cluster0.mongodb.net/your-database
+### 3. Navigate to you're cloned folder, thereafter run:
+    - npm install
+    - npm run build
+    - npm run start
+* Now the application will run
+### Special note:
+### * If you want to run the application in development, just run:
+    - npm install
+    - npm run dev
 ## Supabase Setup Guide: Users Table
 
 ## 1. Initialize Supabase Project
