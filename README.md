@@ -62,7 +62,7 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
 
 ## Pages Overview
 
-### `/` Homepage
+### `/homepage`
 
 - Displays top 5 highest-rated movies
 - Shows upcoming movie screenings
@@ -85,7 +85,7 @@ The file `src/middleware.ts` ensures that the session is refreshed automatically
 
 - User registration page with form and Supabase integration
 
-### `/about` UPDATE WHEN MERGED
+### `/about` 
 
 - Displays information about the website
 
@@ -301,7 +301,6 @@ All review data is saved to a separate MongoDB cluster. It is updated everytime 
 
 ### Booking Routes (MongoDB)
 
-| Method | Endpoint            | Description                           |
-| ------ | ------------------- | ------------------------------------- |
-| GET    | `/api/booking/[id]` | Returns the title and ID of the movie |
-|        |                     | being booked                          |
+| Method | Endpoint            | Description                                        |
+| ------ | ------------------- | -------------------------------------------------- |
+| GET    | `/api/booking/[id]` | Returns the title and ID of the movie being booked |
