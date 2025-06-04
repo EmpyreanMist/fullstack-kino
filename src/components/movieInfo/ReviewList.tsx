@@ -136,7 +136,7 @@ const ReviewList = ({ movieId, onWriteReviewClick }: ReviewListProps) => {
                   <p className="review-date">{formatDate(review.createdAt)}</p>
                 </div>
               </div>
-              <div className="review-rating">
+              <div className="review-rating d-flex flex-wrap">
                 {[...Array(5)].map((_, index) => (
                   <i
                     key={index}

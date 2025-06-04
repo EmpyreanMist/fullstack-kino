@@ -168,7 +168,7 @@ const ReviewForm = ({ movieId, onReviewSubmitted }: ReviewFormProps) => {
           <label htmlFor="rating" className="form-label">
             Rating
           </label>
-          <div className="rating-selector">
+          <div className="rating-selector d-flex flex-wrap">
             {[1, 2, 3, 4, 5].map(value => (
               <span
                 key={value}
