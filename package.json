@@ -20,7 +20,7 @@
     "lottie-react": "^2.4.1",
     "mongodb": "^6.16.0",
     "mongoose": "^8.14.1",
-    "next": "15.3.1",
+    "next": "15.3.8",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
